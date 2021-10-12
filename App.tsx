@@ -16,6 +16,7 @@ import GalleryScreen from './screens/GalleryScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import InvestorsScreen from './screens/InvestorsScreen';
 import OverviewScreen from './screens/OverviewScreen';
+import PressScreen from './screens/PressScreen';
 //custom side bar menu
 import CustomSidebarMenu from './CustomSidebarMenu';
 //Fab
@@ -136,6 +137,17 @@ export default function App() {
           />
         ),}}
         component={EventScreen}
+      />
+       <Drawer.Screen
+        name="Press"
+        options={{drawerLabel: 'Press',
+        drawerIcon:() => (
+          <Image
+            source={require('./assets/press-pass.png')}
+            style={[styles.icon, { tintColor: 'grey' }]}
+          />
+        ),}}
+        component={PressScreen}
       />
       <Drawer.Screen
         name="Feedback"

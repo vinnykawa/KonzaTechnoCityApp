@@ -1,11 +1,11 @@
 
 import  React  from 'react';
-import { StyleSheet, Image, Text, TouchableWithoutFeedback, View, Linking } from 'react-native';
+import { StyleSheet, Image, Text, View, Linking } from 'react-native';
 
 
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-export const EventItemView = ({ item }) => {
+export const PressItemView = ({ item }) => {
   return (
     <TouchableOpacity
     onPress={() => {
@@ -15,7 +15,7 @@ export const EventItemView = ({ item }) => {
       <View style={styles.mainCardView}>
         <View style={{ flexDirection: "column" }}>
           <Image
-            source={{ uri: item.image }}
+            source={require('../assets/logo.png')}
             style={{
               width: 332,
               height: 150,
@@ -51,38 +51,6 @@ export const EventItemView = ({ item }) => {
                   }}
                 >
                   {item.content}
-                </Text>
-              </View>
-              <View
-                style={{
-                  marginTop: 4,
-                  borderWidth: 0,
-                  width: "100%",
-                }}
-              >
-                <Text numberOfLines={1}
-                  style={{
-                    color: "black",
-                    fontSize: 14,
-                  }}
-                >
-                 Venue: {item.venue}
-                </Text>
-              </View>
-              <View
-                style={{
-                  marginTop: 4,
-                  borderWidth: 0,
-                  width: "100%",
-                }}
-              >
-                <Text numberOfLines={1}
-                  style={{
-                    color: "black",
-                    fontSize: 14,
-                  }}
-                >
-                 Organizers: Konza Technopolis
                 </Text>
               </View>
             </View>
