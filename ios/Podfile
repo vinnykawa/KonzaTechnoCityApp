@@ -10,6 +10,8 @@ target 'KonzaTechnoCityApp1' do
 
   use_react_native!(:path => config["reactNativePath"])
 
+  pod 'Firebase/Analytics'
+
   # Uncomment to opt-in to using Flipper
   #
   # if !ENV['CI']
@@ -18,4 +20,13 @@ target 'KonzaTechnoCityApp1' do
   #     flipper_post_install(installer)
   #   end
   # end
+
+  post_install do |installer|  
+    #Fix SIMULATOR Deployment warning
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+       config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '14.5'
+      end
+     end
+  end
 end
