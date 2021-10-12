@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, View, StyleSheet, ImageBackground, Button } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import {MessageTextInputMultiline2} from '../components/mycomponents';
 
 function FeedbackScreen (){
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [message, setMessage] = useState("");
     return(
 
         <View style={styles.container}>
-            <Text style={styles.contactText}>Contact Us</Text>
+            <Text style={styles.contactText}>Feedback</Text>
             <View style={styles.inputcontainer}>
             <ImageBackground source={require("../assets/konza_techno.png")} style={styles.image}>
             <MessageTextInputMultiline2 style={styles.feedback}/>
@@ -15,17 +19,20 @@ function FeedbackScreen (){
                 <TextInput style={styles.input}
                 placeholder="Name"
                 placeholderTextColor="white"
-                keyboardType="default"/>
+                keyboardType="default"
+                onChangeText={(value) => setName(value)}/>
 
                 <TextInput style={styles.input}
                 placeholder="Email Address"
                 placeholderTextColor="white"
-                keyboardType="email-address"/>
+                keyboardType="email-address"
+                onChangeText={(value) => setEmail(value)}/>
 
                 <TextInput style={styles.input}
                 placeholder="Phone Number"
                 placeholderTextColor="white"
-                keyboardType="numeric"/>
+                keyboardType="numeric"
+                onChangeText={(value) => setPhone(value)}/>
 
                 
 
@@ -33,7 +40,7 @@ function FeedbackScreen (){
                 <Button 
                 title="Submit"
                 color="green"
-               // onPress={() => Alert.alert('Button with adjusted color pressed')}
+               onPress={() => console.log(email)}
                />
                </View>
 

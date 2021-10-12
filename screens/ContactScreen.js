@@ -1,9 +1,22 @@
-import React from 'react';
-import { Text, View, StyleSheet, ImageBackground, Button } from 'react-native';
+import React, { useState } from 'react';
+import { Text, View, StyleSheet, ImageBackground, Button, Alert } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import {MessageTextInputMultiline} from '../components/mycomponents';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
+
+const SubmitData = () =>{ 
+
+};
+
 
 function ContactScreen (){
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [message, setMessage] = useState("");
+  
     return(
 
         <View style={styles.container}>
@@ -13,17 +26,21 @@ function ContactScreen (){
                 <TextInput style={styles.input}
                 placeholder="Name"
                 placeholderTextColor="white"
-                keyboardType="default"/>
+                keyboardType="default"
+                onChangeText={(value) => setName(value)}
+                />
 
                 <TextInput style={styles.input}
                 placeholder="Email Address"
                 placeholderTextColor="white"
-                keyboardType="email-address"/>
+                keyboardType="email-address"
+                onChangeText={(value) => setEmail(value)}/>
 
                 <TextInput style={styles.input}
                 placeholder="Phone Number"
                 placeholderTextColor="white"
-                keyboardType="numeric"/>
+                keyboardType="numeric"
+                onChangeText={(value) => setPhone(value)}/>
 
                 <MessageTextInputMultiline/>
                  
@@ -31,7 +48,7 @@ function ContactScreen (){
                 <Button 
                 title="Submit"
                 color="green"
-               // onPress={() => Alert.alert('Button with adjusted color pressed')}
+                onPress={() => Alert.alert("Contact Details",{name})}
                />
                </View>
 

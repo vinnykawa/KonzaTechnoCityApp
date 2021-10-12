@@ -200,8 +200,10 @@ const MessageTextInputMultiline = () => {
       
         multiline
         numberOfLines={4}
-        style={{padding: 10}}
+        style={{padding: 10, color: "white"}}
+        onChangeText={(value) => setName(value)}
       >
+        
       </MessageTextInput>
     </View>
   );
