@@ -1,9 +1,13 @@
 
-import  React  from 'react';
+import React, { useState,useEffect } from 'react';
 import { StyleSheet, Image, Text, TouchableWithoutFeedback, View } from 'react-native';
 
 
-const NewsItemView = (item, index) =>{
+export const NewsItemView = ({item}) => {
+
+
+
+ 
     return (
       <TouchableWithoutFeedback
        /* onPress={() => {
@@ -33,7 +37,7 @@ const NewsItemView = (item, index) =>{
                   
                   textTransform: 'capitalize',
                 }}>
-                Kajiado,Makueni and Machakos Counties Now form 73,000 Acres of New Urban Development
+                {item.title}
               </Text>
               <View
                 style={{
@@ -97,4 +101,3 @@ const NewsItemView = (item, index) =>{
     },
   });
 
-  export default NewsItemView;

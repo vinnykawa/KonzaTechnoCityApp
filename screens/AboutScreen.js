@@ -18,12 +18,21 @@ const AboutScreen = () => {
            }} />
     
           <View style={styles.sectionContainer}>
-            
+            <TouchableOpacity onPress={() => console.log('pressed history')}>
             <SectionHistory text='HISTORY'/>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => console.log('pressed vision')}>
             <SectionVision text='VISION AND MISSION'/>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => console.log('pressed values')}>
             <SectionValues text='CORE VALUES'/>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => console.log('pressed board')}>
             <SectionBoard text='BOARD OF DIRECTORS'/>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => console.log('pressed management')}>
             <SectionMgt text='MANAGEMENT'/>
+            </TouchableOpacity>
             
     
           </View>
