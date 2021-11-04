@@ -23,6 +23,7 @@ import SignUpScreen from "./screens/SignUpScreen";
 import InvestorsScreen from "./screens/InvestorsScreen";
 import OverviewScreen from "./screens/OverviewScreen";
 import PressScreen from "./screens/PressScreen";
+import RegisterScreen from "./screens/RegisterScreen";
 //custom side bar menu
 import CustomSidebarMenu from "./CustomSidebarMenu";
 //Fab
@@ -206,16 +207,21 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Auth">
+      <Stack.Navigator initialRouteName="Register">
         <Stack.Screen
           name="Main"
           options={{ headerShown: false }}
           component={main}
         />
-        <Stack.Screen
+        {/*<Stack.Screen
           name="Auth"
           options={{ headerShown: false }}
           component={SignUpScreen}
+        />*/}
+           <Stack.Screen
+          name="Register"
+          options={{ headerShown: false }}
+          component={RegisterScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>
