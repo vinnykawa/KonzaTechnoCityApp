@@ -1,7 +1,7 @@
 // Custom Navigation Drawer / Sidebar with Image and Icon in Menu Options
 // https://aboutreact.com/custom-navigation-drawer-sidebar-with-image-and-icon-in-menu-options/
 
-import React from 'react';
+import React from "react";
 import {
   SafeAreaView,
   View,
@@ -9,20 +9,17 @@ import {
   Image,
   Text,
   Linking,
-} from 'react-native';
+} from "react-native";
 
 import {
   DrawerContentScrollView,
   DrawerItemList,
   DrawerItem,
-} from '@react-navigation/drawer';
+} from "@react-navigation/drawer";
 
 const CustomSidebarMenu = (props) => {
-  
-
   return (
-    <SafeAreaView style={{flex: 1}}>
-        
+    <SafeAreaView style={{ flex: 1, backfaceVisibility: "#7F000000" }}>
       {/*Top Large Image */}
       <Image
         source={require("./assets/logo.png")}
@@ -30,24 +27,18 @@ const CustomSidebarMenu = (props) => {
       />
       <DrawerContentScrollView {...props}>
         <DrawerItemList {...props} />
-        
-        <View style={styles.customItem}>
-       
-         
-        </View>
+
+        <View style={styles.customItem}></View>
       </DrawerContentScrollView>
-      
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   sideMenuProfileIcon: {
-    resizeMode: 'stretch',
+    resizeMode: "stretch",
     width: 280,
     height: 150,
-
-    
   },
   iconStyle: {
     width: 30,
@@ -57,8 +48,8 @@ const styles = StyleSheet.create({
   },
   customItem: {
     padding: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
 

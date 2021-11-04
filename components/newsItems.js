@@ -5,14 +5,16 @@ import {
   Text,
   TouchableWithoutFeedback,
   View,
+  Linking,
 } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export const NewsItemView = ({ item }) => {
   return (
-    <TouchableWithoutFeedback
-    /* onPress={() => {
-          this.redirectToChatConverstion(item);
-        }} */
+    <TouchableOpacity
+    onPress={() => {
+          Linking.openURL(item.link);
+        }}
     >
       <View style={styles.mainCardView}>
         <View style={{ flexDirection: "column" }}>
@@ -46,7 +48,7 @@ export const NewsItemView = ({ item }) => {
                   width: "100%",
                 }}
               >
-                <Text
+                <Text numberOfLines={5}
                   style={{
                     color: "grey",
                     fontSize: 14,
@@ -59,7 +61,7 @@ export const NewsItemView = ({ item }) => {
           </View>
         </View>
       </View>
-    </TouchableWithoutFeedback>
+    </TouchableOpacity>
   );
 };
 

@@ -1,18 +1,18 @@
 import React, {useState,useEffect} from "react";
 import { Text, FlatList, StyleSheet, View, SafeAreaView } from "react-native";
-import {EventItemView} from './../components/eventItems';
+import {PressItemView} from './../components/PressItems';
 import{Card} from '../components/mycomponents'
 import { ScrollView } from "react-native-gesture-handler";
 
-function EventScreen (){
+function PressScreen (){
 
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
-  const getEvents = async () => {
+  const getPress = async () => {
     try {
       const response = await fetch(
-        "https://live.konza.go.ke/wp-json/wp/v2/mec-events/"
+        "https://live.konza.go.ke/wp-json/wp/v2/press/"
       );
       const json = await response.json();
 
@@ -27,7 +27,7 @@ function EventScreen (){
   };
 
   useEffect(() => {
-    getEvents();
+    getPress();
   }, []);
 
   //console.log(data.title);
@@ -37,7 +37,7 @@ function EventScreen (){
       <SafeAreaView style={styles.container}>
       <FlatList
         data={data}
-        renderItem={EventItemView}
+        renderItem={PressItemView}
         keyExtractor={(item) => item.date}
       />
     </SafeAreaView>
@@ -56,4 +56,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EventScreen;
+export default PressScreen;

@@ -22,6 +22,7 @@ import GalleryScreen from "./screens/GalleryScreen";
 import SignUpScreen from "./screens/SignUpScreen";
 import InvestorsScreen from "./screens/InvestorsScreen";
 import OverviewScreen from "./screens/OverviewScreen";
+import PressScreen from "./screens/PressScreen";
 //custom side bar menu
 import CustomSidebarMenu from "./CustomSidebarMenu";
 //Fab
@@ -31,6 +32,7 @@ import auth from "@react-native-firebase/auth";
 const Drawer = createDrawerNavigator();
 
 const NavigationDrawerStructure = (props) => {
+  n;
   //Structure for the navigatin Drawer
   const toggleDrawer = () => {
     //Props to open/close the drawer
@@ -55,8 +57,12 @@ export default function App() {
     return (
       <Drawer.Navigator
         screenOptions={{
-          drawerActiveTintColor: "#90EE90",
-          drawerItemStyle: { marginVertical: 5 },
+          drawerActiveTintColor: "#18201F",
+          drawerInactiveBackgroundColor: "#111",
+          drawerItemStyle: {
+            marginVertical: 5,
+            backgroundColor: "#548271",
+          },
         }}
         drawerContent={(props) => <CustomSidebarMenu {...props} />}
         initialRouteName={"About Us"}
@@ -68,9 +74,10 @@ export default function App() {
             drawerIcon: () => (
               <Image
                 source={require("./assets/placeholder.png")}
-                style={[styles.icon, { tintColor: "grey" }]}
+                style={[styles.icon, { tintColor: "white" }]}
               />
             ),
+            drawerInactiveBackgroundColor: "#1B1B1B",
           }}
           component={ContactScreen}
         />
@@ -138,6 +145,19 @@ export default function App() {
             ),
           }}
           component={NewsScreen}
+        />
+        <Drawer.Screen
+          name="Press"
+          options={{
+            drawerLabel: "Press",
+            drawerIcon: () => (
+              <Image
+                source={require("./assets/press-pass.png")}
+                style={[styles.icon, { tintColor: "grey" }]}
+              />
+            ),
+          }}
+          component={PressScreen}
         />
         <Drawer.Screen
           name="Events"
