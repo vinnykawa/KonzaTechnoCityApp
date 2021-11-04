@@ -56,6 +56,8 @@ const SignUpScreen: React.FC = () => {
 
       Alert.alert(message);
 
+      navigation.replace("Main");
+
       console.log(json);
     } catch (error) {
       console.error(error);
@@ -70,7 +72,7 @@ const SignUpScreen: React.FC = () => {
       <View style={styles.container}>
         <View style={styles.center}>
           <Image
-            style={{ height: 128, width: 128, margin: 50 }}
+            style={{ width: 410, height: 250, resizeMode: "cover" }}
             source={require("../assets/logo.png")}
           />
           <View
@@ -95,6 +97,8 @@ const SignUpScreen: React.FC = () => {
               placeholder="password"
               placeholderTextColor="grey"
               keyboardType="default"
+              secureTextEntry={true}
+              vv
               onChangeText={(value) => setPassword(value)}
             />
           </View>
@@ -180,7 +184,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     color: "black",
-    borderColor: "grey",
+    borderColor: "green",
   },
   inputcontainer: {
     flex: 4,
