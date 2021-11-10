@@ -232,6 +232,32 @@ const MessageTextInputMultiline2 = () => {
   );
 }
 
+const MessageTextInputMultiline3 = () => {
+  return (
+    <View
+      style={{
+       
+        borderColor: 'white',
+        borderWidth: 1,
+        marginHorizontal: 11,
+        marginBottom: 100,
+        marginTop:10,
+      }}>
+        <Text style={{color: "white"}}>Your message goes here..</Text>
+      <MessageTextInput
+      
+        multiline
+        numberOfLines={4}
+        style={{padding: 10, color: "white"}}
+        onChangeText={''}
+      >
+        
+      </MessageTextInput>
+    </View>
+  );
+}
+
+
 
 
 
@@ -291,5 +317,6 @@ const styles=StyleSheet.create({
  export {SectionVision,SectionValues,SectionBoard,SectionMgt};
  export  {MessageTextInputMultiline};
  export  {MessageTextInputMultiline2};
+ export  {MessageTextInputMultiline3};
  export  {Card};
  

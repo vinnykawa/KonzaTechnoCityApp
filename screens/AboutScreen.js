@@ -3,9 +3,10 @@ import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, ImageBackground } from 'react-native';
 import SectionHistory from '../components/mycomponents';
 import {SectionVision,SectionValues,SectionBoard,SectionMgt} from '../components/mycomponents';
+import { FAB } from 'react-native-paper';
 
 
-const AboutScreen = () => {
+const AboutScreen = ({navigation}) => {
     return (
         <View style={styles.container}>
           <ImageBackground source={require("../assets/konza_techno.png")} style={styles.image}>
@@ -40,6 +41,12 @@ const AboutScreen = () => {
     
         </View>
         </ImageBackground>
+        <FAB
+        style={styles.fab}
+        small
+        icon={require("../assets/email.png")}
+        onPress={() => navigation.navigate('Message')}
+      />
       </View>
       );
 };
@@ -67,6 +74,13 @@ const styles = StyleSheet.create({
     image: {
       flex: 1,
       justifyContent: "center"
+    },
+
+    fab: {
+      position: "absolute",
+      margin: 16,
+      right: 0,
+      bottom: 0,
     },
   });
 

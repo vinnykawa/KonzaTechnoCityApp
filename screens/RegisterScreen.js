@@ -9,25 +9,29 @@ import {
   Alert,
 } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MessageTextInputMultiline2 } from "../components/mycomponents";
 
 function RegisterScreen() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
+  const [phone, setPhone] = useState("");
 
   const onRegister = async () => {
-    let formdata = new FormData();
-    formdata.append("user_id", "JlokjhvsX7824bcnjjk");
-    formdata.append("f_name", name);
-    formdata.append("l_name", name);
-    formdata.append("phone", "");
-    formdata.append("email", email);
-    formdata.append("fcm_token", "");
-    formdata.append("version_code", 1.0);
-    formdata.append("version_name", "1.0");
-    formdata.append("password", password);
+    
+
+    const postdata = {
+      "user_id":"34Ee2WE3432",
+      "f_name":name,
+      "l_name":name,
+      "phone":phone,
+      "email":email,
+      "fcm_token":"fcm_0002334",
+      "version_code":1.0,
+      "version_name":"1.0",
+      "password":password
+    }
 
     try {
       const response = await fetch(
@@ -35,13 +39,20 @@ function RegisterScreen() {
         {
           method: "POST",
           headers: {
-            "Content-Type": "multipart/form-data",
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
           },
-          body: formdata,
+          body:JSON.stringify(postdata)
         }
       );
       const json = await response.json();
+      const token = json.token;
+     // console.log(token);
+          if(response.code=== 200){
+          await AsyncStorage.setItem('token', token);}
+          else{
       Alert.alert(json.message);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -70,6 +81,14 @@ function RegisterScreen() {
           placeholderTextColor="grey"
           keyboardType="email-address"
           onChangeText={(value) => setEmail(value)}
+        />
+
+        <TextInput
+          style={styles.input}
+          placeholder="Phone Number"
+          placeholderTextColor="grey"
+          keyboardType="phone-pad"
+          onChangeText={(value) => setPhone(value)}
         />
 
         <TextInput

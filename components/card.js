@@ -3,12 +3,12 @@ import { View, Text, StyleSheet } from 'react-native';
 
 const Card = () => {
     return(
-        <View style={styles.container}>
+        
           <View style={styles.mainCardView}>
             <Text style={{alignItems: "center"}}>This  text</Text>
           </View>
 
-        </View>
+        
     );
 }
 
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "white",
-        height: '100%'
+        height: 80,
       },
       mainCardView: {
         height: 90,
