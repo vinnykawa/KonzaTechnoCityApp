@@ -1,173 +1,189 @@
-import React, {useState} from "react";
-import { View, Text, ImageBackground, StyleSheet,SafeAreaView,FlatList ,Button, Alert} from "react-native";
+import React from "react";
+import {
+  View,
+  Text,
+  ImageBackground,
+  StyleSheet,
+  SafeAreaView,
+  FlatList,
+  TextInput,
+  AsyncStorage,
+} from "react-native";
+import { Button } from "react-native-paper";
 import { color } from "react-native-reanimated";
 import Card from "../components/card";
 import TextInputMultiline from "../components/MultilineTextInput";
 import { MessageItemView } from "../components/messageItem";
-import { TextInput } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
-
- 
-function MessageScreen (){
-    const [message, setMessage] = useState("");
-    //get messages
-    
-
-  const onSend = async () => {
-    
-
-    const postdata = {
-        "message": message,
-        "uniqueRef": "344234re",
-    }
+const MessageScreen = () => {
+  const getMessages = async () => {
+    const token = await AsyncStorage.getItem("token");
 
     try {
-        const token = await AsyncStorage.getItem('token');
-       // console.log(token);
-
       const response = await fetch(
-        "https://konza.softwareske.net/api/v1/customer/message/send",
+        "https://konza.softwareske.net/api/v1/customer/message/get",
         {
-          method: "POST",
+          method: "GET",
           headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer'+ token,
+            Authorization: "Bearer " + token,
           },
-        
-          body:JSON.stringify(postdata)
         }
       );
+
       const json = await response.json();
-     
-      Alert.alert(json.message);
-      
+
+      setMessages(json[0].reverse());
+
+      console.log(json);
     } catch (error) {
       console.error(error);
     }
   };
 
+  const sendMessage = async () => {
+    const token = await AsyncStorage.getItem("token");
+    const request = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify({
+        message: message,
+        uniqueRef: "" + Date.now(),
+      }),
+    };
 
-        //custom TextInput
-   /* const MessageTextInput = (props) => {
-        return (
-        <TextInput
-            {...props} // Inherit any props passed to it; e.g., multiline, numberOfLines below
-            editable
-            
-        />
-        );
-        }
+    try {
+      console.log(message + " Current Token is " + token);
+      const response = await fetch(
+        "https://konza.softwareske.net/api/v1/customer/message/send",
+        request
+      );
 
-    const MessageTextInputMultiline = () => {
-        const [message, setMessage] = useState("");
+      const json = await response.json();
 
-        return (
+      getMessages();
+
+      console.log(json);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  //prevent getMessages from being called everytime component re-renders
+  React.useEffect(() => {
+    getMessages();
+  }, []);
+
+  const [message, setMessage] = React.useState("");
+  const [messages, setMessages] = React.useState([]);
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.contentContainer}>
+        <View style={styles.titleWrapper}></View>
+        <View style={styles.inputWrapper}>
+          {messages.length > 0 ? (
+            <FlatList
+              data={messages}
+              renderItem={MessageItemView}
+              keyExtractor={(item) => item.id}
+            />
+          ) : (
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text>You have no messages !</Text>
+            </View>
+          )}
+        </View>
+      </View>
+
+      <View style={styles.footer}>
         <View
-            style={{
-            
-            borderColor: 'white',
+          style={{
+            borderColor: "grey",
             borderWidth: 1,
             marginHorizontal: 11,
-            marginBottom: 100,
-            marginTop:10,
-            }}>
-            <Text style={{color: "white"}}>Your message goes here..</Text>
-            <MessageTextInput
-            
+          }}
+        >
+          <TextInput
             multiline
             numberOfLines={4}
-            style={{padding: 10, color: "white"}}
+            placeholder={"Your message goes here"}
+            placeholderTextColor={"grey"}
+            style={{ padding: 10, color: "black", minHeight: 70 }}
             onChangeText={(value) => setMessage(value)}
-            >
-            
-            </MessageTextInput>
+          />
         </View>
-        );
-        } */
-  
-    
-    return(
-
-        <View style={styles.container}>
-            <SafeAreaView style={{width:'100%'}}>
-                <FlatList
-                    data={'hjjyhbhbhjbhjbjbj'}
-                    renderItem={MessageItemView}
-                    keyExtractor={item => item.id}
-                />
-
-            <TextInput
-                style={{height:100,marginVertical:10}}
-                numberOfLines={5}
-                label="Type Message"
-                mode="outlined"
-                multiline={true}
-                activeOutlineColor="white"
-                onChangeText={(value) => setMessage(value)}
-                />
-
-<Button   title="Send" color="green" onPress={onSend} />
-
-            </SafeAreaView>
-          
-
-            
-
-           
-            
-        </View>
-    );
-}
+        <Button
+          onPress={sendMessage}
+          mode={"outlined"}
+          color={"green"}
+          style={{ margin: 10 }}
+        >
+          Send
+        </Button>
+      </View>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "white",
+  },
+  titleWrapper: {},
+  inputWrapper: { height: "100%" },
+  contentContainer: {
+    flex: 1, // pushes the footer to the end of the screen
+  },
+  footer: {
+    height: 160,
+  },
+  image: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  text: {
+    alignItems: "center",
+    color: "black",
+    alignContent: "center",
+  },
+  input: {
+    color: "black",
+    backgroundColor: "grey",
+    borderColor: "grey",
+  },
+  mainCardView: {
+    height: 90,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "white",
+    borderRadius: 15,
+    shadowColor: "grey",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 1,
+    shadowRadius: 8,
+    elevation: 8,
+    flexDirection: "row",
 
-    container: {
-        flexDirection:"row",
-        flex: 1,
-        justifyContent: "space-around",
-        alignItems:'center',
-        backgroundColor:'grey',
-        padding:5,
-        paddingBottom:20,
-        
-    },
-    image: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: 'center',
-        
-      },
-    text: {
-        alignItems: 'center',
-        color: 'black',
-    },
-    input:{
-        flex:1,
-        margin:10,
-    },
-    mainCardView: {
-        height: 90,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: "white",
-        borderRadius: 15,
-        shadowColor: "grey",
-        shadowOffset: {width: 0, height: 0},
-        shadowOpacity: 1,
-        shadowRadius: 8,
-        elevation: 8,
-        flexDirection: 'row',
-       
-        paddingLeft: 16,
-        paddingRight: 14,
-        marginTop: 6,
-        marginBottom: 6,
-        marginLeft: 16,
-        marginRight: 16,
-      },
+    paddingLeft: 16,
+    paddingRight: 14,
+    marginTop: 6,
+    marginBottom: 6,
+    marginLeft: 16,
+    marginRight: 16,
+  },
 });
 
 export default MessageScreen;
