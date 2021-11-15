@@ -9,8 +9,9 @@ import {
   Alert,
 } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { MessageTextInputMultiline2 } from "../components/mycomponents";
+import auth from "@react-native-firebase/auth";
 
 function RegisterScreen() {
   const [name, setName] = useState("");
@@ -18,20 +19,39 @@ function RegisterScreen() {
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
 
-  const onRegister = async () => {
-    
+  const registerOnFirebase = (async) => {
+    auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then((data) => {
+        console.log("User account created & signed in!", data);
 
+        onRegister(data);
+      })
+      .catch((error) => {
+        if (error.code === "auth/email-already-in-use") {
+          console.log("That email address is already in use!");
+        }
+
+        if (error.code === "auth/invalid-email") {
+          console.log("That email address is invalid!");
+        }
+
+        console.error(error);
+      });
+  };
+
+  const onRegister = async (data) => {
     const postdata = {
-      "user_id":"34Ee2WE3432",
-      "f_name":name,
-      "l_name":name,
-      "phone":phone,
-      "email":email,
-      "fcm_token":"fcm_0002334",
-      "version_code":1.0,
-      "version_name":"1.0",
-      "password":password
-    }
+      user_id: data.user.uid,
+      f_name: name,
+      l_name: name,
+      phone: phone,
+      email: email,
+      fcm_token: "default_token",
+      version_code: 1.0,
+      version_name: "1.0",
+      password: password,
+    };
 
     try {
       const response = await fetch(
@@ -39,20 +59,20 @@ function RegisterScreen() {
         {
           method: "POST",
           headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
+            Accept: "application/json",
+            "Content-Type": "application/json",
           },
-          body:JSON.stringify(postdata)
+          body: JSON.stringify(postdata),
         }
       );
       const json = await response.json();
-      const token = json.token;
-     // console.log(token);
-          if(response.code=== 200){
-          await AsyncStorage.setItem('token', token);}
-          else{
-      Alert.alert(json.message);
+
+      console.log(json);
+      if (response.code === 200) {
+        await AsyncStorage.setItem("token", json.token);
       }
+
+      Alert.alert(json.message);
     } catch (error) {
       console.error(error);
     }
@@ -110,7 +130,7 @@ function RegisterScreen() {
         />
 
         <View style={styles.fixToText}>
-          <Button title="Submit" color="green" onPress={onRegister} />
+          <Button title="Submit" color="green" onPress={registerOnFirebase} />
         </View>
       </View>
     </View>

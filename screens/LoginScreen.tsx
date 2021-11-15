@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Image, StyleSheet, TextInput, Alert } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TextInput,
+  Alert,
+  AsyncStorage,
+} from "react-native";
 
 import {
   GoogleSignin,
@@ -11,7 +19,7 @@ import auth from "@react-native-firebase/auth";
 import { Button } from "react-native-paper";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-const SignUpScreen: React.FC = () => {
+const LoginScreen: React.FC = () => {
   const navigation = useNavigation();
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
@@ -29,11 +37,17 @@ const SignUpScreen: React.FC = () => {
     return subscriber; // unsubscribe on unmount
   }, []);
 
-  const onLogin = async () => {
-    let formdata = new FormData();
-    formdata.append("email", email);
-    formdata.append("password", password);
-
+  const firebaseLogin = async () => {
+    auth()
+      .signInWithEmailAndPassword(email, password)
+      .then((data) => {
+        onLogin(data);
+      })
+      .catch((error) => {
+        Alert.alert(error.message);
+      });
+  };
+  const onLogin = async (data) => {
     try {
       const response = await fetch(
         "https://konza.softwareske.net/api/v1/auth/login",
@@ -42,7 +56,10 @@ const SignUpScreen: React.FC = () => {
           headers: {
             "Content-Type": "multipart/form-data",
           },
-          body: formdata,
+          body: JSON.stringify({
+            email: email,
+            user_id: data.user.uid === undefined ? data.user.id : data.user.uid,
+          }),
         }
       );
 
@@ -52,11 +69,12 @@ const SignUpScreen: React.FC = () => {
 
       const code = json.code;
 
-      const token = json.token;
+      // Alert.alert(json.message);
+      if (code === 200) {
+        const token = json.token;
 
-      Alert.alert(message);
-
-      navigation.replace("Main");
+        await AsyncStorage.setItem("token", token);
+      }
 
       console.log(json);
     } catch (error) {
@@ -98,14 +116,13 @@ const SignUpScreen: React.FC = () => {
               placeholderTextColor="grey"
               keyboardType="default"
               secureTextEntry={true}
-              vv
               onChangeText={(value) => setPassword(value)}
             />
           </View>
         </View>
         <View style={styles.center}>
           <Button
-            onPress={onLogin}
+            onPress={firebaseLogin}
             mode={"outlined"}
             color={"green"}
             style={{ margin: 10 }}
@@ -146,6 +163,33 @@ async function signIn(navigation: NavigationProp<any>) {
     const userInfo = await GoogleSignin.signIn();
 
     console.log("LOGIN IN  ", userInfo);
+
+    //hit konza login & get token
+    const response = await fetch(
+      "https://konza.softwareske.net/api/v1/auth/login",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        body: JSON.stringify({
+          email: userInfo.user.email,
+          user_id: userInfo.user.id,
+        }),
+      }
+    );
+
+    const json = await response.json();
+
+    const message = json.message;
+
+    const code = json.code;
+
+    // Alert.alert(json.message);
+    if (code === 200) {
+      const token = json.token;
+      await AsyncStorage.setItem("token", token);
+    }
 
     navigation.navigate("Main");
   } catch (error) {
@@ -197,4 +241,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignUpScreen;
+export default LoginScreen;

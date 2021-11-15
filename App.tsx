@@ -19,7 +19,7 @@ import NewsScreen from "./screens/NewsScreen";
 import EventScreen from "./screens/EventsScreen";
 import FeedbackScreen from "./screens/FeedbackScreen";
 import GalleryScreen from "./screens/GalleryScreen";
-import SignUpScreen from "./screens/SignUpScreen";
+import LoginScreen from "./screens/LoginScreen";
 import InvestorsScreen from "./screens/InvestorsScreen";
 import OverviewScreen from "./screens/OverviewScreen";
 import PressScreen from "./screens/PressScreen";
@@ -29,13 +29,11 @@ import CustomSidebarMenu from "./CustomSidebarMenu";
 //Fab
 import { FAB } from "react-native-paper";
 import auth from "@react-native-firebase/auth";
-import MessageScreen from './screens/MessageScreen';
-
+import MessageScreen from "./screens/MessageScreen";
 
 const Drawer = createDrawerNavigator();
 
 const NavigationDrawerStructure = (props) => {
-  n;
   //Structure for the navigatin Drawer
   const toggleDrawer = () => {
     //Props to open/close the drawer
@@ -56,197 +54,145 @@ const NavigationDrawerStructure = (props) => {
 };
 
 export default function App() {
-  
   const main = () => {
+    const navigation = useNavigation();
     return (
-      <Drawer.Navigator
-        screenOptions={{
-          drawerActiveTintColor: "#18201F",
-          drawerInactiveBackgroundColor: "#111",
-          drawerItemStyle: {
-            marginVertical: 5,
-            backgroundColor: "#548271",
-          },
-        }}
-        drawerContent={(props) => <CustomSidebarMenu {...props} />}
-        initialRouteName={"About Us"}
-      >
-        <Drawer.Screen
-          name="Contact Us"
-          options={{
-            drawerLabel: "Contact Us",
-            drawerIcon: () => (
-              <Image
-                source={require("./assets/placeholder.png")}
-                style={[styles.icon, { tintColor: "white" }]}
-              />
-            ),
-            drawerInactiveBackgroundColor: "#1B1B1B",
+      <>
+        <Drawer.Navigator
+          screenOptions={{
+            drawerActiveTintColor: "#FFFFFF",
+            drawerInactiveTintColor: "#FFFFFF",
+            //drawerInactiveBackgroundColor: "#6cc06755",
+            //drawerActiveBackgroundColor: "#000000",
+
+            drawerItemStyle: {
+              height: 60,
+              padding: 10,
+            },
+
+            drawerContentContainerStyle: {
+              backgroundColor: "#FFFFFF",
+            },
           }}
-          component={ContactScreen}
+          drawerContent={(props) => <CustomSidebarMenu {...props} />}
+          initialRouteName={"About Us"}
+        >
+          <Drawer.Screen
+            name="Contact Us"
+            options={{
+              drawerItemStyle: { height: 0 },
+            }}
+            component={ContactScreen}
+          />
+          <Drawer.Group>
+            <Drawer.Screen
+              name="About Us"
+              options={{
+                drawerItemStyle: { height: 0 },
+              }}
+              component={AboutScreen}
+            />
+          </Drawer.Group>
+          <Drawer.Screen
+            name="Investors"
+            options={{
+              drawerItemStyle: { height: 0 },
+            }}
+            component={InvestorsScreen}
+          />
+          <Drawer.Screen
+            name="Overview"
+            options={{
+              drawerItemStyle: { height: 0 },
+            }}
+            component={OverviewScreen}
+          />
+          <Drawer.Screen
+            name="Alerts"
+            options={{
+              drawerItemStyle: { height: 0 },
+            }}
+            component={AlertsScreen}
+          />
+          <Drawer.Screen
+            name="News"
+            options={{
+              drawerItemStyle: { height: 0 },
+            }}
+            component={NewsScreen}
+          />
+          <Drawer.Screen
+            name="Press"
+            options={{
+              drawerItemStyle: { height: 0 },
+            }}
+            component={PressScreen}
+          />
+          <Drawer.Screen
+            name="Events"
+            options={{
+              drawerItemStyle: { height: 0 },
+            }}
+            component={EventScreen}
+          />
+          <Drawer.Screen
+            name="Feedback"
+            options={{
+              drawerItemStyle: { height: 0 },
+            }}
+            component={FeedbackScreen}
+          />
+
+          <Drawer.Screen
+            name="Gallery"
+            options={{
+              drawerItemStyle: { height: 0 },
+            }}
+            component={GalleryScreen}
+          />
+        </Drawer.Navigator>
+        <FAB
+          style={styles.fab}
+          small
+          icon={require("./assets/email.png")}
+          onPress={() => navigation.navigate("Message")}
         />
-        <Drawer.Screen
-          name="About Us"
-          options={{
-            drawerLabel: "About Us",
-            drawerIcon: () => (
-              <Image
-                source={require("./assets/info.png")}
-                style={[styles.icon, { tintColor: "grey" }]}
-              />
-            ),
-          }}
-          component={AboutScreen}
-        />
-        <Drawer.Screen
-          name="Investors"
-          options={{
-            drawerLabel: "Investors",
-            drawerIcon: () => (
-              <Image
-                source={require("./assets/home.png")}
-                style={[styles.icon, { tintColor: "grey" }]}
-              />
-            ),
-          }}
-          component={InvestorsScreen}
-        />
-        <Drawer.Screen
-          name="Overview"
-          options={{
-            drawerLabel: "Overview",
-            drawerIcon: () => (
-              <Image
-                source={require("./assets/binoculars.png")}
-                style={[styles.icon, { tintColor: "grey" }]}
-              />
-            ),
-          }}
-          component={OverviewScreen}
-        />
-        <Drawer.Screen
-          name="Alerts"
-          options={{
-            drawerLabel: "Alerts",
-            drawerIcon: () => (
-              <Image
-                source={require("./assets/bell.png")}
-                style={[styles.icon, { tintColor: "grey" }]}
-              />
-            ),
-          }}
-          component={AlertsScreen}
-        />
-        <Drawer.Screen
-          name="News"
-          options={{
-            drawerLabel: "News",
-            drawerIcon: () => (
-              <Image
-                source={require("./assets/rss_feed_symbol.png")}
-                style={[styles.icon, { tintColor: "grey" }]}
-              />
-            ),
-          }}
-          component={NewsScreen}
-        />
-        <Drawer.Screen
-          name="Press"
-          options={{
-            drawerLabel: "Press",
-            drawerIcon: () => (
-              <Image
-                source={require("./assets/press-pass.png")}
-                style={[styles.icon, { tintColor: "grey" }]}
-              />
-            ),
-          }}
-          component={PressScreen}
-        />
-        <Drawer.Screen
-          name="Events"
-          options={{
-            drawerLabel: "Events",
-            drawerIcon: () => (
-              <Image
-                source={require("./assets/calendar.png")}
-                style={[styles.icon, { tintColor: "grey" }]}
-              />
-            ),
-          }}
-          component={EventScreen}
-        />
-        <Drawer.Screen
-          name="Feedback"
-          options={{
-            drawerLabel: "Feedback",
-            drawerIcon: () => (
-              <Image
-                source={require("./assets/help_sign.png")}
-                style={[styles.icon, { tintColor: "grey" }]}
-              />
-            ),
-          }}
-          component={FeedbackScreen}
-        />
-        <Drawer.Screen
-          name="Gallery"
-          options={{
-            drawerLabel: "Gallery",
-            drawerIcon: () => (
-              <Image
-                source={require("./assets/camera.png")}
-                style={[styles.icon, { tintColor: "grey" }]}
-              />
-            ),
-          }}
-          component={GalleryScreen}
-        />
-      </Drawer.Navigator>
-     
+      </>
     );
   };
 
   const Stack = createStackNavigator();
-
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="About">
-       <Stack.Screen
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen
           name="Main"
           options={{ headerShown: false }}
           component={main}
-       /> 
-       {/* <Stack.Screen
-          name="Auth"
+        />
+        <Stack.Screen
+          name="Login"
           options={{ headerShown: false }}
-          component={SignUpScreen}
-       /> */}
+          component={LoginScreen}
+        />
         <Stack.Screen
           name="Register"
-          options={{ headerShown: false }}
+          options={{ headerShown: true }}
           component={RegisterScreen}
         />
 
-      <Stack.Screen
-          name="Feedback"
-          options={{ headerShown: false }}
-          component={FeedbackScreen}
-        />
         <Stack.Screen
           name="Message"
           options={{ headerShown: true }}
           component={MessageScreen}
         />
 
-<Stack.Screen
+        <Stack.Screen
           name="About"
           options={{ headerShown: false }}
           component={AboutScreen}
         />
-
       </Stack.Navigator>
-     
     </NavigationContainer>
   );
 }
@@ -271,13 +217,13 @@ const styles = StyleSheet.create({
   },
 
   icon: {
-    width: 24,
-    height: 24,
+    width: 32,
+    height: 32,
   },
 
   fab: {
     position: "absolute",
-    margin: 16,
+    margin: 10,
     right: 0,
     bottom: 0,
   },
