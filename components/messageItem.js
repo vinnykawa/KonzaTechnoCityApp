@@ -13,13 +13,13 @@ export const MessageItemView = ({ item }) => {
   return (
    
       <View style={styles.mainCardView}>
-        <View style={{ flexDirection: "row",width:'50%',alignItems:'flex-start' }}>
+        <View style={{ flexDirection: "row",alignItems:'flex-start' }}>
             
               <View
                 style={{
                   marginTop: 4,
                   borderWidth: 0,
-                  width: "80%",
+                  width: "100%",
                 }}
               >
                 <Text
@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
     marginBottom: 6,
     marginLeft: 16,
     marginRight: 16,
+    width:'80%'
   },
   subCardView: {
     height: 50,

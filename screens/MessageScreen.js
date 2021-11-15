@@ -1,12 +1,94 @@
-import React from "react";
-import { View, Text, ImageBackground, StyleSheet,SafeAreaView,FlatList ,TextInput} from "react-native";
+import React, {useState} from "react";
+import { View, Text, ImageBackground, StyleSheet,SafeAreaView,FlatList ,Button, Alert} from "react-native";
 import { color } from "react-native-reanimated";
 import Card from "../components/card";
-import { MessageTextInputMultiline3 } from "../components/mycomponents";
 import TextInputMultiline from "../components/MultilineTextInput";
 import { MessageItemView } from "../components/messageItem";
+import { TextInput } from 'react-native-paper';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
+
+
+ 
 function MessageScreen (){
+    const [message, setMessage] = useState("");
+    //get messages
+    
+
+  const onSend = async () => {
+    
+
+    const postdata = {
+        "message": message,
+        "uniqueRef": "344234re",
+    }
+
+    try {
+        const token = await AsyncStorage.getItem('token');
+       // console.log(token);
+
+      const response = await fetch(
+        "https://konza.softwareske.net/api/v1/customer/message/send",
+        {
+          method: "POST",
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer'+ token,
+          },
+        
+          body:JSON.stringify(postdata)
+        }
+      );
+      const json = await response.json();
+     
+      Alert.alert(json.message);
+      
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
+        //custom TextInput
+   /* const MessageTextInput = (props) => {
+        return (
+        <TextInput
+            {...props} // Inherit any props passed to it; e.g., multiline, numberOfLines below
+            editable
+            
+        />
+        );
+        }
+
+    const MessageTextInputMultiline = () => {
+        const [message, setMessage] = useState("");
+
+        return (
+        <View
+            style={{
+            
+            borderColor: 'white',
+            borderWidth: 1,
+            marginHorizontal: 11,
+            marginBottom: 100,
+            marginTop:10,
+            }}>
+            <Text style={{color: "white"}}>Your message goes here..</Text>
+            <MessageTextInput
+            
+            multiline
+            numberOfLines={4}
+            style={{padding: 10, color: "white"}}
+            onChangeText={(value) => setMessage(value)}
+            >
+            
+            </MessageTextInput>
+        </View>
+        );
+        } */
+  
+    
     return(
 
         <View style={styles.container}>
@@ -17,9 +99,22 @@ function MessageScreen (){
                     keyExtractor={item => item.id}
                 />
 
+            <TextInput
+                style={{height:100,marginVertical:10}}
+                numberOfLines={5}
+                label="Type Message"
+                mode="outlined"
+                multiline={true}
+                activeOutlineColor="white"
+                onChangeText={(value) => setMessage(value)}
+                />
 
-<MessageTextInputMultiline3 style={styles.input}/>
+<Button   title="Send" color="green" onPress={onSend} />
+
             </SafeAreaView>
+          
+
+            
 
            
             
@@ -30,11 +125,12 @@ function MessageScreen (){
 const styles = StyleSheet.create({
 
     container: {
-        flex: 2,
+        flexDirection:"row",
+        flex: 1,
         justifyContent: "space-around",
         alignItems:'center',
         backgroundColor:'grey',
-        padding:2,
+        padding:5,
         paddingBottom:20,
         
     },

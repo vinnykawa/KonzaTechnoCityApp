@@ -47,7 +47,7 @@ function RegisterScreen() {
       );
       const json = await response.json();
       const token = json.token;
-     // console.log(token);
+      //console.log(token);
           if(response.code=== 200){
           await AsyncStorage.setItem('token', token);}
           else{
