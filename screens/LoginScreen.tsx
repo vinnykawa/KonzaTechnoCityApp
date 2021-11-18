@@ -7,9 +7,8 @@ import {
   TextInput,
   Alert,
   AsyncStorage,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
 } from "react-native";
-
 import {
   GoogleSignin,
   GoogleSigninButton,
@@ -26,6 +25,8 @@ const LoginScreen: React.FC = () => {
   const [user, setUser] = useState();
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+
+  const emailRef = React.createRef();
 
   // Handle user state changes
   function onAuthStateChanged(user) {
@@ -83,6 +84,18 @@ const LoginScreen: React.FC = () => {
     }
   };
 
+  const validateEmail = (value) => {
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+    if (reg.test(value) === false) {
+      console.log("Email is Not Correct");
+      Alert.alert("Email not Correct!");
+      return false;
+    } else {
+      console.log("Email is Correct");
+      setEmail(value);
+    }
+  };
+
   if (initializing) return <></>;
 
   if (!user) {
@@ -108,7 +121,7 @@ const LoginScreen: React.FC = () => {
               placeholder="Email Address"
               placeholderTextColor="grey"
               keyboardType="email-address"
-              onChangeText={(value) => setEmail(value)}
+              onChangeText={(value) => validateEmail(value)}
             />
 
             <TextInput

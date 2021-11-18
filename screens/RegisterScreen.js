@@ -79,6 +79,30 @@ function RegisterScreen() {
     }
   };
 
+  const validateEmail = (value) => {
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+    if (reg.test(value) === false) {
+      console.log("Email is Not Correct");
+      Alert.alert("Email not Correct!");
+      return false;
+    } else {
+      console.log("Email is Correct");
+      setEmail(value);
+    }
+  };
+
+  const validatePassword = (value) => {
+    if (value === "") {
+      Alert.alert("Password is required!");
+    } else setPassword(value);
+  };
+
+  const validatePhone = (value) => {
+    if (value === "") {
+      Alert.alert("Password is required!");
+    } else setPhone(value);
+  };
+
   return (
     <KeyboardAvoidingView style={styles.container}>
       <Text style={styles.contactText}>Register</Text>
@@ -101,7 +125,7 @@ function RegisterScreen() {
           placeholder="Email Address"
           placeholderTextColor="grey"
           keyboardType="email-address"
-          onChangeText={(value) => setEmail(value)}
+          onChangeText={(value) => validateEmail(value)}
         />
 
         <TextInput
@@ -109,7 +133,7 @@ function RegisterScreen() {
           placeholder="Phone Number"
           placeholderTextColor="grey"
           keyboardType="phone-pad"
-          onChangeText={(value) => setPhone(value)}
+          onChangeText={(value) => validatePhone(value)}
         />
 
         <TextInput
@@ -118,7 +142,7 @@ function RegisterScreen() {
           placeholderTextColor="grey"
           keyboardType="default"
           secureTextEntry={true}
-          onChangeText={(value) => setPassword(value)}
+          onChangeText={(value) => validatePassword(value)}
         />
 
         <TextInput
@@ -127,7 +151,7 @@ function RegisterScreen() {
           placeholderTextColor="grey"
           keyboardType="default"
           secureTextEntry={true}
-          onChangeText={(value) => setPassword(value)}
+          onChangeText={(value) => validatePassword(value)}
         />
 
         <View style={styles.fixToText}>
