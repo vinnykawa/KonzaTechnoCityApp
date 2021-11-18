@@ -7,7 +7,7 @@ import {
   SafeAreaView,
   FlatList,
   TextInput,
-  AsyncStorage,
+  KeyboardAvoidingView
 } from "react-native";
 import { Button } from "react-native-paper";
 import { color } from "react-native-reanimated";
@@ -82,7 +82,7 @@ const MessageScreen = () => {
   const [messages, setMessages] = React.useState([]);
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView style={styles.container}>
       <View style={styles.contentContainer}>
         <View style={styles.titleWrapper}></View>
         <View style={styles.inputWrapper}>
@@ -132,7 +132,7 @@ const MessageScreen = () => {
           Send
         </Button>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 

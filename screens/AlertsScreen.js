@@ -1,17 +1,23 @@
 import React from "react";
-import { Text, Flatlist, StyleSheet, View } from "react-native";
+import { Text, Flatlist, StyleSheet, View, ScrollView } from "react-native";
 import CardItemView from '../components/alertItems';
 import{Card} from '../components/mycomponents'
 
 function AlertsScreen (){
     return(
+      <ScrollView>
         <View style={styles.container}>
       <CardItemView/>
       <CardItemView/>
       <CardItemView/>
       <CardItemView/>
       <CardItemView/>
+      <CardItemView/>
+      <CardItemView/>
+      <CardItemView/>
+      <CardItemView/>
      </View>
+     </ScrollView>
     );
 }
 

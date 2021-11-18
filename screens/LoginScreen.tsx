@@ -7,6 +7,7 @@ import {
   TextInput,
   Alert,
   AsyncStorage,
+  KeyboardAvoidingView
 } from "react-native";
 
 import {
@@ -87,7 +88,7 @@ const LoginScreen: React.FC = () => {
   if (!user) {
     GoogleSignin.configure();
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container}>
         <View style={styles.center}>
           <Image
             style={{ width: 410, height: 250, resizeMode: "cover" }}
@@ -148,7 +149,7 @@ const LoginScreen: React.FC = () => {
             disabled={false}
           />
         </View>
-      </View>
+      </KeyboardAvoidingView>
     );
   } else {
     navigation.replace("Main");

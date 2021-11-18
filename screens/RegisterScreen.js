@@ -7,6 +7,7 @@ import {
   Button,
   Image,
   Alert,
+  KeyboardAvoidingView
 } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -46,7 +47,7 @@ function RegisterScreen() {
       f_name: name,
       l_name: name,
       phone: phone,
-      email: email,
+      email: email, 
       fcm_token: "default_token",
       version_code: 1.0,
       version_name: "1.0",
@@ -79,7 +80,8 @@ function RegisterScreen() {
   };
 
   return (
-    <View style={styles.container}>
+    
+    <KeyboardAvoidingView style={styles.container}>
       <Text style={styles.contactText}>Register</Text>
       <View style={styles.inputcontainer}>
         <Image
@@ -133,7 +135,7 @@ function RegisterScreen() {
           <Button title="Submit" color="green" onPress={registerOnFirebase} />
         </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 

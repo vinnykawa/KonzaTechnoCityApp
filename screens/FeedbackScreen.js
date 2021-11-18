@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Text, View, StyleSheet, ImageBackground, Button } from "react-native";
+import { Text, View, StyleSheet, ImageBackground, Alert, KeyboardAvoidingView } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { MessageTextInputMultiline2 } from "../components/mycomponents";
+import { Button } from 'react-native-paper';
 
 function FeedbackScreen() {
   const [name, setName] = useState("");
@@ -9,7 +10,7 @@ function FeedbackScreen() {
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView style={styles.container}>
       <Text style={styles.contactText}>Feedback</Text>
       <View style={styles.inputcontainer}>
         <ImageBackground
@@ -44,15 +45,19 @@ function FeedbackScreen() {
           />
 
           <View style={styles.fixToText}>
-            <Button
-              title="Submit"
-              color="green"
-              onPress={() => console.log(email)}
-            />
+          <Button
+          onPress={() => Alert.alert('Feedback details')}
+          mode={"contained"}
+          color={"white"}
+          style={{ margin: 10 }}
+          labelStyle={{color:'green'}}
+        >
+          Submit
+        </Button>
           </View>
         </ImageBackground>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 

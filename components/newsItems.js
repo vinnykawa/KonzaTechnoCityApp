@@ -6,18 +6,43 @@ import {
   TouchableWithoutFeedback,
   View,
   Linking,
+  Share
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { Button } from "react-native-paper";
 
 export const NewsItemView = ({ item }) => {
+
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        title: item.title,
+        message: item.link,
+        url:item.link,
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
   return (
-    <TouchableOpacity
+   
+      <View style={styles.mainCardView}>
+        <View style={{ flexDirection: "column" }}>
+        <TouchableOpacity
     onPress={() => {
           Linking.openURL(item.link);
         }}
     >
-      <View style={styles.mainCardView}>
-        <View style={{ flexDirection: "column" }}>
           <Image
             source={{ uri: item.image }}
             style={{
@@ -59,9 +84,19 @@ export const NewsItemView = ({ item }) => {
               </View>
             </View>
           </View>
+          </TouchableOpacity>
+          <Button
+          onPress={onShare}
+          icon={'share'}
+          mode={"outlined"}
+          color={"green"}
+          style={{ margin: 10 ,marginTop:10}}
+        >
+          Share
+        </Button>
         </View>
       </View>
-    </TouchableOpacity>
+    
   );
 };
 

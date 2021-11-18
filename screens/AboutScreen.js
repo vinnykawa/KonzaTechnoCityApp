@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from "react-native";
-import SectionHistory from "../components/mycomponents";
+import SectionHistory, { SectionSocial } from "../components/mycomponents";
 import {
   SectionVision,
   SectionValues,
@@ -31,20 +31,23 @@ const AboutScreen = ({ navigation }) => {
           />
 
           <View style={styles.sectionContainer}>
-            <TouchableOpacity onPress={() => console.log("pressed history")}>
+            <TouchableOpacity onPress={() => navigation.navigate("History")}>
               <SectionHistory text="HISTORY" />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => console.log("pressed vision")}>
+            <TouchableOpacity onPress={() => navigation.navigate("Mission")}>
               <SectionVision text="VISION AND MISSION" />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => console.log("pressed values")}>
+            <TouchableOpacity onPress={() => navigation.navigate("Values")}>
               <SectionValues text="CORE VALUES" />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => console.log("pressed board")}>
+            <TouchableOpacity onPress={() => navigation.navigate("Directors")}>
               <SectionBoard text="BOARD OF DIRECTORS" />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => console.log("pressed management")}>
+            <TouchableOpacity onPress={() => navigation.navigate("Management")}>
               <SectionMgt text="MANAGEMENT" />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("Socials")}>
+              <SectionSocial text="Social Media" />
             </TouchableOpacity>
           </View>
         </View>

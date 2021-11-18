@@ -142,6 +142,34 @@ const SectionMgt = (props: SectionProps) => {
     </View>
   );
 };
+
+const SectionSocial = (props: SectionProps) => {
+  return (
+    <View style={{ flexDirection: "column" }}>
+      <View style={styles.sectionRow}>
+        <Image
+          source={require("../assets/social-media.png")}
+          style={{
+            tintColor: "white",
+            resizeMode: "contain",
+            height: 30,
+            width: 30,
+          }}
+        ></Image>
+        <View style={{ marginLeft: 10 }}>
+          <Text style={{ color: "white", fontSize: 25 }}>{props.text}</Text>
+        </View>
+      </View>
+
+      <View
+        style={{
+          padding: 1,
+          backgroundColor: "green",
+        }}
+      ></View>
+    </View>
+  );
+};
 //sections end
 
 //MultilineTextinput
@@ -163,6 +191,7 @@ const MessageTextInputMultiline = () => {
         borderWidth: 1,
         marginHorizontal: 11,
         marginBottom: 10,
+        padding:7,
       }}
     >
       <Text style={{ color: "white" }}>Your message goes here..</Text>
@@ -170,7 +199,7 @@ const MessageTextInputMultiline = () => {
         multiline
         numberOfLines={4}
         style={{ padding: 10, color: "white" }}
-        onChangeText={(value) => setName(value)}
+       // onChangeText={(value) => setName(value)}
       ></MessageTextInput>
     </View>
   );
@@ -184,6 +213,7 @@ const MessageTextInputMultiline2 = () => {
         borderWidth: 1,
         marginHorizontal: 11,
         margin: 30,
+        padding:7,
       }}
     >
       <Text style={{ color: "white" }}>Your message goes here..</Text>
@@ -205,6 +235,7 @@ const MessageTextInputMultiline3 = () => {
         marginHorizontal: 11,
         marginBottom: 100,
         marginTop: 10,
+        padding:7,
       }}
     >
       <Text style={{ color: "white" }}>Your message goes here..</Text>
@@ -268,7 +299,7 @@ const styles = StyleSheet.create({
 });
 
 export default SectionHistory;
-export { SectionVision, SectionValues, SectionBoard, SectionMgt };
+export { SectionVision, SectionValues, SectionBoard, SectionMgt, SectionSocial };
 export { MessageTextInputMultiline };
 export { MessageTextInputMultiline2 };
 export { MessageTextInputMultiline3 };

@@ -10,7 +10,7 @@ import {
 
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { createDrawerNavigator } from "@react-navigation/drawer";
+import { createDrawerNavigator} from "@react-navigation/drawer";
 //screens
 import AboutScreen from "./screens/AboutScreen";
 import ContactScreen from "./screens/ContactScreen";
@@ -25,11 +25,17 @@ import OverviewScreen from "./screens/OverviewScreen";
 import PressScreen from "./screens/PressScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 //custom side bar menu
-import CustomSidebarMenu from "./CustomSidebarMenu";
+import CustomSidebarMenu from "./components/CustomSidebarMenu";
 //Fab
 import { FAB } from "react-native-paper";
 import auth from "@react-native-firebase/auth";
 import MessageScreen from "./screens/MessageScreen";
+import HistoryScreen from './screens/HistoryScreen';
+import MissionScreen from './screens/MissionScreen';
+import ValuesScreen from './screens/CoreValuesScreen';
+import DirectorsScreen from './screens/BoardDirectorsScreen';
+import ManagementScreen from './screens/ManagementScreen';
+import SocialMediaScreen from './screens/SocialMediaScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -53,6 +59,8 @@ const NavigationDrawerStructure = (props) => {
   );
 };
 
+
+
 export default function App() {
   const main = () => {
     const navigation = useNavigation();
@@ -73,6 +81,12 @@ export default function App() {
             drawerContentContainerStyle: {
               backgroundColor: "#FFFFFF",
             },
+
+            headerStyle: {
+              backgroundColor: "green",
+            },
+            headerTintColor: "white",
+            
           }}
           drawerContent={(props) => <CustomSidebarMenu {...props} />}
           initialRouteName={"About Us"}
@@ -153,7 +167,6 @@ export default function App() {
         </Drawer.Navigator>
         <FAB
           style={styles.fab}
-          small
           icon={require("./assets/email.png")}
           onPress={() => navigation.navigate("Message")}
         />
@@ -162,19 +175,29 @@ export default function App() {
   };
 
   const Stack = createStackNavigator();
+
+  const screenOptionStyle = {
+    headerStyle: {
+      backgroundColor: "green",
+    },
+    headerTintColor: "white",
+    headerBackTitle: "Back",
+    
+  };
+
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
+    <NavigationContainer >
+      <Stack.Navigator screenOptions={screenOptionStyle} initialRouteName="Main">
         <Stack.Screen
           name="Main"
           options={{ headerShown: false }}
           component={main}
         />
-        <Stack.Screen
+       {/* <Stack.Screen
           name="Login"
           options={{ headerShown: false }}
           component={LoginScreen}
-        />
+       /> */}
         <Stack.Screen
           name="Register"
           options={{ headerShown: true }}
@@ -191,6 +214,36 @@ export default function App() {
           name="About"
           options={{ headerShown: false }}
           component={AboutScreen}
+        />
+         <Stack.Screen
+          name="History"
+          options={{ headerShown: true }}
+          component={HistoryScreen}
+        />
+        <Stack.Screen
+          name="Mission"
+          options={{ headerShown: true }}
+          component={MissionScreen}
+        />
+         <Stack.Screen
+          name="Values"
+          options={{ headerShown: true }}
+          component={ValuesScreen}
+        />
+         <Stack.Screen
+          name="Directors"
+          options={{ headerShown: true }}
+          component={DirectorsScreen}
+        />
+         <Stack.Screen
+          name="Management"
+          options={{ headerShown: true }}
+          component={ManagementScreen}
+        />
+        <Stack.Screen
+          name="Socials"
+          options={{ headerShown: true }}
+          component={SocialMediaScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>
@@ -224,7 +277,8 @@ const styles = StyleSheet.create({
   fab: {
     position: "absolute",
     margin: 10,
-    right: 0,
-    bottom: 0,
+    right: 10,
+    bottom: 10,
+   
   },
 });
