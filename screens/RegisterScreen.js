@@ -47,7 +47,7 @@ function RegisterScreen() {
       l_name: name,
       phone: phone,
       email: email,
-      fcm_token: "default_token",
+      fcm_token: "" + data.user.refreshToken,
       version_code: 1.0,
       version_name: "1.0",
       password: password,

@@ -164,6 +164,39 @@ async function signIn(navigation: NavigationProp<any>) {
 
     console.log("LOGIN IN  ", userInfo);
 
+    //hit register just incase this is a new user
+    const postdata = {
+      user_id: userInfo.user.id,
+      f_name: userInfo.user.givenName,
+      l_name: userInfo.user.familyName,
+      phone: "070000000",
+      email: userInfo.user.email,
+      fcm_token: "" + userInfo.idToken,
+      version_code: 1.0,
+      version_name: "1.0",
+      password: "password",
+    };
+
+    try {
+      const response = await fetch(
+        "https://konza.softwareske.net/api/v1/auth/register",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(postdata),
+        }
+      );
+      const json = await response.json();
+      const code = json.code;
+      console.log("post data", postdata);
+      console.log("Tried to Hit Register with:  ", json);
+    } catch (error) {
+      console.error(error);
+    }
+
     //hit konza login & get token
     const response = await fetch(
       "https://konza.softwareske.net/api/v1/auth/login",
