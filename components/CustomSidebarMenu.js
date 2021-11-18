@@ -11,6 +11,8 @@ import {
   Linking,
   ImageBackground,
   TouchableOpacity,
+  Alert,
+  Share
 } from "react-native";
 
 import {
@@ -21,8 +23,31 @@ import {
 import { useNavigation } from "@react-navigation/core";
 import auth from "@react-native-firebase/auth";
 
+
+
 const CustomSidebarMenu = (props) => {
   const navigation = useNavigation();
+ 
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        title: 'Share',
+        message: 'Shairing KonzaTechnoCityApp',
+        url:'https://www.google.com/',
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
   return (
     <View
@@ -32,26 +57,41 @@ const CustomSidebarMenu = (props) => {
         backgroundColor: "#000000",
       }}
     >
+    
       <ImageBackground
-        source={require("./assets/konza_techno.png")}
+        source={require("../assets/konza_techno.png")}
         style={{
           flex: 1,
           justifyContent: "center",
+          backgroundColor:"black"
         }}
-        imageStyle={{ opacity: 0.9 }}
       >
+         
+        
         <DrawerContentScrollView
           {...props}
-          style={{ height: "100%", backgroundColor: "#00000099" }}
+          style={{ height: "100%", backgroundColor: "transparent" ,marginTop:-118}}
         >
-          <DrawerItemList {...props} />
+         
+          <DrawerItemList style={{ backgroundColor:"green"}} {...props} />
+          <View style={{ backgroundColor:"#00000099",marginTop:0}}>
+          <Text style={{
+         textAlign: "center",
+         color: "white",
+         paddingTop: 48,
+         paddingBottom:11,
+         fontSize: 23,
+         fontWeight: "bold",
+         backgroundColor:"green",
+         justifyContent:"space-between"
+      }}>Konza Techno City</Text>
           <View style={styles.divider} />
           <DrawerItem
             label="Contact Us"
             labelStyle={{ color: "white" }}
             icon={() => (
               <Image
-                source={require("./assets/Contact-us-white.png")}
+                source={require("../assets/Contact-us-white.png")}
                 style={[styles.iconStyle, { tintColor: "white" }]}
               />
             )}
@@ -65,7 +105,7 @@ const CustomSidebarMenu = (props) => {
             labelStyle={{ color: "white" }}
             icon={() => (
               <Image
-                source={require("./assets/about-us-white.png")}
+                source={require("../assets/about-us-white.png")}
                 style={[styles.iconStyle, { tintColor: "white" }]}
               />
             )}
@@ -74,12 +114,12 @@ const CustomSidebarMenu = (props) => {
             }}
           />
           <View style={styles.divider} />
-          <DrawerItem
+         {/* <DrawerItem
             label="Inverstors"
             labelStyle={{ color: "white" }}
             icon={() => (
               <Image
-                source={require("./assets/investor-white.png")}
+                source={require("../assets/investor-white.png")}
                 style={[styles.iconStyle, { tintColor: "white" }]}
               />
             )}
@@ -93,21 +133,21 @@ const CustomSidebarMenu = (props) => {
             labelStyle={{ color: "white" }}
             icon={() => (
               <Image
-                source={require("./assets/overview-white.png")}
+                source={require("../assets/overview-white.png")}
                 style={[styles.iconStyle, { tintColor: "white" }]}
               />
             )}
             onPress={() => {
               props.navigation.navigate("Overview");
             }}
-          />
-          <View style={styles.divider} />
+          /> 
+          <View style={styles.divider} /> */}
           <DrawerItem
             label="Alerts"
             labelStyle={{ color: "white" }}
             icon={() => (
               <Image
-                source={require("./assets/alerts-white.png")}
+                source={require("../assets/alerts-white.png")}
                 style={[styles.iconStyle, { tintColor: "white" }]}
               />
             )}
@@ -121,7 +161,7 @@ const CustomSidebarMenu = (props) => {
             labelStyle={{ color: "white" }}
             icon={() => (
               <Image
-                source={require("./assets/news-white.png")}
+                source={require("../assets/news-white.png")}
                 style={[styles.iconStyle, { tintColor: "white" }]}
               />
             )}
@@ -135,7 +175,7 @@ const CustomSidebarMenu = (props) => {
             labelStyle={{ color: "white" }}
             icon={() => (
               <Image
-                source={require("./assets/news-white.png")}
+                source={require("../assets/news-white.png")}
                 style={[styles.iconStyle, { tintColor: "white" }]}
               />
             )}
@@ -149,7 +189,7 @@ const CustomSidebarMenu = (props) => {
             labelStyle={{ color: "#ffffff" }}
             icon={() => (
               <Image
-                source={require("./assets/event-white.png")}
+                source={require("../assets/event-white.png")}
                 style={[styles.iconStyle, { tintColor: "white" }]}
               />
             )}
@@ -163,7 +203,7 @@ const CustomSidebarMenu = (props) => {
             labelStyle={{ color: "white" }}
             icon={() => (
               <Image
-                source={require("./assets/feedback-white.png")}
+                source={require("../assets/feedback-white.png")}
                 style={[styles.iconStyle, { tintColor: "white" }]}
               />
             )}
@@ -178,7 +218,7 @@ const CustomSidebarMenu = (props) => {
             labelStyle={{ color: "white" }}
             icon={() => (
               <Image
-                source={require("./assets/gallery-black.png")}
+                source={require("../assets/gallery-black.png")}
                 style={[styles.iconStyle, { tintColor: "white" }]}
               />
             )}
@@ -186,11 +226,24 @@ const CustomSidebarMenu = (props) => {
           />
           <View style={styles.divider} />
           <DrawerItem
+            {...props}
+            label="Share"
+            labelStyle={{ color: "white" }}
+            icon={() => (
+              <Image
+                source={require("../assets/share.png")}
+                style={[styles.iconStyle, { tintColor: "white" }]}
+              />
+            )}
+            onPress={onShare} 
+          />
+          <View style={styles.divider} />
+          <DrawerItem
             label="Sign out"
             labelStyle={{ color: "white" }}
             icon={() => (
               <Image
-                source={require("./assets/sign_in.png")}
+                source={require("../assets/sign_in.png")}
                 style={[styles.iconStyle, { tintColor: "white" }]}
               />
             )}
@@ -203,6 +256,28 @@ const CustomSidebarMenu = (props) => {
             }}
           />
           <View style={styles.divider} />
+          <DrawerItem
+            label=""
+            style={{ padding:5 }}
+            icon={() => null}
+            onPress={() =>null}
+          />
+          
+          <DrawerItem
+            label=""
+            style={{ padding:5 }}
+            icon={() => null}
+            onPress={() =>null}
+          />
+          
+          <DrawerItem
+            label=""
+            style={{ padding:5 }}
+            icon={() => null}
+            onPress={() =>null}
+          />
+          <View style={styles.divider} />
+          </View>
         </DrawerContentScrollView>
       </ImageBackground>
     </View>

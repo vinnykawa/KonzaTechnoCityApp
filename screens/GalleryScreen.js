@@ -18,7 +18,7 @@ function GalleryScreen (){
 
         for(var i = 0; i < json.length; i++) {
             var obj = json[i];
-            var imageUrl = obj.yoast_head_json.og_image[0].url;
+            var imageUrl = obj.image[0].url;
 
             imageUrls[i] = imageUrl;
 

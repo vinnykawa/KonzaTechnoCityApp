@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
     marginBottom: 6,
     marginLeft: 16,
     marginRight: 16,
+    width:'80%'
   },
   subCardView: {
     height: 50,
