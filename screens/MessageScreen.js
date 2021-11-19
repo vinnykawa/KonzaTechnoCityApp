@@ -7,14 +7,14 @@ import {
   SafeAreaView,
   FlatList,
   TextInput,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
 } from "react-native";
 import { Button } from "react-native-paper";
 import { color } from "react-native-reanimated";
 import Card from "../components/card";
 import TextInputMultiline from "../components/MultilineTextInput";
 import { MessageItemView } from "../components/messageItem";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const MessageScreen = () => {
   const getMessages = async () => {
@@ -82,7 +82,11 @@ const MessageScreen = () => {
   const [messages, setMessages] = React.useState([]);
 
   return (
-    <KeyboardAvoidingView style={styles.container}>
+    <KeyboardAvoidingView
+      behavior={"padding"}
+      keyboardVerticalOffset={60}
+      style={styles.container}
+    >
       <View style={styles.contentContainer}>
         <View style={styles.titleWrapper}></View>
         <View style={styles.inputWrapper}>

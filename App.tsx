@@ -10,7 +10,7 @@ import {
 
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { createDrawerNavigator} from "@react-navigation/drawer";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 //screens
 import AboutScreen from "./screens/AboutScreen";
 import ContactScreen from "./screens/ContactScreen";
@@ -30,36 +30,14 @@ import CustomSidebarMenu from "./components/CustomSidebarMenu";
 import { FAB } from "react-native-paper";
 import auth from "@react-native-firebase/auth";
 import MessageScreen from "./screens/MessageScreen";
-import HistoryScreen from './screens/HistoryScreen';
-import MissionScreen from './screens/MissionScreen';
-import ValuesScreen from './screens/CoreValuesScreen';
-import DirectorsScreen from './screens/BoardDirectorsScreen';
-import ManagementScreen from './screens/ManagementScreen';
-import SocialMediaScreen from './screens/SocialMediaScreen';
+import HistoryScreen from "./screens/HistoryScreen";
+import MissionScreen from "./screens/MissionScreen";
+import ValuesScreen from "./screens/CoreValuesScreen";
+import DirectorsScreen from "./screens/BoardDirectorsScreen";
+import ManagementScreen from "./screens/ManagementScreen";
+import SocialMediaScreen from "./screens/SocialMediaScreen";
 
 const Drawer = createDrawerNavigator();
-
-const NavigationDrawerStructure = (props) => {
-  //Structure for the navigatin Drawer
-  const toggleDrawer = () => {
-    //Props to open/close the drawer
-    props.navigationProps.toggleDrawer();
-  };
-
-  return (
-    <View style={{ flexDirection: "row" }}>
-      <TouchableOpacity onPress={toggleDrawer}>
-        {/*Donute Button Image */}
-        <Image
-          source={require("./assets/hamburger.png")}
-          style={{ width: 25, height: 25, marginLeft: 5 }}
-        />
-      </TouchableOpacity>
-    </View>
-  );
-};
-
-
 
 export default function App() {
   const main = () => {
@@ -86,7 +64,6 @@ export default function App() {
               backgroundColor: "green",
             },
             headerTintColor: "white",
-            
           }}
           drawerContent={(props) => <CustomSidebarMenu {...props} />}
           initialRouteName={"About Us"}
@@ -182,22 +159,24 @@ export default function App() {
     },
     headerTintColor: "white",
     headerBackTitle: "Back",
-    
   };
 
   return (
-    <NavigationContainer >
-      <Stack.Navigator screenOptions={screenOptionStyle} initialRouteName="Main">
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={screenOptionStyle}
+        initialRouteName="Login"
+      >
         <Stack.Screen
           name="Main"
           options={{ headerShown: false }}
           component={main}
         />
-       {/* <Stack.Screen
+        <Stack.Screen
           name="Login"
           options={{ headerShown: false }}
           component={LoginScreen}
-       /> */}
+        />
         <Stack.Screen
           name="Register"
           options={{ headerShown: true }}
@@ -215,7 +194,7 @@ export default function App() {
           options={{ headerShown: false }}
           component={AboutScreen}
         />
-         <Stack.Screen
+        <Stack.Screen
           name="History"
           options={{ headerShown: true }}
           component={HistoryScreen}
@@ -225,17 +204,17 @@ export default function App() {
           options={{ headerShown: true }}
           component={MissionScreen}
         />
-         <Stack.Screen
+        <Stack.Screen
           name="Values"
           options={{ headerShown: true }}
           component={ValuesScreen}
         />
-         <Stack.Screen
+        <Stack.Screen
           name="Directors"
           options={{ headerShown: true }}
           component={DirectorsScreen}
         />
-         <Stack.Screen
+        <Stack.Screen
           name="Management"
           options={{ headerShown: true }}
           component={ManagementScreen}
@@ -279,6 +258,5 @@ const styles = StyleSheet.create({
     margin: 10,
     right: 10,
     bottom: 10,
-   
   },
 });

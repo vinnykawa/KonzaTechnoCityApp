@@ -7,6 +7,7 @@ import {
   TextInput,
   Alert,
   AsyncStorage,
+  ScrollView,
   KeyboardAvoidingView,
 } from "react-native";
 import {
@@ -101,67 +102,75 @@ const LoginScreen: React.FC = () => {
   if (!user) {
     GoogleSignin.configure();
     return (
-      <KeyboardAvoidingView style={styles.container}>
-        <View style={styles.center}>
-          <Image
-            style={{ width: 410, height: 250, resizeMode: "cover" }}
-            source={require("../assets/logo.png")}
-          />
-          <View
-            style={{
-              margin: 10,
-              justifyContent: "center",
-            }}
-          >
-            <Text>Please sign in to Konza Techno City App to continue</Text>
-          </View>
-          <View style={styles.inputcontainer}>
-            <TextInput
-              style={styles.input}
-              placeholder="Email Address"
-              placeholderTextColor="grey"
-              keyboardType="email-address"
-              onChangeText={(value) => validateEmail(value)}
-            />
+      <KeyboardAvoidingView
+        keyboardVerticalOffset={0} // adjust the value here if you need more padding
+        behavior="padding"
+        style={{ flex: 1, backgroundColor: "#F7F7F7" }}
+      >
+        <ScrollView style={{ marginTop: 100 }}>
+          <View style={styles.container}>
+            <View style={styles.center}>
+              <Image
+                style={{ width: 410, height: 250, resizeMode: "cover" }}
+                source={require("../assets/logo.png")}
+              />
+              <View
+                style={{
+                  margin: 10,
+                  justifyContent: "center",
+                }}
+              >
+                <Text>Please sign in to Konza Techno City App to continue</Text>
+              </View>
+              <View style={styles.inputcontainer}>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Email Address"
+                  placeholderTextColor="grey"
+                  keyboardType="email-address"
+                  onChangeText={(value) => validateEmail(value)}
+                />
 
-            <TextInput
-              style={styles.input}
-              placeholder="password"
-              placeholderTextColor="grey"
-              keyboardType="default"
-              secureTextEntry={true}
-              onChangeText={(value) => setPassword(value)}
-            />
+                <TextInput
+                  style={styles.input}
+                  placeholder="password"
+                  placeholderTextColor="grey"
+                  keyboardType="default"
+                  secureTextEntry={true}
+                  onChangeText={(value) => setPassword(value)}
+                />
+              </View>
+            </View>
+            <View style={styles.center}>
+              <Button
+                onPress={firebaseLogin}
+                mode={"outlined"}
+                color={"green"}
+                style={{ margin: 10 }}
+              >
+                Login
+              </Button>
+              <Text style={{ padding: 10 }}>Don't have an account yet?</Text>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("Register");
+                }}
+              >
+                <Text style={{ padding: 10, color: "blue" }}>
+                  Click here to Register
+                </Text>
+              </TouchableOpacity>
+              <Text style={{ padding: 10 }}>or </Text>
+              <GoogleSigninButton
+                style={{ width: 192, height: 48 }}
+                size={GoogleSigninButton.Size.Wide}
+                color={GoogleSigninButton.Color.Dark}
+                onPress={() => signIn(navigation)}
+                disabled={false}
+              />
+            </View>
           </View>
-        </View>
-        <View style={styles.center}>
-          <Button
-            onPress={firebaseLogin}
-            mode={"outlined"}
-            color={"green"}
-            style={{ margin: 10 }}
-          >
-            Login
-          </Button>
-          <Text style={{ padding: 10 }}>Don't have an account yet?</Text>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("Register");
-            }}
-          >
-            <Text style={{ padding: 10, color: "blue" }}>
-              Click here to Register
-            </Text>
-          </TouchableOpacity>
-          <Text style={{ padding: 10 }}>or </Text>
-          <GoogleSigninButton
-            style={{ width: 192, height: 48 }}
-            size={GoogleSigninButton.Size.Wide}
-            color={GoogleSigninButton.Color.Dark}
-            onPress={() => signIn(navigation)}
-            disabled={false}
-          />
-        </View>
+        </ScrollView>
       </KeyboardAvoidingView>
     );
   } else {

@@ -6,13 +6,12 @@ import {
   ImageBackground,
   Linking,
   Alert,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
 } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { MessageTextInputMultiline } from "../components/mycomponents";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Button } from "react-native-paper";
-import {OutlinedTextfield} from "react-native-material-textfield"
 
 const SubmitData = () => {};
 
@@ -28,16 +27,16 @@ function ContactScreen() {
 
   const url = Platform.select({
     ios: "maps:" + latitude + "," + longitude + "?q=" + label,
-    android: "geo:" + latitude + "," + longitude + "?q=" + label
+    android: "geo:" + latitude + "," + longitude + "?q=" + label,
   });
 
   const openDialScreen = () => {
-    let number = '';
-    const tel= '254204343013';
-    if (Platform.OS === 'ios') {
-      number = 'telprompt:'+ '+' + tel;
+    let number = "";
+    const tel = "254204343013";
+    if (Platform.OS === "ios") {
+      number = "telprompt:" + "+" + tel;
     } else {
-      number = 'tel:'+ '+' + tel;
+      number = "tel:" + "+" + tel;
     }
     Linking.openURL(number);
   };
@@ -76,31 +75,54 @@ function ContactScreen() {
 
           <MessageTextInputMultiline />
 
-          
-
           <View style={styles.fixToText}>
-          <Button
-          onPress={() => Alert.alert('Contact details')}
-          mode={"contained"}
-          color={"white"}
-          style={{ margin: 10 }}
-          labelStyle={{color:'green'}}
-        >
-          Submit
-        </Button>
+            <Button
+              onPress={() => Alert.alert("Contact details")}
+              mode={"contained"}
+              color={"white"}
+              style={{ margin: 10 }}
+              labelStyle={{ color: "green" }}
+            >
+              Submit
+            </Button>
           </View>
 
-          <View style={{flexDirection:'row', justifyContent:'center',marginTop:80}}>
-          <Button icon="phone-in-talk" color='white' mode="contained" style={styles.contactButton} labelStyle={{color:'green'}}
-           onPress={() => openDialScreen() } > Call Us</Button>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              marginTop: 80,
+            }}
+          >
+            <Button
+              icon="phone-in-talk"
+              color="white"
+              mode="contained"
+              style={styles.contactButton}
+              labelStyle={{ color: "green" }}
+              onPress={() => openDialScreen()}
+            >
+              {" "}
+              Call Us
+            </Button>
 
-           <Button icon="map-marker" color='white' mode="contained" style={styles.contactButton} labelStyle={{color:'green'}}
-           onPress={() =>  {Linking.openURL(url);} } > Locate Us</Button>
+            <Button
+              icon="map-marker"
+              color="white"
+              mode="contained"
+              style={styles.contactButton}
+              labelStyle={{ color: "green" }}
+              onPress={() => {
+                Linking.openURL(url);
+              }}
+            >
+              {" "}
+              Locate Us
+            </Button>
           </View>
-
         </ImageBackground>
       </View>
-      </KeyboardAvoidingView>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -118,7 +140,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     backgroundColor: "black",
-    height:'100%'
+    height: "100%",
   },
 
   contactText: {
@@ -139,12 +161,11 @@ const styles = StyleSheet.create({
     borderColor: "white",
   },
 
-  contactButton:{
-    
-    height:50,
-    margin:10,
-    padding:6,
-},
+  contactButton: {
+    height: 50,
+    margin: 10,
+    padding: 6,
+  },
 
   image: {
     flex: 1,
@@ -153,7 +174,7 @@ const styles = StyleSheet.create({
   fixToText: {
     flexDirection: "row",
     justifyContent: "center",
-    textDecorationColor:"green"
+    textDecorationColor: "green",
   },
 });
 

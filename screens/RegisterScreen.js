@@ -7,6 +7,7 @@ import {
   Button,
   Image,
   Alert,
+  ScrollView,
   KeyboardAvoidingView,
 } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
@@ -104,60 +105,66 @@ function RegisterScreen() {
   };
 
   return (
-    <KeyboardAvoidingView style={styles.container}>
-      <Text style={styles.contactText}>Register</Text>
-      <View style={styles.inputcontainer}>
-        <Image
-          source={require("../assets/logo.png")}
-          style={{ width: 410, height: 250, resizeMode: "cover" }}
-        />
+    <KeyboardAvoidingView
+      keyboardVerticalOffset={100} // adjust the value here if you need more padding
+      style={{ flex: 1 }}
+      behavior="padding"
+    >
+      <ScrollView>
+        <Text style={styles.contactText}>Register</Text>
+        <View style={styles.inputcontainer}>
+          <Image
+            source={require("../assets/logo.png")}
+            style={{ width: 410, height: 250, resizeMode: "cover" }}
+          />
 
-        <TextInput
-          style={styles.input}
-          placeholder="Name"
-          placeholderTextColor="grey"
-          keyboardType="default"
-          onChangeText={(value) => setName(value)}
-        />
+          <TextInput
+            style={styles.input}
+            placeholder="Name"
+            placeholderTextColor="grey"
+            keyboardType="default"
+            onChangeText={(value) => setName(value)}
+          />
 
-        <TextInput
-          style={styles.input}
-          placeholder="Email Address"
-          placeholderTextColor="grey"
-          keyboardType="email-address"
-          onChangeText={(value) => validateEmail(value)}
-        />
+          <TextInput
+            style={styles.input}
+            placeholder="Email Address"
+            placeholderTextColor="grey"
+            keyboardType="email-address"
+            onChangeText={(value) => validateEmail(value)}
+          />
 
-        <TextInput
-          style={styles.input}
-          placeholder="Phone Number"
-          placeholderTextColor="grey"
-          keyboardType="phone-pad"
-          onChangeText={(value) => validatePhone(value)}
-        />
+          <TextInput
+            style={styles.input}
+            placeholder="Phone Number"
+            placeholderTextColor="grey"
+            keyboardType="phone-pad"
+            onChangeText={(value) => validatePhone(value)}
+          />
 
-        <TextInput
-          style={styles.input}
-          placeholder="Password"
-          placeholderTextColor="grey"
-          keyboardType="default"
-          secureTextEntry={true}
-          onChangeText={(value) => validatePassword(value)}
-        />
+          <TextInput
+            style={styles.input}
+            placeholder="Password"
+            placeholderTextColor="grey"
+            keyboardType="default"
+            secureTextEntry={true}
+            onChangeText={(value) => validatePassword(value)}
+          />
 
-        <TextInput
-          style={styles.input}
-          placeholder="Confirm Password"
-          placeholderTextColor="grey"
-          keyboardType="default"
-          secureTextEntry={true}
-          onChangeText={(value) => validatePassword(value)}
-        />
+          <TextInput
+            style={styles.input}
+            placeholder="Confirm Password"
+            placeholderTextColor="grey"
+            keyboardType="default"
+            secureTextEntry={true}
+            onChangeText={(value) => validatePassword(value)}
+          />
 
-        <View style={styles.fixToText}>
-          <Button title="Submit" color="green" onPress={registerOnFirebase} />
+          <View style={styles.fixToText}>
+            <Button title="Submit" color="green" onPress={registerOnFirebase} />
+          </View>
         </View>
-      </View>
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 }
@@ -173,7 +180,7 @@ const styles = StyleSheet.create({
   },
 
   inputcontainer: {
-    flex: 4,
+    flex: 1,
     width: "100%",
     marginTop: 20,
   },
