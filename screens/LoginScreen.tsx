@@ -128,7 +128,7 @@ const LoginScreen: React.FC = () => {
                   placeholder="Email Address"
                   placeholderTextColor="grey"
                   keyboardType="email-address"
-                  onChangeText={(value) => validateEmail(value)}
+                  onChangeText={(value) => setEmail(value)}
                 />
 
                 <TextInput

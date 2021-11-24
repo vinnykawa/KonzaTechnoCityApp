@@ -36,6 +36,7 @@ import ValuesScreen from "./screens/CoreValuesScreen";
 import DirectorsScreen from "./screens/BoardDirectorsScreen";
 import ManagementScreen from "./screens/ManagementScreen";
 import SocialMediaScreen from "./screens/SocialMediaScreen";
+import GalleryPage from "./screens/GalleryPage";
 
 const Drawer = createDrawerNavigator();
 
@@ -223,6 +224,12 @@ export default function App() {
           name="Socials"
           options={{ headerShown: true }}
           component={SocialMediaScreen}
+        />
+
+        <Stack.Screen
+          name="GalleryPage"
+          options={{ headerShown: true }}
+          component={GalleryPage}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -1,10 +1,20 @@
+import { useNavigation } from "@react-navigation/core";
 import React, { useEffect, useState } from "react";
-import { View, Text, ImageBackground, StyleSheet } from "react-native";
+import {
+  View,
+  FlatList,
+  Text,
+  ImageBackground,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
 import GridImageView from "react-native-grid-image-viewer";
+import { GalleryItemView } from "./../components/GalleryItemView.js";
 
-function GalleryScreen() {
+function GalleryScreen({ route }) {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
+  const navigation = useNavigation();
 
   const getImages = async () => {
     try {
@@ -13,21 +23,21 @@ function GalleryScreen() {
       );
       const json = await response.json();
 
-      const imageUrls = [];
+      // const imageUrls = [];
 
-      for (var i = 0; i < json.length; i++) {
-        var obj = json[i];
-        var imageUrl = obj.image;
+      // for (var i = 0; i < json.length; i++) {
+      //   var obj = json[i];
+      //   var imageUrl = obj.image;
 
-        var gallery = obj.gallery;
+      //   var gallery = obj.gallery;
 
-        imageUrls[i] = imageUrl;
+      //   imageUrls[i] = imageUrl;
 
-        imageUrls.push(...gallery);
-        console.log(imageUrl);
-      }
+      //   imageUrls.push(...gallery);
+      //   console.log(imageUrl);
+      // }
 
-      setData(imageUrls);
+      setData(json);
     } catch (error) {
       console.error(error);
     } finally {
@@ -43,7 +53,20 @@ function GalleryScreen() {
 
   return (
     <View style={styles.container}>
-      <GridImageView data={data}></GridImageView>
+      {/* <GridImageView data={data}></GridImageView> */}
+      <FlatList
+        data={data}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("GalleryPage", { images: [...item.gallery] });
+            }}
+          >
+            <GalleryItemView item={item} />
+          </TouchableOpacity>
+        )}
+        keyExtractor={(item) => item.date}
+      />
     </View>
   );
 }

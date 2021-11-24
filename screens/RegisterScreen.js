@@ -131,7 +131,7 @@ function RegisterScreen() {
             placeholder="Email Address"
             placeholderTextColor="grey"
             keyboardType="email-address"
-            onChangeText={(value) => validateEmail(value)}
+            onChangeText={(value) => setEmail(value)}
           />
 
           <TextInput
@@ -139,7 +139,7 @@ function RegisterScreen() {
             placeholder="Phone Number"
             placeholderTextColor="grey"
             keyboardType="phone-pad"
-            onChangeText={(value) => validatePhone(value)}
+            onChangeText={(value) => setPhone(value)}
           />
 
           <TextInput
@@ -148,7 +148,7 @@ function RegisterScreen() {
             placeholderTextColor="grey"
             keyboardType="default"
             secureTextEntry={true}
-            onChangeText={(value) => validatePassword(value)}
+            onChangeText={(value) => setPassword(value)}
           />
 
           <TextInput
@@ -157,7 +157,7 @@ function RegisterScreen() {
             placeholderTextColor="grey"
             keyboardType="default"
             secureTextEntry={true}
-            onChangeText={(value) => validatePassword(value)}
+            onChangeText={(value) => setPassword(value)}
           />
 
           <View style={styles.fixToText}>
