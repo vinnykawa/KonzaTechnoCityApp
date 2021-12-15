@@ -13,7 +13,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		332D36652715B41200C74D22 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 332D36642715B41200C74D22 /* GoogleService-Info.plist */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
-		682077CCECE6D1A9F8228FC1 /* libPods-KonzaTechnoCityApp1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 88C9CE74831424C6BD9CF94C /* libPods-KonzaTechnoCityApp1.a */; };
+		4F7FC8C9771D1C6A46A43C50 /* libPods-KonzaTechnoCityApp1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 61B966F7DB0E576F3A17677D /* libPods-KonzaTechnoCityApp1.a */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
 		D90050885007456C85C37B9D /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = F122833F9E8A410F82967D88 /* noop-file.swift */; };
 /* End PBXBuildFile section */
@@ -28,10 +28,11 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = KonzaTechnoCityApp1/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = KonzaTechnoCityApp1/main.m; sourceTree = "<group>"; };
 		332D36642715B41200C74D22 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Desktop/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		88C9CE74831424C6BD9CF94C /* libPods-KonzaTechnoCityApp1.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KonzaTechnoCityApp1.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		61B966F7DB0E576F3A17677D /* libPods-KonzaTechnoCityApp1.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KonzaTechnoCityApp1.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A7E979E24E5354357EF39AC1 /* Pods-KonzaTechnoCityApp1.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KonzaTechnoCityApp1.debug.xcconfig"; path = "Target Support Files/Pods-KonzaTechnoCityApp1/Pods-KonzaTechnoCityApp1.debug.xcconfig"; sourceTree = "<group>"; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = KonzaTechnoCityApp1/SplashScreen.storyboard; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
-		D05E45EA6D5276B9D582DD83 /* Pods-KonzaTechnoCityApp1.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KonzaTechnoCityApp1.debug.xcconfig"; path = "Target Support Files/Pods-KonzaTechnoCityApp1/Pods-KonzaTechnoCityApp1.debug.xcconfig"; sourceTree = "<group>"; };
+		D7361CCCD91BE5E026148FA2 /* Pods-KonzaTechnoCityApp1.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KonzaTechnoCityApp1.release.xcconfig"; path = "Target Support Files/Pods-KonzaTechnoCityApp1/Pods-KonzaTechnoCityApp1.release.xcconfig"; sourceTree = "<group>"; };
 		DFD643BE30C74FA3BD116604 /* KonzaTechnoCityApp1-Bridging-Header.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "KonzaTechnoCityApp1-Bridging-Header.h"; path = "KonzaTechnoCityApp1/KonzaTechnoCityApp1-Bridging-Header.h"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
@@ -43,7 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				682077CCECE6D1A9F8228FC1 /* libPods-KonzaTechnoCityApp1.a in Frameworks */,
+				4F7FC8C9771D1C6A46A43C50 /* libPods-KonzaTechnoCityApp1.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,7 +75,7 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				88C9CE74831424C6BD9CF94C /* libPods-KonzaTechnoCityApp1.a */,
+				61B966F7DB0E576F3A17677D /* libPods-KonzaTechnoCityApp1.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -120,7 +121,8 @@
 		D65327D7A22EEC0BE12398D9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				D05E45EA6D5276B9D582DD83 /* Pods-KonzaTechnoCityApp1.debug.xcconfig */,
+				A7E979E24E5354357EF39AC1 /* Pods-KonzaTechnoCityApp1.debug.xcconfig */,
+				D7361CCCD91BE5E026148FA2 /* Pods-KonzaTechnoCityApp1.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -132,14 +134,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "KonzaTechnoCityApp1" */;
 			buildPhases = (
-				4F409BFE39512D875DEC9D75 /* [CP] Check Pods Manifest.lock */,
+				084CD0F3116DC85B39929BE6 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				3E53B9B1891FFA58A2711DAD /* [CP] Copy Pods Resources */,
-				91713A311FFE486060C42967 /* [CP-User] [RNFB] Core Configuration */,
+				1D3CCAE3959CC30D8B404D7C /* [CP] Copy Pods Resources */,
+				62DE088DFBD61679F4E42B92 /* [CP-User] [RNFB] Core Configuration */,
 			);
 			buildRules = (
 			);
@@ -213,27 +215,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n../node_modules/expo-constants/scripts/get-app-config-ios.sh\n../node_modules/expo-updates/scripts/create-manifest-ios.sh\n";
 		};
-		3E53B9B1891FFA58A2711DAD /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-KonzaTechnoCityApp1/Pods-KonzaTechnoCityApp1-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/GoogleSignIn/GoogleSignIn.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KonzaTechnoCityApp1/Pods-KonzaTechnoCityApp1-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4F409BFE39512D875DEC9D75 /* [CP] Check Pods Manifest.lock */ = {
+		084CD0F3116DC85B39929BE6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -255,7 +237,27 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		91713A311FFE486060C42967 /* [CP-User] [RNFB] Core Configuration */ = {
+		1D3CCAE3959CC30D8B404D7C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-KonzaTechnoCityApp1/Pods-KonzaTechnoCityApp1-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/GoogleSignIn/GoogleSignIn.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KonzaTechnoCityApp1/Pods-KonzaTechnoCityApp1-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		62DE088DFBD61679F4E42B92 /* [CP-User] [RNFB] Core Configuration */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -317,14 +319,14 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D05E45EA6D5276B9D582DD83 /* Pods-KonzaTechnoCityApp1.debug.xcconfig */;
+			baseConfigurationReference = A7E979E24E5354357EF39AC1 /* Pods-KonzaTechnoCityApp1.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = KonzaTechnoCityApp1/konzatechnocityapp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = RGYT94825M;
 				ENABLE_BITCODE = NO;
 				EXCLUDED_ARCHS = "";
@@ -335,7 +337,7 @@
 				INFOPLIST_FILE = KonzaTechnoCityApp1/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.4;
 				NEW_SETTING = "";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -353,7 +355,7 @@
 			};
 			name = Debug;
 		};
-		33C9413A274789B000535F49 /* release */ = {
+		33C9413A274789B000535F49 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -409,18 +411,18 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
-			name = release;
+			name = Release;
 		};
-		33C9413B274789B000535F49 /* release */ = {
+		33C9413B274789B000535F49 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D05E45EA6D5276B9D582DD83 /* Pods-KonzaTechnoCityApp1.debug.xcconfig */;
+			baseConfigurationReference = D7361CCCD91BE5E026148FA2 /* Pods-KonzaTechnoCityApp1.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = KonzaTechnoCityApp1/konzatechnocityapp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = RGYT94825M;
 				ENABLE_BITCODE = NO;
 				EXCLUDED_ARCHS = "";
@@ -431,7 +433,7 @@
 				INFOPLIST_FILE = KonzaTechnoCityApp1/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.4;
 				NEW_SETTING = "";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -447,7 +449,7 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
-			name = release;
+			name = Release;
 		};
 		83CBBA201A601CBA00E9B192 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -514,19 +516,19 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
-				33C9413B274789B000535F49 /* release */,
+				33C9413B274789B000535F49 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "KonzaTechnoCityApp1" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
-				33C9413A274789B000535F49 /* release */,
+				33C9413A274789B000535F49 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

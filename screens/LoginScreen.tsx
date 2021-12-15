@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   View,
   Text,
   Image,
   StyleSheet,
-  TextInput,
   Alert,
   AsyncStorage,
   ScrollView,
@@ -19,6 +18,8 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import auth from "@react-native-firebase/auth";
 import { Button } from "react-native-paper";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import TextInput from "react-native-input-validator";
+import ProgressLoader from "rn-progress-loader";
 
 const LoginScreen: React.FC = () => {
   const navigation = useNavigation();
@@ -26,8 +27,10 @@ const LoginScreen: React.FC = () => {
   const [user, setUser] = useState();
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [isLoaderVisible, setLoaderVisibility] = useState(false);
 
-  const emailRef = React.createRef();
+  const emailRef = useRef();
+  const passwordRef = useRef();
 
   // Handle user state changes
   function onAuthStateChanged(user) {
@@ -41,14 +44,18 @@ const LoginScreen: React.FC = () => {
   }, []);
 
   const firebaseLogin = async () => {
-    auth()
-      .signInWithEmailAndPassword(email, password)
-      .then((data) => {
-        onLogin(data);
-      })
-      .catch((error) => {
-        Alert.alert(error.message);
-      });
+    if (validateEmail() && validatePassword()) {
+      setLoaderVisibility(true);
+      auth()
+        .signInWithEmailAndPassword(email, password)
+        .then((data) => {
+          setLoaderVisibility(false);
+          onLogin(data);
+        })
+        .catch((error) => {
+          Alert.alert(error.message);
+        });
+    }
   };
   const onLogin = async (data) => {
     try {
@@ -85,16 +92,21 @@ const LoginScreen: React.FC = () => {
     }
   };
 
-  const validateEmail = (value) => {
-    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
-    if (reg.test(value) === false) {
-      console.log("Email is Not Correct");
-      Alert.alert("Email not Correct!");
+  const validateEmail = () => {
+    if (email.length == 0 || !emailRef.current.isValid()) {
+      Alert.alert("Invalid Email!");
       return false;
     } else {
-      console.log("Email is Correct");
-      setEmail(value);
+      return true;
     }
+  };
+
+  const validatePassword = () => {
+    if (password.length == 0 || !passwordRef.current.isValid()) {
+      Alert.alert("Password is required !");
+      return false;
+    }
+    return true;
   };
 
   if (initializing) return <></>;
@@ -102,76 +114,103 @@ const LoginScreen: React.FC = () => {
   if (!user) {
     GoogleSignin.configure();
     return (
-      <KeyboardAvoidingView
-        keyboardVerticalOffset={0} // adjust the value here if you need more padding
-        behavior="padding"
-        style={{ flex: 1, backgroundColor: "#F7F7F7" }}
+      <View
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          flex: 1,
+        }}
       >
-        <ScrollView style={{ marginTop: 100 }}>
-          <View style={styles.container}>
-            <View style={styles.center}>
-              <Image
-                style={{ width: 410, height: 250, resizeMode: "cover" }}
-                source={require("../assets/logo.png")}
-              />
-              <View
-                style={{
-                  margin: 10,
-                  justifyContent: "center",
-                }}
-              >
-                <Text>Please sign in to Konza Techno City App to continue</Text>
-              </View>
-              <View style={styles.inputcontainer}>
-                <TextInput
-                  style={styles.input}
-                  placeholder="Email Address"
-                  placeholderTextColor="grey"
-                  keyboardType="email-address"
-                  onChangeText={(value) => setEmail(value)}
+        <ProgressLoader
+          visible={isLoaderVisible}
+          isModal={true}
+          isHUD={true}
+          hudColor={"#000000"}
+          color={"#FFFFFF"}
+        />
+        <KeyboardAvoidingView
+          keyboardVerticalOffset={0} // adjust the value here if you need more padding
+          behavior="padding"
+          style={{ flex: 1, backgroundColor: "#F7F7F7" }}
+        >
+          <ScrollView style={{ marginTop: 100 }}>
+            <View style={styles.container}>
+              <View style={styles.center}>
+                <Image
+                  style={{ width: 410, height: 250, resizeMode: "cover" }}
+                  source={require("../assets/logo.png")}
                 />
+                <View
+                  style={{
+                    margin: 10,
+                    justifyContent: "center",
+                  }}
+                >
+                  <Text>
+                    Please sign in to Konza Techno City App to continue
+                  </Text>
+                </View>
+                <View style={styles.inputcontainer}>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Email Address"
+                    placeholderTextColor="grey"
+                    keyboardType="email-address"
+                    onChangeText={(value) => setEmail(value)}
+                    type="email"
+                    onRef={(r) => {
+                      emailRef.current = r;
+                    }}
+                    value={email}
+                  />
 
-                <TextInput
-                  style={styles.input}
-                  placeholder="password"
-                  placeholderTextColor="grey"
-                  keyboardType="default"
-                  secureTextEntry={true}
-                  onChangeText={(value) => setPassword(value)}
+                  <TextInput
+                    style={styles.input}
+                    placeholder="password"
+                    placeholderTextColor="grey"
+                    keyboardType="default"
+                    secureTextEntry={true}
+                    onChangeText={(value) => setPassword(value)}
+                    type="alphanumeric"
+                    onRef={(r) => {
+                      passwordRef.current = r;
+                    }}
+                    value={password}
+                  />
+                </View>
+              </View>
+              <View style={styles.center}>
+                <Button
+                  onPress={firebaseLogin}
+                  mode={"outlined"}
+                  color={"green"}
+                  style={{ marginTop: 20 }}
+                >
+                  Login
+                </Button>
+                <Text style={{ padding: 10 }}>Don't have an account yet?</Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("Register");
+                  }}
+                >
+                  <Text style={{ padding: 10, color: "blue" }}>
+                    Click here to Register
+                  </Text>
+                </TouchableOpacity>
+                <Text style={{ padding: 10 }}>or </Text>
+                <GoogleSigninButton
+                  style={{ width: 192, height: 48 }}
+                  size={GoogleSigninButton.Size.Wide}
+                  color={GoogleSigninButton.Color.Dark}
+                  onPress={() => signIn(navigation)}
+                  disabled={false}
                 />
               </View>
             </View>
-            <View style={styles.center}>
-              <Button
-                onPress={firebaseLogin}
-                mode={"outlined"}
-                color={"green"}
-                style={{ margin: 10 }}
-              >
-                Login
-              </Button>
-              <Text style={{ padding: 10 }}>Don't have an account yet?</Text>
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate("Register");
-                }}
-              >
-                <Text style={{ padding: 10, color: "blue" }}>
-                  Click here to Register
-                </Text>
-              </TouchableOpacity>
-              <Text style={{ padding: 10 }}>or </Text>
-              <GoogleSigninButton
-                style={{ width: 192, height: 48 }}
-                size={GoogleSigninButton.Size.Wide}
-                color={GoogleSigninButton.Color.Dark}
-                onPress={() => signIn(navigation)}
-                disabled={false}
-              />
-            </View>
-          </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
+          </ScrollView>
+        </KeyboardAvoidingView>
+      </View>
     );
   } else {
     navigation.replace("Main");
@@ -215,7 +254,8 @@ async function signIn(navigation: NavigationProp<any>) {
       const json = await response.json();
       const code = json.code;
       console.log("post data", postdata);
-      console.log("Tried to Hit Register with:  ", json);
+
+      console.log("Tried to Hit REGISTER returned:  ", json);
     } catch (error) {
       console.error(error);
     }
@@ -241,6 +281,7 @@ async function signIn(navigation: NavigationProp<any>) {
 
     const code = json.code;
 
+    console.log("Tried to Hit LOGIN with:  ", json);
     // Alert.alert(json.message);
     if (code === 200) {
       const token = json.token;

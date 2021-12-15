@@ -37,12 +37,25 @@ import DirectorsScreen from "./screens/BoardDirectorsScreen";
 import ManagementScreen from "./screens/ManagementScreen";
 import SocialMediaScreen from "./screens/SocialMediaScreen";
 import GalleryPage from "./screens/GalleryPage";
+//import messaging from "@react-native-firebase/messaging";
 
 const Drawer = createDrawerNavigator();
 
 export default function App() {
   const main = () => {
     const navigation = useNavigation();
+
+    // useEffect(() => {
+    //   const unsubscribe = messaging().onMessage(async (remoteMessage) => {
+    //     console.log(
+    //       "A new FCM message arrived!",
+    //       JSON.stringify(remoteMessage)
+    //     );
+    //   });
+
+    //   return unsubscribe;
+    // }, []);
+
     return (
       <>
         <Drawer.Navigator
@@ -67,7 +80,7 @@ export default function App() {
             headerTintColor: "white",
           }}
           drawerContent={(props) => <CustomSidebarMenu {...props} />}
-          initialRouteName={"About Us"}
+          initialRouteName={"Dashboard"}
         >
           <Drawer.Screen
             name="Contact Us"
@@ -93,7 +106,7 @@ export default function App() {
             component={InvestorsScreen}
           />
           <Drawer.Screen
-            name="Overview"
+            name="Dashboard"
             options={{
               drawerItemStyle: { height: 0 },
             }}
@@ -173,6 +186,7 @@ export default function App() {
           options={{ headerShown: false }}
           component={main}
         />
+
         <Stack.Screen
           name="Login"
           options={{ headerShown: false }}

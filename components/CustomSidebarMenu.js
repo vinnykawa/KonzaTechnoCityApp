@@ -12,7 +12,7 @@ import {
   ImageBackground,
   TouchableOpacity,
   Alert,
-  Share
+  Share,
 } from "react-native";
 
 import {
@@ -23,17 +23,15 @@ import {
 import { useNavigation } from "@react-navigation/core";
 import auth from "@react-native-firebase/auth";
 
-
-
 const CustomSidebarMenu = (props) => {
   const navigation = useNavigation();
- 
+
   const onShare = async () => {
     try {
       const result = await Share.share({
-        title: 'Share',
-        message: 'Shairing KonzaTechnoCityApp',
-        url:'https://www.google.com/',
+        title: "Share",
+        message: "Shairing KonzaTechnoCityApp",
+        url: "https://www.google.com/",
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
@@ -57,64 +55,83 @@ const CustomSidebarMenu = (props) => {
         backgroundColor: "#000000",
       }}
     >
-    
       <ImageBackground
         source={require("../assets/konza_techno.png")}
         style={{
           flex: 1,
           justifyContent: "center",
-          backgroundColor:"black"
+          backgroundColor: "black",
         }}
       >
-         
-        
         <DrawerContentScrollView
           {...props}
-          style={{ height: "100%", backgroundColor: "transparent" ,marginTop:-118}}
+          style={{
+            height: "100%",
+            backgroundColor: "transparent",
+            marginTop: -118,
+          }}
         >
-         
-          <DrawerItemList style={{ backgroundColor:"green"}} {...props} />
-          <View style={{ backgroundColor:"#00000099",marginTop:0}}>
-          <Text style={{
-         textAlign: "center",
-         color: "white",
-         paddingTop: 48,
-         paddingBottom:11,
-         fontSize: 23,
-         fontWeight: "bold",
-         backgroundColor:"green",
-         justifyContent:"space-between"
-      }}>Konza Techno City</Text>
-          <View style={styles.divider} />
-          <DrawerItem
-            label="Contact Us"
-            labelStyle={{ color: "white" }}
-            icon={() => (
-              <Image
-                source={require("../assets/Contact-us-white.png")}
-                style={[styles.iconStyle, { tintColor: "white" }]}
-              />
-            )}
-            onPress={() => {
-              props.navigation.navigate("Contact Us");
-            }}
-          />
-          <View style={styles.divider} />
-          <DrawerItem
-            label="About Us"
-            labelStyle={{ color: "white" }}
-            icon={() => (
-              <Image
-                source={require("../assets/about-us-white.png")}
-                style={[styles.iconStyle, { tintColor: "white" }]}
-              />
-            )}
-            onPress={() => {
-              props.navigation.navigate("About Us");
-            }}
-          />
-          <View style={styles.divider} />
-         {/* <DrawerItem
+          <DrawerItemList style={{ backgroundColor: "green" }} {...props} />
+          <View style={{ backgroundColor: "#00000099", marginTop: 0 }}>
+            <Text
+              style={{
+                textAlign: "center",
+                color: "white",
+                paddingTop: 48,
+                paddingBottom: 11,
+                fontSize: 23,
+                fontWeight: "bold",
+                backgroundColor: "green",
+                justifyContent: "space-between",
+              }}
+            >
+              Konza Techno City
+            </Text>
+            <View style={styles.divider} />
+            <DrawerItem
+              label="Dashboard "
+              labelStyle={{ color: "white" }}
+              icon={() => (
+                <Image
+                  source={require("../assets/home.png")}
+                  style={[styles.iconStyle, { tintColor: "white" }]}
+                />
+              )}
+              onPress={() => {
+                props.navigation.navigate("Dashboard");
+              }}
+            />
+            <View style={styles.divider} />
+            <View style={styles.divider} />
+            <DrawerItem
+              label="Contact Us"
+              labelStyle={{ color: "white" }}
+              icon={() => (
+                <Image
+                  source={require("../assets/Contact-us-white.png")}
+                  style={[styles.iconStyle, { tintColor: "white" }]}
+                />
+              )}
+              onPress={() => {
+                props.navigation.navigate("Contact Us");
+              }}
+            />
+            <View style={styles.divider} />
+            <DrawerItem
+              label="About Us"
+              labelStyle={{ color: "white" }}
+              icon={() => (
+                <Image
+                  source={require("../assets/about-us-white.png")}
+                  style={[styles.iconStyle, { tintColor: "white" }]}
+                />
+              )}
+              onPress={() => {
+                props.navigation.navigate("About Us");
+              }}
+            />
+            <View style={styles.divider} />
+            {/* <DrawerItem
             label="Inverstors"
             labelStyle={{ color: "white" }}
             icon={() => (
@@ -142,141 +159,141 @@ const CustomSidebarMenu = (props) => {
             }}
           /> 
           <View style={styles.divider} /> */}
-          <DrawerItem
-            label="Alerts"
-            labelStyle={{ color: "white" }}
-            icon={() => (
-              <Image
-                source={require("../assets/alerts-white.png")}
-                style={[styles.iconStyle, { tintColor: "white" }]}
-              />
-            )}
-            onPress={() => {
-              props.navigation.navigate("Alerts");
-            }}
-          />
-          <View style={styles.divider} />
-          <DrawerItem
-            label="News"
-            labelStyle={{ color: "white" }}
-            icon={() => (
-              <Image
-                source={require("../assets/news-white.png")}
-                style={[styles.iconStyle, { tintColor: "white" }]}
-              />
-            )}
-            onPress={() => {
-              props.navigation.navigate("News");
-            }}
-          />
-          <View style={styles.divider} />
-          <DrawerItem
-            label="Press"
-            labelStyle={{ color: "white" }}
-            icon={() => (
-              <Image
-                source={require("../assets/news-white.png")}
-                style={[styles.iconStyle, { tintColor: "white" }]}
-              />
-            )}
-            onPress={() => {
-              props.navigation.navigate("Press");
-            }}
-          />
-          <View style={styles.divider} />
-          <DrawerItem
-            label="Events"
-            labelStyle={{ color: "#ffffff" }}
-            icon={() => (
-              <Image
-                source={require("../assets/event-white.png")}
-                style={[styles.iconStyle, { tintColor: "white" }]}
-              />
-            )}
-            onPress={() => {
-              props.navigation.navigate("Events");
-            }}
-          />
-          <View style={styles.divider} />
-          <DrawerItem
-            label="Feedback"
-            labelStyle={{ color: "white" }}
-            icon={() => (
-              <Image
-                source={require("../assets/feedback-white.png")}
-                style={[styles.iconStyle, { tintColor: "white" }]}
-              />
-            )}
-            onPress={() => {
-              props.navigation.navigate("Feedback");
-            }}
-          />
-          <View style={styles.divider} />
-          <DrawerItem
-            {...props}
-            label="Gallery"
-            labelStyle={{ color: "white" }}
-            icon={() => (
-              <Image
-                source={require("../assets/gallery-black.png")}
-                style={[styles.iconStyle, { tintColor: "white" }]}
-              />
-            )}
-            onPress={() => props.navigation.navigate("Gallery")}
-          />
-          <View style={styles.divider} />
-          <DrawerItem
-            {...props}
-            label="Share"
-            labelStyle={{ color: "white" }}
-            icon={() => (
-              <Image
-                source={require("../assets/share.png")}
-                style={[styles.iconStyle, { tintColor: "white" }]}
-              />
-            )}
-            onPress={onShare} 
-          />
-          <View style={styles.divider} />
-          <DrawerItem
-            label="Sign out"
-            labelStyle={{ color: "white" }}
-            icon={() => (
-              <Image
-                source={require("../assets/sign_in.png")}
-                style={[styles.iconStyle, { tintColor: "white" }]}
-              />
-            )}
-            onPress={() => {
-              auth()
-                .signOut()
-                .then(() => {
-                  navigation.navigate("Login");
-                });
-            }}
-          />
-          <View style={styles.divider} />
-          <DrawerItem
-            label=""
-            style={{ padding:5 }}
-            icon={() => null}
-            onPress={() =>null}
-          />
-          
-          <DrawerItem
-            label=""
-            style={{ padding:5 }}
-            icon={() => null}
-            onPress={() =>null}
-          />
-          
-          <DrawerItem
-            label=""
-            style={{ padding:5 }}
-            icon={() => null}
-            onPress={() =>null}
-          />
-          <View style={styles.divider} />
+            <DrawerItem
+              label="Alerts"
+              labelStyle={{ color: "white" }}
+              icon={() => (
+                <Image
+                  source={require("../assets/alerts-white.png")}
+                  style={[styles.iconStyle, { tintColor: "white" }]}
+                />
+              )}
+              onPress={() => {
+                props.navigation.navigate("Alerts");
+              }}
+            />
+            <View style={styles.divider} />
+            <DrawerItem
+              label="News"
+              labelStyle={{ color: "white" }}
+              icon={() => (
+                <Image
+                  source={require("../assets/news-white.png")}
+                  style={[styles.iconStyle, { tintColor: "white" }]}
+                />
+              )}
+              onPress={() => {
+                props.navigation.navigate("News");
+              }}
+            />
+            <View style={styles.divider} />
+            <DrawerItem
+              label="Press"
+              labelStyle={{ color: "white" }}
+              icon={() => (
+                <Image
+                  source={require("../assets/news-white.png")}
+                  style={[styles.iconStyle, { tintColor: "white" }]}
+                />
+              )}
+              onPress={() => {
+                props.navigation.navigate("Press");
+              }}
+            />
+            <View style={styles.divider} />
+            <DrawerItem
+              label="Events"
+              labelStyle={{ color: "#ffffff" }}
+              icon={() => (
+                <Image
+                  source={require("../assets/event-white.png")}
+                  style={[styles.iconStyle, { tintColor: "white" }]}
+                />
+              )}
+              onPress={() => {
+                props.navigation.navigate("Events");
+              }}
+            />
+            <View style={styles.divider} />
+            <DrawerItem
+              label="Feedback"
+              labelStyle={{ color: "white" }}
+              icon={() => (
+                <Image
+                  source={require("../assets/feedback-white.png")}
+                  style={[styles.iconStyle, { tintColor: "white" }]}
+                />
+              )}
+              onPress={() => {
+                props.navigation.navigate("Feedback");
+              }}
+            />
+            <View style={styles.divider} />
+            <DrawerItem
+              {...props}
+              label="Gallery"
+              labelStyle={{ color: "white" }}
+              icon={() => (
+                <Image
+                  source={require("../assets/gallery-black.png")}
+                  style={[styles.iconStyle, { tintColor: "white" }]}
+                />
+              )}
+              onPress={() => props.navigation.navigate("Gallery")}
+            />
+            <View style={styles.divider} />
+            <DrawerItem
+              {...props}
+              label="Share"
+              labelStyle={{ color: "white" }}
+              icon={() => (
+                <Image
+                  source={require("../assets/share.png")}
+                  style={[styles.iconStyle, { tintColor: "white" }]}
+                />
+              )}
+              onPress={onShare}
+            />
+            <View style={styles.divider} />
+            <DrawerItem
+              label="Sign out"
+              labelStyle={{ color: "white" }}
+              icon={() => (
+                <Image
+                  source={require("../assets/sign_in.png")}
+                  style={[styles.iconStyle, { tintColor: "white" }]}
+                />
+              )}
+              onPress={() => {
+                auth()
+                  .signOut()
+                  .then(() => {
+                    navigation.navigate("Login");
+                  });
+              }}
+            />
+            <View style={styles.divider} />
+            <DrawerItem
+              label=""
+              style={{ padding: 5 }}
+              icon={() => null}
+              onPress={() => null}
+            />
+
+            <DrawerItem
+              label=""
+              style={{ padding: 5 }}
+              icon={() => null}
+              onPress={() => null}
+            />
+
+            <DrawerItem
+              label=""
+              style={{ padding: 5 }}
+              icon={() => null}
+              onPress={() => null}
+            />
+            <View style={styles.divider} />
           </View>
         </DrawerContentScrollView>
       </ImageBackground>

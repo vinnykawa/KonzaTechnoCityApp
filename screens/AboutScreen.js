@@ -40,12 +40,12 @@ const AboutScreen = ({ navigation }) => {
             <TouchableOpacity onPress={() => navigation.navigate("Values")}>
               <SectionValues text="CORE VALUES" />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate("Directors")}>
+            {/* <TouchableOpacity onPress={() => navigation.navigate("Directors")}>
               <SectionBoard text="BOARD OF DIRECTORS" />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate("Management")}>
               <SectionMgt text="MANAGEMENT" />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <TouchableOpacity onPress={() => navigation.navigate("Socials")}>
               <SectionSocial text="Social Media" />
             </TouchableOpacity>

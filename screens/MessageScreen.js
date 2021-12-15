@@ -4,7 +4,7 @@ import {
   Text,
   ImageBackground,
   StyleSheet,
-  SafeAreaView,
+  AsyncStorage,
   FlatList,
   TextInput,
   KeyboardAvoidingView,
@@ -14,7 +14,6 @@ import { color } from "react-native-reanimated";
 import Card from "../components/card";
 import TextInputMultiline from "../components/MultilineTextInput";
 import { MessageItemView } from "../components/messageItem";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const MessageScreen = () => {
   const getMessages = async () => {
@@ -33,9 +32,9 @@ const MessageScreen = () => {
 
       const json = await response.json();
 
-      setMessages(json[0].reverse());
-
       console.log(json);
+
+      setMessages(json[0].reverse());
     } catch (error) {
       console.error(error);
     }
