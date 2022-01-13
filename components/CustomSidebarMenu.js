@@ -8,7 +8,7 @@ import {
   StyleSheet,
   Image,
   Text,
-  Linking,
+  AsyncStorage,
   ImageBackground,
   TouchableOpacity,
   Alert,
@@ -264,12 +264,12 @@ const CustomSidebarMenu = (props) => {
                   style={[styles.iconStyle, { tintColor: "white" }]}
                 />
               )}
-              onPress={() => {
-                auth()
-                  .signOut()
-                  .then(() => {
-                    navigation.navigate("Login");
-                  });
+              onPress={async () => {
+                auth().signOut();
+
+                await AsyncStorage.setItem("token", "");
+
+                navigation.replace("Login");
               }}
             />
             <View style={styles.divider} />

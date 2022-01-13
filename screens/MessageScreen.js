@@ -2,7 +2,7 @@ import React from "react";
 import {
   View,
   Text,
-  ImageBackground,
+  Alert,
   StyleSheet,
   AsyncStorage,
   FlatList,
@@ -14,8 +14,12 @@ import { color } from "react-native-reanimated";
 import Card from "../components/card";
 import TextInputMultiline from "../components/MultilineTextInput";
 import { MessageItemView } from "../components/messageItem";
+import { useNavigation } from "@react-navigation/native";
+import auth from "@react-native-firebase/auth";
 
 const MessageScreen = () => {
+  const navigation = useNavigation();
+
   const getMessages = async () => {
     const token = await AsyncStorage.getItem("token");
 
@@ -31,10 +35,17 @@ const MessageScreen = () => {
       );
 
       const json = await response.json();
-
       console.log(json);
+      if (json.code == 200) {
+        setMessages(json[0].reverse());
+      } else {
+        Alert.alert("Session Expired! Please login and try again");
+        auth().signOut();
 
-      setMessages(json[0].reverse());
+        await AsyncStorage.setItem("token", "");
+
+        navigation.replace("Login");
+      }
     } catch (error) {
       console.error(error);
     }

@@ -27,6 +27,7 @@ const LoginScreen: React.FC = () => {
   const [user, setUser] = useState();
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [token, setToken] = useState("");
   const [isLoaderVisible, setLoaderVisibility] = useState(false);
 
   const emailRef = useRef();
@@ -38,8 +39,15 @@ const LoginScreen: React.FC = () => {
     if (initializing) setInitializing(false);
   }
 
+  const checkAuth = async () => {
+    const token = await AsyncStorage.getItem("token");
+    setToken(token);
+  };
+
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+
+    checkAuth();
     return subscriber; // unsubscribe on unmount
   }, []);
 
@@ -58,6 +66,9 @@ const LoginScreen: React.FC = () => {
     }
   };
   const onLogin = async (data) => {
+    //save uid to async storage
+    await AsyncStorage.setItem("user_id", data.user.uid);
+
     try {
       const response = await fetch(
         "https://konza.softwareske.net/api/v1/auth/login",
@@ -111,7 +122,9 @@ const LoginScreen: React.FC = () => {
 
   if (initializing) return <></>;
 
-  if (!user) {
+  console.log("USER IS t=" + token, user);
+
+  if (!user && !token) {
     GoogleSignin.configure();
     return (
       <View
@@ -233,7 +246,7 @@ async function signIn(navigation: NavigationProp<any>) {
       l_name: userInfo.user.familyName,
       phone: "070000000",
       email: userInfo.user.email,
-      fcm_token: "" + userInfo.idToken,
+      fcm_token: "not set",
       version_code: 1.0,
       version_name: "1.0",
       password: "password",
@@ -285,10 +298,10 @@ async function signIn(navigation: NavigationProp<any>) {
     // Alert.alert(json.message);
     if (code === 200) {
       const token = json.token;
-      await AsyncStorage.setItem("token", token);
+      await AsyncStorage.setItem("token", token).then(() => {
+        navigation.navigate("Main");
+      });
     }
-
-    navigation.navigate("Main");
   } catch (error) {
     console.log("LOGIN FAILED : ", error.code);
 

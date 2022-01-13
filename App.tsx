@@ -31,30 +31,21 @@ import { FAB } from "react-native-paper";
 import auth from "@react-native-firebase/auth";
 import MessageScreen from "./screens/MessageScreen";
 import HistoryScreen from "./screens/HistoryScreen";
+import FeedDetailScreen from "./screens/FeedDetailScreen";
 import MissionScreen from "./screens/MissionScreen";
 import ValuesScreen from "./screens/CoreValuesScreen";
 import DirectorsScreen from "./screens/BoardDirectorsScreen";
 import ManagementScreen from "./screens/ManagementScreen";
 import SocialMediaScreen from "./screens/SocialMediaScreen";
 import GalleryPage from "./screens/GalleryPage";
-//import messaging from "@react-native-firebase/messaging";
+import messaging from "@react-native-firebase/messaging";
+import notifee from "@notifee/react-native";
 
 const Drawer = createDrawerNavigator();
 
 export default function App() {
   const main = () => {
     const navigation = useNavigation();
-
-    // useEffect(() => {
-    //   const unsubscribe = messaging().onMessage(async (remoteMessage) => {
-    //     console.log(
-    //       "A new FCM message arrived!",
-    //       JSON.stringify(remoteMessage)
-    //     );
-    //   });
-
-    //   return unsubscribe;
-    // }, []);
 
     return (
       <>
@@ -213,6 +204,11 @@ export default function App() {
           name="History"
           options={{ headerShown: true }}
           component={HistoryScreen}
+        />
+        <Stack.Screen
+          name="FeedDetail"
+          options={{ headerShown: true }}
+          component={FeedDetailScreen}
         />
         <Stack.Screen
           name="Mission"

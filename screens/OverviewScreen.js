@@ -1,32 +1,135 @@
 import { useNavigation } from "@react-navigation/core";
 import React, { useEffect } from "react";
 import {
+  Alert,
   View,
   Text,
+  AsyncStorage,
   ImageBackground,
   StyleSheet,
   TouchableOpacity,
   Image,
 } from "react-native";
 import { FlatGrid } from "react-native-super-grid";
+import messaging from "@react-native-firebase/messaging";
+import notifee from "@notifee/react-native";
 
 function OverviewScreen() {
   const navigation = useNavigation();
 
-  // async function requestUserPermission() {
-  //   const authStatus = await messaging().requestPermission();
-  //   const enabled =
-  //     authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-  //     authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+  async function requestUserPermission() {
+    const authStatus = await messaging().requestPermission();
+    const enabled =
+      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
 
-  //   if (enabled) {
-  //     console.log("Authorization status:", authStatus);
-  //   }
-  // }
+    if (enabled) {
+      getFcmToken();
+      console.log("Authorization status:", authStatus);
+    }
+  }
 
-  // useEffect(() => {
-  //   requestUserPermission();
-  // }, []);
+  getFcmToken = async () => {
+    const fcmToken = await messaging().getToken();
+    if (fcmToken) {
+      updateFCMToken(fcmToken);
+
+      console.log("Your Firebase Token is:", fcmToken);
+    } else {
+      console.log("Failed", "No token received");
+    }
+  };
+
+  updateFCMToken = async (token) => {
+    try {
+      // const response = await fetch(
+      //   "https://konza.softwareske.net/api/v1/auth/fcm/update",
+      //   {
+      //     method: "PUT",
+      //     headers: {
+      //       "Content-Type": "multipart/form-data",
+      //     },
+      //     body: JSON.stringify({
+      //       fcm_token: token,
+      //       user_id: "",
+      //     }),
+      //   }
+      // );
+
+      // const json = await response.json();
+
+      // const message = json.message;
+
+      // const code = json.code;
+
+      // // Alert.alert(json.message);
+      // if (code === 200) {
+      // }
+
+      console.log(json);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    requestUserPermission();
+
+    const unsubscribe = messaging().onMessage(async (remoteMessage) => {
+      console.log("A new FCM message arrived!", JSON.stringify(remoteMessage));
+
+      // Alert.alert(
+      //   "A new FCM message arrived!",
+      //   remoteMessage.notification.body
+      // );
+
+      const alert = [
+        {
+          id: Date.now(),
+          title: remoteMessage.notification.title,
+          message: remoteMessage.notification.body,
+        },
+      ];
+
+      var currentAlerts = [];
+      await AsyncStorage.getItem("alerts")
+        .then(async (req) => {
+          console.log("Found alerts", req);
+
+          if (req !== null) currentAlerts = JSON.parse(req);
+          currentAlerts.push(...alert);
+
+          await AsyncStorage.setItem("alerts", JSON.stringify(currentAlerts))
+            .then((json) => console.log("success updating alerts!", json))
+            .catch((error) => console.log("error updating alerts!", error));
+        })
+        .catch((error) => console.log("error getting alerts!", error));
+
+      const channelId = await notifee.createChannel({
+        id: "default",
+        name: "Default Channel",
+      });
+
+      // Required for iOS
+      // See https://notifee.app/react-native/docs/ios/permissions
+      await notifee.requestPermission();
+
+      const notificationId = await notifee
+        .displayNotification({
+          id: remoteMessage.messageId,
+          title: remoteMessage.notification?.title,
+          body: remoteMessage.notification?.body,
+          android: {
+            channelId,
+          },
+        })
+        .then(() => {
+          notifee.setBadgeCount(1).then(() => console.log("Badge count set!"));
+        });
+    });
+
+    return unsubscribe;
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -35,10 +138,19 @@ function OverviewScreen() {
         source={require("../assets/konza_techno.png")}
         style={styles.image}
       >
-        <Image
-          source={require("../assets/logo.png")}
-          style={{ width: 410, height: 250, resizeMode: "cover" }}
-        />
+        <View
+          style={{
+            backgroundColor: "#F7F7F7",
+            alignItems: "center",
+            width: "100%",
+          }}
+        >
+          <Image
+            source={require("../assets/logo.png")}
+            style={{ width: 210, height: 200, resizeMode: "cover" }}
+          />
+        </View>
+
         <View
           style={{
             flex: 1,

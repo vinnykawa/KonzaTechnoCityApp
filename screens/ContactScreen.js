@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   Text,
   View,
@@ -8,10 +8,10 @@ import {
   Alert,
   KeyboardAvoidingView,
 } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
 import { MessageTextInputMultiline } from "../components/mycomponents";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Button } from "react-native-paper";
+import ProgressLoader from "rn-progress-loader";
+import TextInput from "react-native-input-validator";
 
 const SubmitData = () => {};
 
@@ -20,6 +20,7 @@ function ContactScreen() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
+  const [isLoaderVisible, setLoaderVisibility] = useState(false);
 
   const label = "Konza Technopolis Development Authority";
   const latitude = "-1.266894";
@@ -54,7 +55,9 @@ function ContactScreen() {
             placeholder="Name"
             placeholderTextColor="white"
             keyboardType="default"
+            type="name"
             onChangeText={(value) => setName(value)}
+            value={name}
           />
 
           <TextInput
@@ -62,7 +65,9 @@ function ContactScreen() {
             placeholder="Email Address"
             placeholderTextColor="white"
             keyboardType="email-address"
+            type="email"
             onChangeText={(value) => setEmail(value)}
+            value={email}
           />
 
           <TextInput
@@ -70,7 +75,9 @@ function ContactScreen() {
             placeholder="Phone Number"
             placeholderTextColor="white"
             keyboardType="numeric"
+            type="phone"
             onChangeText={(value) => setPhone(value)}
+            value={phone}
           />
 
           <MessageTextInputMultiline />

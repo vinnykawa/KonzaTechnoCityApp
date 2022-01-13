@@ -72,7 +72,7 @@ function RegisterScreen() {
       l_name: name,
       phone: phone,
       email: email,
-      fcm_token: "" + accessToken,
+      fcm_token: "not set",
       version_code: 1.0,
       version_name: "1.0",
       password: password,

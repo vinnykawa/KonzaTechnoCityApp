@@ -1,20 +1,19 @@
-
-import  React  from 'react';
-import { StyleSheet, Image, Text, View, Linking, Share } from 'react-native';
-import { Button } from 'react-native-paper';
-
+import React from "react";
+import { StyleSheet, Image, Text, View, Linking, Share } from "react-native";
+import { Button } from "react-native-paper";
 
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/native";
 
 export const PressItemView = ({ item }) => {
-  
+  const navigation = useNavigation();
 
   const onShare = async () => {
     try {
       const result = await Share.share({
         title: item.title,
         message: item.link,
-        url:item.link,
+        url: item.link,
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
@@ -31,17 +30,16 @@ export const PressItemView = ({ item }) => {
   };
 
   return (
-    
-      <View style={styles.mainCardView}>
-        <View style={{ flexDirection: "column" }}>
+    <View style={styles.mainCardView}>
+      <View style={{ flexDirection: "column" }}>
         <TouchableOpacity
-    onPress={() => {
-          Linking.openURL(item.link);
-        }}
-    >
-
+          onPress={() => {
+            //Linking.openURL(item.link);
+            navigation.navigate("FeedDetails", { item: item });
+          }}
+        >
           <Image
-            source={{uri: item.image}}
+            source={{ uri: item.image }}
             style={{
               width: 332,
               height: 150,
@@ -70,7 +68,8 @@ export const PressItemView = ({ item }) => {
                   width: "100%",
                 }}
               >
-                <Text numberOfLines={5}
+                <Text
+                  numberOfLines={5}
                   style={{
                     color: "grey",
                     fontSize: 14,
@@ -81,19 +80,18 @@ export const PressItemView = ({ item }) => {
               </View>
             </View>
           </View>
-          </TouchableOpacity>
-          <Button
+        </TouchableOpacity>
+        <Button
           onPress={onShare}
-          icon={'share'}
+          icon={"share"}
           mode={"outlined"}
           color={"green"}
-          style={{ margin: 10 ,marginTop:10}}
+          style={{ margin: 10, marginTop: 10 }}
         >
           Share
         </Button>
-        </View>
       </View>
-    
+    </View>
   );
 };
 

@@ -191,7 +191,7 @@ const MessageTextInputMultiline = () => {
         borderWidth: 1,
         marginHorizontal: 11,
         marginBottom: 10,
-        padding:7,
+        padding: 7,
       }}
     >
       <Text style={{ color: "white" }}>Your message goes here..</Text>
@@ -199,7 +199,7 @@ const MessageTextInputMultiline = () => {
         multiline
         numberOfLines={4}
         style={{ padding: 10, color: "white" }}
-       // onChangeText={(value) => setName(value)}
+        // onChangeText={(value) => setName(value)}
       ></MessageTextInput>
     </View>
   );
@@ -213,14 +213,14 @@ const MessageTextInputMultiline2 = () => {
         borderWidth: 1,
         marginHorizontal: 11,
         margin: 30,
-        padding:7,
+        padding: 7,
       }}
     >
       <Text style={{ color: "white" }}>Your message goes here..</Text>
       <MessageTextInput
         multiline
         numberOfLines={4}
-        style={{ padding: 10 }}
+        style={{ padding: 10, color: "white" }}
       ></MessageTextInput>
     </View>
   );
@@ -235,7 +235,7 @@ const MessageTextInputMultiline3 = () => {
         marginHorizontal: 11,
         marginBottom: 100,
         marginTop: 10,
-        padding:7,
+        padding: 7,
       }}
     >
       <Text style={{ color: "white" }}>Your message goes here..</Text>
@@ -299,7 +299,13 @@ const styles = StyleSheet.create({
 });
 
 export default SectionHistory;
-export { SectionVision, SectionValues, SectionBoard, SectionMgt, SectionSocial };
+export {
+  SectionVision,
+  SectionValues,
+  SectionBoard,
+  SectionMgt,
+  SectionSocial,
+};
 export { MessageTextInputMultiline };
 export { MessageTextInputMultiline2 };
 export { MessageTextInputMultiline3 };
