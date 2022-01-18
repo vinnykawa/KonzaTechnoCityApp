@@ -41,30 +41,35 @@ function OverviewScreen() {
   };
 
   updateFCMToken = async (token) => {
+    const user_id = await AsyncStorage.getItem("user_id");
+    const email = await AsyncStorage.getItem("email");
+
     try {
-      // const response = await fetch(
-      //   "https://konza.softwareske.net/api/v1/auth/fcm/update",
-      //   {
-      //     method: "PUT",
-      //     headers: {
-      //       "Content-Type": "multipart/form-data",
-      //     },
-      //     body: JSON.stringify({
-      //       fcm_token: token,
-      //       user_id: "",
-      //     }),
-      //   }
-      // );
+      const response = await fetch(
+        "https://konza.softwareske.net/api/v1/auth/fcm/update",
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          body: JSON.stringify({
+            fcm_token: token,
+            user_id: user_id,
+            email: email,
+          }),
+        }
+      );
 
-      // const json = await response.json();
+      const json = await response.json();
 
-      // const message = json.message;
+      const message = json.message;
 
-      // const code = json.code;
+      const code = json.code;
 
-      // // Alert.alert(json.message);
-      // if (code === 200) {
-      // }
+      // Alert.alert(json.message);
+      if (code === 200) {
+        console.log(message);
+      }
 
       console.log(json);
     } catch (error) {
@@ -77,11 +82,6 @@ function OverviewScreen() {
 
     const unsubscribe = messaging().onMessage(async (remoteMessage) => {
       console.log("A new FCM message arrived!", JSON.stringify(remoteMessage));
-
-      // Alert.alert(
-      //   "A new FCM message arrived!",
-      //   remoteMessage.notification.body
-      // );
 
       const alert = [
         {

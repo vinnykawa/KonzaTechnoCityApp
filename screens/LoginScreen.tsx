@@ -68,6 +68,7 @@ const LoginScreen: React.FC = () => {
   const onLogin = async (data) => {
     //save uid to async storage
     await AsyncStorage.setItem("user_id", data.user.uid);
+    await AsyncStorage.setItem("email", email);
 
     try {
       const response = await fetch(

@@ -36,7 +36,7 @@ const MessageScreen = () => {
 
       const json = await response.json();
       console.log(json);
-      if (json.code == 200) {
+      if (json instanceof Array) {
         setMessages(json[0].reverse());
       } else {
         Alert.alert("Session Expired! Please login and try again");
