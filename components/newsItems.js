@@ -10,8 +10,10 @@ import {
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Button } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
 
-export const NewsItemView = ({ item }) => {
+export const NewsItemView = ({ item, nav }) =>{
+ // const navigation = useNavigation();
 
   const onShare = async () => {
     try {
@@ -40,8 +42,8 @@ export const NewsItemView = ({ item }) => {
         <View style={{ flexDirection: "column" }}>
         <TouchableOpacity
     onPress={() => {
-          Linking.openURL(item.link);
-        }}
+      nav.navigate("FeedDetailScreen")
+    }}
     >
           <Image
             source={{ uri: item.image }}

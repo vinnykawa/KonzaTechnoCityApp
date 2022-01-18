@@ -7,6 +7,7 @@ import {
   Linking,
   Alert,
   KeyboardAvoidingView,
+  AsyncStorage
 } from "react-native";
 import { MessageTextInputMultiline } from "../components/mycomponents";
 import { Button } from "react-native-paper";
@@ -19,8 +20,121 @@ function ContactScreen() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [message, setMessage] = useState("");
+  const [contactmessage, setMessage] = useState("");
   const [isLoaderVisible, setLoaderVisibility] = useState(false);
+
+  const nameRef = useRef();
+  const emailRef = useRef();
+  const phoneRef = useRef();
+  const messageRef = useRef();
+
+  const validateEmail = () => {
+    if (email.length == 0 || !emailRef.current.isValid()) {
+      console.log("Email is Not Correct");
+      Alert.alert("Invalid Email!");
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  const validateName = () => {
+    if (name.length == 0 || !nameRef.current.isValid()) {
+      Alert.alert("Name is required !");
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  const validatePhone = () => {
+    if (phone.length < 10 || !phoneRef.current.isValid()) {
+      Alert.alert("Phone is required !");
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  const validateMessage = () => {
+    if (contactmessage.length == 0) {
+      Alert.alert("Message is required !");
+      return false;
+    }
+    return true;
+  };
+
+  const submitContactInfo = async () => {
+   
+    if (
+      validateName() &&
+      validateEmail() &&
+      validatePhone() &&
+      validateMessage()
+    ) {
+      setLoaderVisibility(true);
+      try {
+        const user_id = await AsyncStorage.getItem("user_id");
+        const token = await AsyncStorage.getItem("token");
+
+        const response = await fetch(
+          "https://konza.softwareske.net/api/v1/customer/contactus/request",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: "Bearer " + "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIzIiwianRpIjoiY2I4MWJiZDY2NzJiN2NiYWExNTRhNTE3ZDIyOWM0NjZmZGJjYTQxNGI3NDc2ZDgxMjBmN2RkYjlhMTA2MzlkYWFjOWI4ZjkzYzIzODE0ODkiLCJpYXQiOjE2NDI0ODk4NDksIm5iZiI6MTY0MjQ4OTg0OSwiZXhwIjoxNjQyNDkzNDQ5LCJzdWIiOiIyNSIsInNjb3BlcyI6W119.rz5CPDpFadJdlCIg5kfJmsE6S3-ltEgw3VruFiW7OQbn3zKaHXT_oHfVu6e_m4LiNxXw_uLdQhFQ1mv3hv77FtYUbG2-1IIVRwiCiFOnUs8MzfP-tmJjiENsrsRyDnFGxY-pHBZWWdbAh371w2dkql2P7GNR-LeicnTBPXvVsTmUpXigyjEu9U1XLhVJcl3JOLciRKmiF7J5DjrJRgfxwNv1TOdYYf6l_t9D3qoF0VxWJ32DSNOqP0uMJyHh5dbkLFMryazDpE16CE69YX6AhAmo6fVqOjocwsC5PzK5xHbk6UlzNVgd7HDXtg8zaH-1ai5qott_geiduE900E3HOGu8ZObekDJe8BlOz6eB4FhQetcIoBWVjzB987jTQd_A3BEnVOW_9If8qyusLfOr21hgKLpdV3pTIcrPvPQBOBd7qyk_68rDzj9GCLhrFUezxUI_3g8fWCE_KsLASIDH00IayoepjljFIsVlwSh5TXenIjHFoMnh-65hCQPypKeyAFvnA-DpJTbR0xJ5ytbaQtgjUS2tzXhkX83teoUwctZFDeqKHfpR3X3R8vfVmmAyl-oxpCNFFyrUFKvobso5hSXFXeZXLr7nJsc8aCVCm4z-Dfh5El7Tgi0okTvLnDqiqId3U59LgP2x7cTGzIWopyK-N_PdyPtIu4C6reYxhFE",
+            },
+            body: JSON.stringify({
+              user_id: "testid",
+              message: contactmessage,
+              name: name,
+              email: email,
+              phone: phone,
+            }),
+          }
+        );
+
+        const json = await response.json();
+
+        setLoaderVisibility(false);
+
+        console.log(
+          "Request",
+          JSON.stringify({
+            user_id: user_id,
+            message: contactmessage,
+            name: name,
+            email: email,
+            phone: phone,
+          })
+        );
+
+        console.log(json);
+
+        const message = json.message;
+        const code = json.code;
+
+        // Alert.alert(json.message);
+        if (code === 200) {
+          Alert.alert(message);
+        }else{
+          Alert.alert("something went wrong!");
+        }
+
+        //clear fields
+        setName("");
+        setEmail("");
+        setPhone("");
+        setMessage("");
+
+        console.log(json);
+      } catch (error) {
+        console.error(error);
+        setLoaderVisibility(false);
+      }
+    }
+  };
 
   const label = "Konza Technopolis Development Authority";
   const latitude = "-1.266894";
@@ -44,6 +158,13 @@ function ContactScreen() {
 
   return (
     <KeyboardAvoidingView style={styles.container}>
+      <ProgressLoader
+        visible={isLoaderVisible}
+        isModal={true}
+        isHUD={true}
+        hudColor={"#000000"}
+        color={"#FFFFFF"}
+      />
       <View style={styles.inputcontainer}>
         <ImageBackground
           imageStyle={{ opacity: 0.4 }}
@@ -57,6 +178,9 @@ function ContactScreen() {
             keyboardType="default"
             type="name"
             onChangeText={(value) => setName(value)}
+            onRef={(r) => {
+              nameRef.current = r;
+            }}
             value={name}
           />
 
@@ -67,6 +191,9 @@ function ContactScreen() {
             keyboardType="email-address"
             type="email"
             onChangeText={(value) => setEmail(value)}
+            onRef={(r) => {
+              emailRef.current = r;
+            }}
             value={email}
           />
 
@@ -77,14 +204,31 @@ function ContactScreen() {
             keyboardType="numeric"
             type="phone"
             onChangeText={(value) => setPhone(value)}
+            onRef={(r) => {
+              phoneRef.current = r;
+            }}
             value={phone}
           />
 
-          <MessageTextInputMultiline />
+          {/*<MessageTextInputMultiline />*/}
+          <TextInput
+            style={styles.input}
+            placeholder="Your Message goes here"
+            placeholderTextColor="white"
+            keyboardType="default"
+            onChangeText={(value) => setMessage(value)}
+            type="alphanumeric"
+            onRef={(r) => {
+              messageRef.current = r;
+            }}
+            value={contactmessage}
+            multiline={true}
+            numberOfLines={4}
+          />
 
           <View style={styles.fixToText}>
             <Button
-              onPress={() => Alert.alert("Contact details")}
+              onPress={() => submitContactInfo()}
               mode={"contained"}
               color={"white"}
               style={{ margin: 10 }}

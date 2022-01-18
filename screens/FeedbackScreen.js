@@ -18,7 +18,7 @@ function FeedbackScreen() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [message, setMessage] = useState("");
+  const [feedbackmessage, setMessage] = useState("");
   const [isLoaderVisible, setLoaderVisibility] = useState(false);
 
   const nameRef = useRef();
@@ -55,7 +55,7 @@ function FeedbackScreen() {
   };
 
   const validateMessage = () => {
-    if (message.length == 0 || !messageRef.current.isValid()) {
+    if (feedbackmessage.length == 0) {
       Alert.alert("Message is required !");
       return false;
     }
@@ -80,11 +80,11 @@ function FeedbackScreen() {
             method: "POST",
             headers: {
               "Content-Type": "multipart/form-data",
-              Authorization: "Bearer " + token,
+              Authorization: "Bearer " + "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIzIiwianRpIjoiY2I4MWJiZDY2NzJiN2NiYWExNTRhNTE3ZDIyOWM0NjZmZGJjYTQxNGI3NDc2ZDgxMjBmN2RkYjlhMTA2MzlkYWFjOWI4ZjkzYzIzODE0ODkiLCJpYXQiOjE2NDI0ODk4NDksIm5iZiI6MTY0MjQ4OTg0OSwiZXhwIjoxNjQyNDkzNDQ5LCJzdWIiOiIyNSIsInNjb3BlcyI6W119.rz5CPDpFadJdlCIg5kfJmsE6S3-ltEgw3VruFiW7OQbn3zKaHXT_oHfVu6e_m4LiNxXw_uLdQhFQ1mv3hv77FtYUbG2-1IIVRwiCiFOnUs8MzfP-tmJjiENsrsRyDnFGxY-pHBZWWdbAh371w2dkql2P7GNR-LeicnTBPXvVsTmUpXigyjEu9U1XLhVJcl3JOLciRKmiF7J5DjrJRgfxwNv1TOdYYf6l_t9D3qoF0VxWJ32DSNOqP0uMJyHh5dbkLFMryazDpE16CE69YX6AhAmo6fVqOjocwsC5PzK5xHbk6UlzNVgd7HDXtg8zaH-1ai5qott_geiduE900E3HOGu8ZObekDJe8BlOz6eB4FhQetcIoBWVjzB987jTQd_A3BEnVOW_9If8qyusLfOr21hgKLpdV3pTIcrPvPQBOBd7qyk_68rDzj9GCLhrFUezxUI_3g8fWCE_KsLASIDH00IayoepjljFIsVlwSh5TXenIjHFoMnh-65hCQPypKeyAFvnA-DpJTbR0xJ5ytbaQtgjUS2tzXhkX83teoUwctZFDeqKHfpR3X3R8vfVmmAyl-oxpCNFFyrUFKvobso5hSXFXeZXLr7nJsc8aCVCm4z-Dfh5El7Tgi0okTvLnDqiqId3U59LgP2x7cTGzIWopyK-N_PdyPtIu4C6reYxhFE",
             },
             body: JSON.stringify({
-              user_id: user_id,
-              message: message,
+              user_id: "testid",
+              message: feedbackmessage,
               name: name,
               email: email,
               phone: phone,
@@ -100,7 +100,7 @@ function FeedbackScreen() {
           "Request",
           JSON.stringify({
             user_id: user_id,
-            message: message,
+            message: feedbackmessage,
             name: name,
             email: email,
             phone: phone,
@@ -114,8 +114,16 @@ function FeedbackScreen() {
 
         // Alert.alert(json.message);
         if (code === 200) {
-          Alert.alert("Your Feedback has been submitted!");
+          Alert.alert(message);
+        }else{
+          Alert.alert("Something went wrong!")
         }
+
+        //clear fields
+        setName("");
+        setEmail("");
+        setPhone("");
+        setMessage("");
 
         console.log(json);
       } catch (error) {
@@ -152,7 +160,7 @@ function FeedbackScreen() {
             onRef={(r) => {
               messageRef.current = r;
             }}
-            value={message}
+            value={feedbackmessage}
             multiline={true}
             numberOfLines={4}
           />
