@@ -6,7 +6,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 
 export const PressItemView = ({ item }) => {
-  const navigation = useNavigation();
+  //const navigation = useNavigation();
 
   const onShare = async () => {
     try {
@@ -33,10 +33,7 @@ export const PressItemView = ({ item }) => {
     <View style={styles.mainCardView}>
       <View style={{ flexDirection: "column" }}>
         <TouchableOpacity
-          onPress={() => {
-            //Linking.openURL(item.link);
-            navigation.navigate("FeedDetails", { item: item });
-          }}
+         
         >
           <Image
             source={{ uri: item.image }}

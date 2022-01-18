@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import CardItemView from "../components/alertItems";
+
 import notifee from "@notifee/react-native";
 import { Svg, Path } from "react-native-svg";
 import { moderateScale } from "react-native-size-matters";

@@ -14,18 +14,20 @@ function FeedDetailScreen({ route, navigation }) {
 
   return (
     <View style={styles.container}>
+      
       <Image
         source={{ uri: item.image }}
         style={{ height: "30%", width: "100%", padding: 5, marginVertical: 10 }}
         resizeMode="stretch"
       />
-      <Headline style={{ padding: 5, marginVertical: 5 }}>
+      <Headline style={{ padding: 5, marginVertical: 5, fontWeight: "bold", color: "green"}}>
         {item.title}
       </Headline>
 
       <Paragraph style={{ padding: 5, marginVertical: 5 }}>
         {item.content}
       </Paragraph>
+      
     </View>
   );
 }
@@ -33,7 +35,7 @@ function FeedDetailScreen({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "space-around",
+    justifyContent: "flex-start",
     backgroundColor: "white",
     padding: 10,
   },
@@ -45,6 +47,26 @@ const styles = StyleSheet.create({
   text: {
     alignItems: "center",
     color: "grey",
+  },
+  mainCardView: {
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "white",
+    borderRadius: 5,
+    shadowColor: "grey",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 1,
+    shadowRadius: 8,
+    elevation: 8,
+    flexDirection: "column",
+    justifyContent: "space-between",
+    padding: 10,
+    paddingLeft: 14,
+    paddingRight: 14,
+    marginTop: 6,
+    marginBottom: 6,
+    marginLeft: 0,
+    marginRight: 0,
   },
 });
 

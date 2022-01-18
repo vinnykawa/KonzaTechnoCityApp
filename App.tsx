@@ -39,7 +39,7 @@ import ManagementScreen from "./screens/ManagementScreen";
 import SocialMediaScreen from "./screens/SocialMediaScreen";
 import GalleryPage from "./screens/GalleryPage";
 import messaging from "@react-native-firebase/messaging";
-import notifee from "@notifee/react-native";
+
 
 const Drawer = createDrawerNavigator();
 
@@ -96,13 +96,13 @@ export default function App() {
             }}
             component={InvestorsScreen}
           />
-          <Drawer.Screen
+           <Drawer.Screen
             name="Dashboard"
             options={{
               drawerItemStyle: { height: 0 },
             }}
             component={OverviewScreen}
-          />
+          /> 
           <Drawer.Screen
             name="Alerts"
             options={{
@@ -170,19 +170,19 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={screenOptionStyle}
-        initialRouteName="Login"
+        initialRouteName="FeedbackScreen"
       >
         <Stack.Screen
           name="Main"
           options={{ headerShown: false }}
           component={main}
         />
-
+                                       
         <Stack.Screen
           name="Login"
           options={{ headerShown: false }}
           component={LoginScreen}
-        />
+       /> 
         <Stack.Screen
           name="Register"
           options={{ headerShown: true }}
@@ -193,7 +193,7 @@ export default function App() {
           name="Message"
           options={{ headerShown: true }}
           component={MessageScreen}
-        />
+        /> 
 
         <Stack.Screen
           name="About"
@@ -240,6 +240,12 @@ export default function App() {
           name="GalleryPage"
           options={{ headerShown: true }}
           component={GalleryPage}
+        />
+
+        <Stack.Screen
+          name="FeedDetailScreen"
+          options={{ headerShown: true }}
+          component={FeedDetailScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>

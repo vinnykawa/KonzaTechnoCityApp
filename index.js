@@ -6,7 +6,7 @@ import { AsyncStorage } from "react-native";
 import App from "./App";
 
 // Register background handler
-messaging().setBackgroundMessageHandler(async (remoteMessage) => {
+/*messaging().setBackgroundMessageHandler(async (remoteMessage) => {
   const alert = [
     {
       id: Date.now(),
@@ -28,7 +28,7 @@ messaging().setBackgroundMessageHandler(async (remoteMessage) => {
     .catch((error) => console.log("error getting alerts!", error));
 
   console.log("Message handled in the background!", remoteMessage);
-});
+}); */
 
 // registerRootComponent calls AppRegistry.registerComponent('main', () => App);
 // It also ensures that whether you load the app in Expo Go or in a native build,

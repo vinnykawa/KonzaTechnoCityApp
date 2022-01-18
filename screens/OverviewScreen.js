@@ -34,6 +34,8 @@ function OverviewScreen() {
     if (fcmToken) {
       updateFCMToken(fcmToken);
 
+      //call update fcm endpoint
+
       console.log("Your Firebase Token is:", fcmToken);
     } else {
       console.log("Failed", "No token received");
@@ -105,6 +107,7 @@ function OverviewScreen() {
         })
         .catch((error) => console.log("error getting alerts!", error));
 
+        
       const channelId = await notifee.createChannel({
         id: "default",
         name: "Default Channel",
@@ -125,7 +128,7 @@ function OverviewScreen() {
         })
         .then(() => {
           notifee.setBadgeCount(1).then(() => console.log("Badge count set!"));
-        });
+        }); 
     });
 
     return unsubscribe;
