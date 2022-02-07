@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { FlatGrid } from "react-native-super-grid";
 import messaging from "@react-native-firebase/messaging";
+//TODO
 import notifee from "@notifee/react-native";
 
 function OverviewScreen() {
@@ -107,13 +108,14 @@ function OverviewScreen() {
         })
         .catch((error) => console.log("error getting alerts!", error));
 
-        
+      //TODO uncomment
       const channelId = await notifee.createChannel({
         id: "default",
         name: "Default Channel",
       });
+      //end of TODO
 
-      // Required for iOS
+      //Required for iOS
       // See https://notifee.app/react-native/docs/ios/permissions
       await notifee.requestPermission();
 
@@ -128,7 +130,7 @@ function OverviewScreen() {
         })
         .then(() => {
           notifee.setBadgeCount(1).then(() => console.log("Badge count set!"));
-        }); 
+        });
     });
 
     return unsubscribe;

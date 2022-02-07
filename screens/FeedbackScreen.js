@@ -7,12 +7,13 @@ import {
   Alert,
   KeyboardAvoidingView,
   AsyncStorage,
+  TextInput
 } from "react-native";
 
 import { MessageTextInputMultiline2 } from "../components/mycomponents";
 import { Button } from "react-native-paper";
 import ProgressLoader from "rn-progress-loader";
-import TextInput from "react-native-input-validator";
+//import TextInput from "react-native-input-validator";
 
 function FeedbackScreen() {
   const [name, setName] = useState("");
@@ -27,7 +28,7 @@ function FeedbackScreen() {
   const messageRef = useRef();
 
   const validateEmail = () => {
-    if (email.length == 0 || !emailRef.current.isValid()) {
+    if (!validateEmailAddress(email)) {
       console.log("Email is Not Correct");
       Alert.alert("Invalid Email!");
       return false;
@@ -36,8 +37,28 @@ function FeedbackScreen() {
     }
   };
 
+  function validateEmailAddress(email) {
+    const res = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return res.test(String(email).toLowerCase());
+  }
+
+  const validate = (text) => {
+    console.log(text);
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+    if (reg.test(text) === false) {
+      console.log("Email is Not Correct");
+      Alert.alert("Invalid Email!");
+      setEmail({ email: text })
+      return false;
+    }
+    else {
+      setEmail({ email: text })
+      console.log("Email is Correct");
+    }
+  }
+
   const validateName = () => {
-    if (name.length == 0 || !nameRef.current.isValid()) {
+    if (name.length == 0 || !nameRef) {
       Alert.alert("Name is required !");
       return false;
     } else {
@@ -46,7 +67,7 @@ function FeedbackScreen() {
   };
 
   const validatePhone = () => {
-    if (phone.length < 10 || !phoneRef.current.isValid()) {
+    if (phone.length < 10 || !phoneRef) {
       Alert.alert("Phone is required !");
       return false;
     } else {
@@ -135,7 +156,7 @@ function FeedbackScreen() {
 
   return (
     <KeyboardAvoidingView style={styles.container}>
-      <Text style={styles.contactText}>Feedback</Text>
+     
       <ProgressLoader
         visible={isLoaderVisible}
         isModal={true}
@@ -149,9 +170,9 @@ function FeedbackScreen() {
           source={require("../assets/konza_techno.png")}
           style={styles.image}
         >
-          {/* <MessageTextInputMultiline2 style={styles.feedback} /> */}
+          
           <TextInput
-            style={styles.input}
+            style={styles.messageInput}
             placeholder="Your Message goes here"
             placeholderTextColor="white"
             keyboardType="default"
@@ -234,7 +255,6 @@ const styles = StyleSheet.create({
   inputcontainer: {
     flex: 1,
     width: "100%",
-    marginTop: 10,
     backgroundColor: "black",
   },
 
@@ -254,6 +274,17 @@ const styles = StyleSheet.create({
     padding: 10,
     color: "white",
     borderColor: "white",
+    borderRadius:5,
+  },
+
+  messageInput:{
+    height: 100,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+    color: "white",
+    borderColor: "white",
+    borderRadius:5,
   },
 
   image: {

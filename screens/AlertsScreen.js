@@ -11,30 +11,30 @@ import {
 } from "react-native";
 import CardItemView from "../components/alertItems";
 
-import notifee from "@notifee/react-native";
+//import notifee from "@notifee/react-native";
 import { Svg, Path } from "react-native-svg";
 import { moderateScale } from "react-native-size-matters";
 
 function AlertsScreen() {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
+  //TODO uncomment
+  // const getAlerts = async () => {
+  //   //setLoading(true);
 
-  const getAlerts = async () => {
-    //setLoading(true);
+  //   notifee.setBadgeCount(0).then(() => console.log("Badge count unset!"));
 
-    notifee.setBadgeCount(0).then(() => console.log("Badge count unset!"));
+  //   var currentAlerts = [];
 
-    var currentAlerts = [];
+  //   AsyncStorage.getItem("alerts")
+  //     .then((req) => {
+  //       console.log("Got alerts", req);
+  //       currentAlerts = JSON.parse(req);
 
-    AsyncStorage.getItem("alerts")
-      .then((req) => {
-        console.log("Got alerts", req);
-        currentAlerts = JSON.parse(req);
-
-        setData(currentAlerts);
-      })
-      .catch((error) => console.log("error getting alerts! : ", error));
-  };
+  //       setData(currentAlerts);
+  //     })
+  //     .catch((error) => console.log("error getting alerts! : ", error));
+  // };
 
   useEffect(() => {
     getAlerts();

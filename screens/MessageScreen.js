@@ -75,6 +75,8 @@ const MessageScreen = () => {
 
       const json = await response.json();
 
+      setMessage("");
+
       getMessages();
 
       console.log(json);
@@ -85,7 +87,7 @@ const MessageScreen = () => {
 
   //prevent getMessages from being called everytime component re-renders
   React.useEffect(() => {
-    getMessages();
+    setInterval(getMessages,3000);
   }, []);
 
   const [message, setMessage] = React.useState("");

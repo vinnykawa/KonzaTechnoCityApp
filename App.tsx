@@ -28,6 +28,7 @@ import RegisterScreen from "./screens/RegisterScreen";
 import CustomSidebarMenu from "./components/CustomSidebarMenu";
 //Fab
 import { FAB } from "react-native-paper";
+//TODO uncomment
 import auth from "@react-native-firebase/auth";
 import MessageScreen from "./screens/MessageScreen";
 import HistoryScreen from "./screens/HistoryScreen";
@@ -38,8 +39,10 @@ import DirectorsScreen from "./screens/BoardDirectorsScreen";
 import ManagementScreen from "./screens/ManagementScreen";
 import SocialMediaScreen from "./screens/SocialMediaScreen";
 import GalleryPage from "./screens/GalleryPage";
+//TODO
 import messaging from "@react-native-firebase/messaging";
-
+import SurveyScreen from "./screens/SurveyScreen";
+import QuestionScreen from "./screens/QuestionScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -71,7 +74,7 @@ export default function App() {
             headerTintColor: "white",
           }}
           drawerContent={(props) => <CustomSidebarMenu {...props} />}
-          initialRouteName={"Dashboard"}
+          initialRouteName={"Contact Us"}
         >
           <Drawer.Screen
             name="Contact Us"
@@ -96,13 +99,13 @@ export default function App() {
             }}
             component={InvestorsScreen}
           />
-           <Drawer.Screen
+          <Drawer.Screen
             name="Dashboard"
             options={{
               drawerItemStyle: { height: 0 },
             }}
             component={OverviewScreen}
-          /> 
+          />
           <Drawer.Screen
             name="Alerts"
             options={{
@@ -170,19 +173,19 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={screenOptionStyle}
-        initialRouteName="FeedbackScreen"
+        initialRouteName="Survey"
       >
         <Stack.Screen
           name="Main"
           options={{ headerShown: false }}
           component={main}
         />
-                                       
+
         <Stack.Screen
           name="Login"
           options={{ headerShown: false }}
           component={LoginScreen}
-       /> 
+        />
         <Stack.Screen
           name="Register"
           options={{ headerShown: true }}
@@ -193,7 +196,7 @@ export default function App() {
           name="Message"
           options={{ headerShown: true }}
           component={MessageScreen}
-        /> 
+        />
 
         <Stack.Screen
           name="About"
@@ -246,6 +249,16 @@ export default function App() {
           name="FeedDetailScreen"
           options={{ headerShown: true }}
           component={FeedDetailScreen}
+        />
+        <Stack.Screen
+          name="Survey"
+          options={{ headerShown: true }}
+          component={SurveyScreen}
+        />
+        <Stack.Screen
+          name="Survey Questions"
+          options={{ headerShown: true }}
+          component={QuestionScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>
