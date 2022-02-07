@@ -67,6 +67,7 @@ const LoginScreen: React.FC = () => {
   };
   const onLogin = async (data) => {
     //save uid to async storage
+    console.log("setting user_id = ", data.user.uid);
     await AsyncStorage.setItem("user_id", data.user.uid);
     await AsyncStorage.setItem("email", email);
 
@@ -86,8 +87,6 @@ const LoginScreen: React.FC = () => {
       );
 
       const json = await response.json();
-
-      const message = json.message;
 
       const code = json.code;
 
@@ -239,6 +238,8 @@ async function signIn(navigation: NavigationProp<any>) {
     const userInfo = await GoogleSignin.signIn();
 
     console.log("LOGIN IN  ", userInfo);
+    await AsyncStorage.setItem("user_id", userInfo.user.id);
+    await AsyncStorage.setItem("email", userInfo.user.email);
 
     //hit register just incase this is a new user
     const postdata = {

@@ -46,6 +46,8 @@ function OverviewScreen() {
     const user_id = await AsyncStorage.getItem("user_id");
     const email = await AsyncStorage.getItem("email");
 
+    const tkn = await AsyncStorage.getItem("token");
+
     try {
       const response = await fetch(
         "https://konza.softwareske.net/api/v1/auth/fcm/update",
@@ -53,6 +55,7 @@ function OverviewScreen() {
           method: "PUT",
           headers: {
             "Content-Type": "multipart/form-data",
+            Authorization: "Bearer " + tkn,
           },
           body: JSON.stringify({
             fcm_token: token,
@@ -63,16 +66,6 @@ function OverviewScreen() {
       );
 
       const json = await response.json();
-
-      const message = json.message;
-
-      const code = json.code;
-
-      // Alert.alert(json.message);
-      if (code === 200) {
-        console.log(message);
-      }
-
       console.log(json);
     } catch (error) {
       console.error(error);
@@ -107,7 +100,6 @@ function OverviewScreen() {
         })
         .catch((error) => console.log("error getting alerts!", error));
 
-        
       const channelId = await notifee.createChannel({
         id: "default",
         name: "Default Channel",
@@ -128,7 +120,7 @@ function OverviewScreen() {
         })
         .then(() => {
           notifee.setBadgeCount(1).then(() => console.log("Badge count set!"));
-        }); 
+        });
     });
 
     return unsubscribe;
