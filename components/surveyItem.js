@@ -1,0 +1,43 @@
+import React from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+
+export const SurveyItem = ({ item }) => {
+  return (
+    <View style={styles.container}>
+      <View style={styles.mainCardView}>
+        <View style={{ flexDirection: "column" }}>
+          <Text>{item.title}</Text>
+          <Text style={{ color: "grey" }}>{item.description}</Text>
+        </View>
+        <Text>status</Text>
+      </View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+
+  mainCardView: {
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "white",
+    borderRadius: 5,
+    shadowColor: "grey",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 1,
+    shadowRadius: 8,
+    elevation: 8,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    padding: 10,
+    paddingLeft: 14,
+    paddingRight: 14,
+    marginTop: 6,
+    marginBottom: 6,
+    marginLeft: 16,
+    marginRight: 16,
+  },
+});

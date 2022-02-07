@@ -8,11 +8,11 @@ import {
   Alert,
   KeyboardAvoidingView,
   AsyncStorage,
+  TextInput,
 } from "react-native";
 import { MessageTextInputMultiline } from "../components/mycomponents";
 import { Button } from "react-native-paper";
 import ProgressLoader from "rn-progress-loader";
-import TextInput from "react-native-input-validator";
 import { useNavigation } from "@react-navigation/native";
 import auth from "@react-native-firebase/auth";
 
@@ -32,8 +32,14 @@ function ContactScreen() {
   const phoneRef = useRef();
   const messageRef = useRef();
 
+  function validateEmailAddress(email) {
+    const res =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return res.test(String(email).toLowerCase());
+  }
+
   const validateEmail = () => {
-    if (email.length == 0 || !emailRef.current.isValid()) {
+    if (!validateEmailAddress(email)) {
       console.log("Email is Not Correct");
       Alert.alert("Invalid Email!");
       return false;
@@ -43,7 +49,7 @@ function ContactScreen() {
   };
 
   const validateName = () => {
-    if (name.length == 0 || !nameRef.current.isValid()) {
+    if (name.length == 0 || !nameRef) {
       Alert.alert("Name is required !");
       return false;
     } else {
@@ -52,7 +58,7 @@ function ContactScreen() {
   };
 
   const validatePhone = () => {
-    if (phone.length < 10 || !phoneRef.current.isValid()) {
+    if (phone.length < 10 || !phoneRef) {
       Alert.alert("Phone is required !");
       return false;
     } else {
@@ -164,7 +170,7 @@ function ContactScreen() {
   };
 
   return (
-    <KeyboardAvoidingView style={styles.container}>
+    <KeyboardAvoidingView>
       <ProgressLoader
         visible={isLoaderVisible}
         isModal={true}
@@ -172,6 +178,7 @@ function ContactScreen() {
         hudColor={"#000000"}
         color={"#FFFFFF"}
       />
+
       <View style={styles.inputcontainer}>
         <ImageBackground
           imageStyle={{ opacity: 0.4 }}
@@ -217,9 +224,8 @@ function ContactScreen() {
             value={phone}
           />
 
-          {/*<MessageTextInputMultiline />*/}
           <TextInput
-            style={styles.input}
+            style={styles.messageInput}
             placeholder="Your Message goes here"
             placeholderTextColor="white"
             keyboardType="default"
@@ -233,50 +239,52 @@ function ContactScreen() {
             numberOfLines={4}
           />
 
-          <View style={styles.fixToText}>
-            <Button
-              onPress={() => submitContactInfo()}
-              mode={"contained"}
-              color={"white"}
-              style={{ margin: 10 }}
-              labelStyle={{ color: "green" }}
-            >
-              Submit
-            </Button>
-          </View>
+          <View style={{ flex: 0, justifyContent: "flex-end", marginTop: 70 }}>
+            <View style={styles.fixToText}>
+              <Button
+                onPress={() => submitContactInfo()}
+                mode={"contained"}
+                color={"white"}
+                style={{ margin: 10 }}
+                labelStyle={{ color: "green" }}
+              >
+                Submit
+              </Button>
+            </View>
 
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "center",
-              marginTop: 80,
-            }}
-          >
-            <Button
-              icon="phone-in-talk"
-              color="white"
-              mode="contained"
-              style={styles.contactButton}
-              labelStyle={{ color: "green" }}
-              onPress={() => openDialScreen()}
-            >
-              {" "}
-              Call Us
-            </Button>
-
-            <Button
-              icon="map-marker"
-              color="white"
-              mode="contained"
-              style={styles.contactButton}
-              labelStyle={{ color: "green" }}
-              onPress={() => {
-                Linking.openURL(url);
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "center",
+                marginTop: 40,
               }}
             >
-              {" "}
-              Locate Us
-            </Button>
+              <Button
+                icon="phone-in-talk"
+                color="white"
+                mode="contained"
+                style={styles.contactButton}
+                labelStyle={{ color: "green" }}
+                onPress={() => openDialScreen()}
+              >
+                {" "}
+                Call Us
+              </Button>
+
+              <Button
+                icon="map-marker"
+                color="white"
+                mode="contained"
+                style={styles.contactButton}
+                labelStyle={{ color: "green" }}
+                onPress={() => {
+                  Linking.openURL(url);
+                }}
+              >
+                {" "}
+                Locate Us
+              </Button>
+            </View>
           </View>
         </ImageBackground>
       </View>
@@ -295,10 +303,11 @@ const styles = StyleSheet.create({
   },
 
   inputcontainer: {
-    flex: 1,
     width: "100%",
     backgroundColor: "black",
     height: "100%",
+    flexDirection: "column",
+    justifyContent: "space-between",
   },
 
   contactText: {
@@ -317,6 +326,17 @@ const styles = StyleSheet.create({
     padding: 10,
     color: "white",
     borderColor: "white",
+    borderRadius: 5,
+  },
+
+  messageInput: {
+    height: 100,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+    color: "white",
+    borderColor: "white",
+    borderRadius: 5,
   },
 
   contactButton: {
@@ -326,7 +346,8 @@ const styles = StyleSheet.create({
   },
 
   image: {
-    flex: 1,
+    flex: 0,
+    height: "100%",
   },
 
   fixToText: {

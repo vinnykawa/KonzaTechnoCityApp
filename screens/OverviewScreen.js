@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { FlatGrid } from "react-native-super-grid";
 import messaging from "@react-native-firebase/messaging";
+//TODO
 import notifee from "@notifee/react-native";
 
 function OverviewScreen() {
@@ -104,8 +105,9 @@ function OverviewScreen() {
         id: "default",
         name: "Default Channel",
       });
+      //end of TODO
 
-      // Required for iOS
+      //Required for iOS
       // See https://notifee.app/react-native/docs/ios/permissions
       await notifee.requestPermission();
 

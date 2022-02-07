@@ -1,5 +1,6 @@
 import "react-native-gesture-handler";
 import { registerRootComponent } from "expo";
+//TODO uncomment
 import messaging from "@react-native-firebase/messaging";
 import { AsyncStorage } from "react-native";
 
