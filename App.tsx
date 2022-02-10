@@ -74,7 +74,7 @@ export default function App() {
             headerTintColor: "white",
           }}
           drawerContent={(props) => <CustomSidebarMenu {...props} />}
-          initialRouteName={"Contact Us"}
+          initialRouteName={"Dashboard"}
         >
           <Drawer.Screen
             name="Contact Us"
@@ -141,7 +141,13 @@ export default function App() {
             }}
             component={FeedbackScreen}
           />
-
+          <Drawer.Screen
+            name="Surveys"
+            options={{
+              drawerItemStyle: { height: 0 },
+            }}
+            component={SurveyScreen}
+          />
           <Drawer.Screen
             name="Gallery"
             options={{
@@ -173,7 +179,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={screenOptionStyle}
-        initialRouteName="Survey"
+        initialRouteName="Login"
       >
         <Stack.Screen
           name="Main"

@@ -216,6 +216,14 @@ function OverviewScreen() {
                   navigation.navigate("Feedback");
                 },
               },
+
+              {
+                title: "Surveys",
+                icon: require("../assets/faq-black.png"),
+                onPress: () => {
+                  navigation.navigate("Surveys");
+                },
+              },
             ]}
             renderItem={({ item }) => (
               <View>

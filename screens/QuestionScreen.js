@@ -6,15 +6,16 @@ import {
   SafeAreaView,
   FlatList,
   TextInput,
+  AsyncStorage,
   Alert,
 } from "react-native";
 import { Rating } from "react-native-ratings";
 import { Picker } from "@react-native-picker/picker";
-import { Button, RadioButton } from "react-native-paper";
-import { TouchableOpacity } from "react-native-gesture-handler";
-
+import { Button } from "react-native-paper";
+import ProgressLoader from "rn-progress-loader";
 import RadioButtonRN from "radio-buttons-react-native";
 import SelectMultiple from "react-native-select-multiple";
+import { useNavigation } from "@react-navigation/native";
 
 function QuestionScreen({ route }) {
   const [selectedValue, setSelectedValue] = useState("");
@@ -23,6 +24,9 @@ function QuestionScreen({ route }) {
   const [rating, setRating] = useState(0);
   const [select, setSelection] = useState();
   const [choises, setChoises] = useState([]);
+  const [isLoaderVisible, setLoaderVisibility] = useState(false);
+  const navigation = useNavigation();
+
   function containsObject(obj) {
     var i;
     for (i = 0; i < response.length; i++) {
@@ -37,12 +41,8 @@ function QuestionScreen({ route }) {
 
   const getQuestions = async () => {
     const { surveyID } = route.params;
-
-    console.log(text);
-
-    //console.log(surveyID);
-    const token =
-      "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIzIiwianRpIjoiMmI1ZTdkZTEwMjNhZTc0MjRiMDg2ODgxOGRiODVlNzI0ZmZmZTExNWVhNjczYzlhZTRiZDIwMjFiOWQwOWMyOWY0ZmM4OGU5OTU2YmYwNmUiLCJpYXQiOjE2NDM5MDE0NjEuMDU5MTkxLCJuYmYiOjE2NDM5MDE0NjEuMDU5MTk2LCJleHAiOjE2NDM5MDUwNjEuMDUzNDQ1LCJzdWIiOiIyNSIsInNjb3BlcyI6W119.BzsASkqx-Tzd5VpiykpfyG0NleI14Bef1AsCn1_4dLOGKH8I8OZR69IIgQcI6EIC2-kxnuio9WS55wRqWPwxhaJBjvcELRjNLT3rzVKXTpIWDnKlLNn2npuOHKoXSbCHehY6lc8xQVGMXxRzbgsF2vxU3nUUNcSc29vSfIdjNc5W0PChP-dWnA7Cceugo-3DY9Y7tTfsKfRKXdaD55RwiBhBWPcq1L2lf9paejZto-e4iXL7MC_fOvgwpTJKmrGUL8rRlxp-d4S-NtztZumUpA2IoRqYTKRTwH3Pv-2ZTdykntMrUQMdMv1zoLoWYGh_ynrtmVWvJEKJ8ZYpbcClDewNyj0Qh4Sn0kjkqfZ8vMoSmABnRRk3NZBU5v4Xb0Z8kq9x58NldvWmlTCTSOffuD7uSE5Bucbmoa0g98k4H3fuzklZCXhwr6wPZfJuTWxbwn_nO6uS-zM7VIYSIDKMusxVTNCJBPGqvcPu3VozoLcHA5S6ascAGbrb3lSsIN0N4mYHB6baZ0K0SsBQKRghyloOnJYt-KwRg2c7Fapb7GPAvq5LRR89G5esPQdM4sCy8zefuofIojZXLCQe8ZM-RlL0Qpv8i-0iuLhrmIhYH7rqYG71ZDeHfIVf5ISanLYaaBMFqj922ta2Zn_0O6T_h9e_zUjlTi9emzN5raOkJ2Q";
+    const token = await AsyncStorage.getItem("token");
+    setLoaderVisibility(true);
 
     try {
       const response = await fetch(
@@ -56,6 +56,8 @@ function QuestionScreen({ route }) {
       );
       const json = await response.json();
       const code = json.code ?? "";
+      console.log(json);
+      setLoaderVisibility(false);
 
       setData(json);
     } catch (error) {
@@ -72,8 +74,9 @@ function QuestionScreen({ route }) {
 
   const surveyResponse = async () => {
     const token = await AsyncStorage.getItem("token");
-    // const token =
-    //   "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIzIiwianRpIjoiMmI1ZTdkZTEwMjNhZTc0MjRiMDg2ODgxOGRiODVlNzI0ZmZmZTExNWVhNjczYzlhZTRiZDIwMjFiOWQwOWMyOWY0ZmM4OGU5OTU2YmYwNmUiLCJpYXQiOjE2NDM5MDE0NjEuMDU5MTkxLCJuYmYiOjE2NDM5MDE0NjEuMDU5MTk2LCJleHAiOjE2NDM5MDUwNjEuMDUzNDQ1LCJzdWIiOiIyNSIsInNjb3BlcyI6W119.BzsASkqx-Tzd5VpiykpfyG0NleI14Bef1AsCn1_4dLOGKH8I8OZR69IIgQcI6EIC2-kxnuio9WS55wRqWPwxhaJBjvcELRjNLT3rzVKXTpIWDnKlLNn2npuOHKoXSbCHehY6lc8xQVGMXxRzbgsF2vxU3nUUNcSc29vSfIdjNc5W0PChP-dWnA7Cceugo-3DY9Y7tTfsKfRKXdaD55RwiBhBWPcq1L2lf9paejZto-e4iXL7MC_fOvgwpTJKmrGUL8rRlxp-d4S-NtztZumUpA2IoRqYTKRTwH3Pv-2ZTdykntMrUQMdMv1zoLoWYGh_ynrtmVWvJEKJ8ZYpbcClDewNyj0Qh4Sn0kjkqfZ8vMoSmABnRRk3NZBU5v4Xb0Z8kq9x58NldvWmlTCTSOffuD7uSE5Bucbmoa0g98k4H3fuzklZCXhwr6wPZfJuTWxbwn_nO6uS-zM7VIYSIDKMusxVTNCJBPGqvcPu3VozoLcHA5S6ascAGbrb3lSsIN0N4mYHB6baZ0K0SsBQKRghyloOnJYt-KwRg2c7Fapb7GPAvq5LRR89G5esPQdM4sCy8zefuofIojZXLCQe8ZM-RlL0Qpv8i-0iuLhrmIhYH7rqYG71ZDeHfIVf5ISanLYaaBMFqj922ta2Zn_0O6T_h9e_zUjlTi9emzN5raOkJ2Q";
+    const user_id = await AsyncStorage.getItem("user_id");
+    const { surveyID } = route.params;
+    setLoaderVisibility(true);
 
     const request = {
       method: "POST",
@@ -83,8 +86,8 @@ function QuestionScreen({ route }) {
         Authorization: "Bearer " + token,
       },
       body: JSON.stringify({
-        survey_id: "1",
-        user_id: "testid",
+        survey_id: surveyID,
+        user_id: user_id,
         response: response,
       }),
     };
@@ -102,8 +105,11 @@ function QuestionScreen({ route }) {
 
       const message = json.message;
       // console.log(message);
+      setLoaderVisibility(false);
 
       Alert.alert(message);
+
+      if (json.code == 200) navigation.replace("Survey");
     } catch (error) {
       console.error(error);
     }
@@ -111,10 +117,9 @@ function QuestionScreen({ route }) {
 
   const optionsList = (item) => {
     let options = item.metadata.options;
-    console.log(options);
 
-    return options.map((obj) => {
-      return <Picker.Item label={obj.value} value={obj} />;
+    return options.map((obj, index) => {
+      return <Picker.Item label={obj.value} value={obj.value} key={index} />;
     });
   };
 
@@ -241,20 +246,32 @@ function QuestionScreen({ route }) {
             <View style={{ flexDirection: "row", alignSelf: "center" }}>
               <Picker
                 selectedValue={selectedValue}
-                mode="dropdown"
-                style={{ height: 50, width: 150 }}
+                style={{ width: 200, height: 180 }}
+                itemStyle={{ height: 160 }}
                 onValueChange={(obj) => {
-                  var respObj = {
-                    question_id: item.id,
-                    value: [obj],
-                  };
+                  item.metadata.options.forEach((option) => {
+                    console.log("option", option);
+                    if (option.value === obj) {
+                      var respObj = {
+                        question_id: item.id,
+                        value: [obj],
+                      };
 
-                  if (!containsObject(respObj)) {
-                    //push new
-                    response.push(respObj);
-                  }
+                      if (!containsObject(respObj)) {
+                        //push new
+                        response.push(respObj);
+                      }
+                    }
+                  });
 
+                  // const firstItem = [];
+                  // firstItem[item.id] = item.metadata.options[0].value;
+                  // const arr = selectedValue === "" ? firstItem : selectedValue;
+                  // console.log(" current", arr);
+                  // arr[item.id] = obj;
                   console.log(response);
+
+                  setSelectedValue(obj);
                 }}
               >
                 {optionsList(item)}
@@ -313,6 +330,7 @@ function QuestionScreen({ route }) {
             </View>
             <View style={{ flexDirection: "row", alignSelf: "flex-start" }}>
               <SelectMultiple
+                style={{ width: 350 }}
                 items={choiceList(item)}
                 selectedItems={choises}
                 onSelectionsChange={(e) => {
@@ -368,6 +386,13 @@ function QuestionScreen({ route }) {
   return (
     <View style={styles.container}>
       <SafeAreaView>
+        <ProgressLoader
+          visible={isLoaderVisible}
+          isModal={true}
+          isHUD={true}
+          hudColor={"#000000"}
+          color={"#FFFFFF"}
+        />
         <FlatList
           data={data.questions}
           renderItem={renderItem}

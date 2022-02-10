@@ -8,9 +8,6 @@ import {
   TouchableOpacity,
   AsyncStorage,
 } from "react-native";
-//import { SurveyItem } from "../components/surveyItem";
-import { useNavigation } from "@react-navigation/native";
-import { color } from "react-native-reanimated";
 
 function SurveyScreen({ navigation }) {
   const [data, setData] = useState([]);

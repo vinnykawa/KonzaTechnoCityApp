@@ -231,6 +231,19 @@ const CustomSidebarMenu = (props) => {
             <View style={styles.divider} />
             <DrawerItem
               {...props}
+              label="Surveys"
+              labelStyle={{ color: "white" }}
+              icon={() => (
+                <Image
+                  source={require("../assets/faq-black.png")}
+                  style={[styles.iconStyle, { tintColor: "white" }]}
+                />
+              )}
+              onPress={() => props.navigation.navigate("Surveys")}
+            />
+            <View style={styles.divider} />
+            <DrawerItem
+              {...props}
               label="Gallery"
               labelStyle={{ color: "white" }}
               icon={() => (
