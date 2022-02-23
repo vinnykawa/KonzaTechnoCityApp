@@ -41,7 +41,7 @@ export const GalleryItemView = ({ item, navigation }) => {
           source={{ uri: item.image }}
           style={{
             width: 332,
-            height: 150,
+            height: 200,
             margin: 10,
             resizeMode: "stretch",
           }}
@@ -80,7 +80,7 @@ export const GalleryItemView = ({ item, navigation }) => {
           </View>
         </View>
 
-        {/* <Button
+        <Button
           onPress={onShare}
           icon={"share"}
           mode={"outlined"}
@@ -88,7 +88,7 @@ export const GalleryItemView = ({ item, navigation }) => {
           style={{ margin: 10, marginTop: 10 }}
         >
           Share
-        </Button> */}
+        </Button>
       </View>
     </View>
   );

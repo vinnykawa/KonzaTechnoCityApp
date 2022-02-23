@@ -32,13 +32,13 @@ const AboutScreen = ({ navigation }) => {
 
           <View style={styles.sectionContainer}>
             <TouchableOpacity onPress={() => navigation.navigate("History")}>
-              <SectionHistory text="HISTORY" />
+              <SectionHistory text="History" />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate("Mission")}>
-              <SectionVision text="VISION AND MISSION" />
+              <SectionVision text="Vission and Mission" />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate("Values")}>
-              <SectionValues text="CORE VALUES" />
+              <SectionValues text="Core Values" />
             </TouchableOpacity>
             {/* <TouchableOpacity onPress={() => navigation.navigate("Directors")}>
               <SectionBoard text="BOARD OF DIRECTORS" />

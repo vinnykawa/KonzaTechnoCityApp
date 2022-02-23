@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   StatusBar,
+  AsyncStorage,
 } from "react-native";
 
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
@@ -40,15 +41,81 @@ import ManagementScreen from "./screens/ManagementScreen";
 import SocialMediaScreen from "./screens/SocialMediaScreen";
 import GalleryPage from "./screens/GalleryPage";
 //TODO
-import messaging from "@react-native-firebase/messaging";
 import SurveyScreen from "./screens/SurveyScreen";
 import QuestionScreen from "./screens/QuestionScreen";
+import messaging from "@react-native-firebase/messaging";
+import notifee from "@notifee/react-native";
 
 const Drawer = createDrawerNavigator();
 
 export default function App() {
   const main = () => {
     const navigation = useNavigation();
+
+    useEffect(() => {
+      const unsubscribe = messaging().onMessage(async (remoteMessage) => {
+        console.log(
+          "A new FCM message arrived!",
+          JSON.stringify(remoteMessage)
+        );
+
+        const alert = [
+          {
+            id: Date.now(),
+            title: remoteMessage.notification?.title,
+            message: remoteMessage.notification?.body,
+          },
+        ];
+
+        var currentAlerts: any = [];
+        await AsyncStorage.getItem("alerts")
+          .then(async (req) => {
+            console.log("Found alerts", req);
+
+            if (req !== null) {
+              currentAlerts = JSON.parse(req);
+              currentAlerts.push(...alert);
+            }
+
+            await AsyncStorage.setItem("alerts", JSON.stringify(currentAlerts))
+              .then((json) =>
+                console.log(
+                  "success updating alerts!",
+                  JSON.stringify(currentAlerts)
+                )
+              )
+              .catch((error) => console.log("error updating alerts!", error));
+          })
+          .catch((error) => console.log("error getting alerts!", error));
+
+        const channelId = await notifee.createChannel({
+          id: "default",
+          name: "Default Channel",
+        });
+        //end of TODO
+
+        //Required for iOS
+        // See https://notifee.app/react-native/docs/ios/permissions
+        await notifee.requestPermission();
+
+        const notificationId = await notifee
+          .displayNotification({
+            id: remoteMessage.messageId,
+            title: remoteMessage.notification?.title,
+            body: remoteMessage.notification?.body,
+            android: {
+              channelId,
+            },
+          })
+          .then(() => {
+            notifee
+              .setBadgeCount(1)
+              .then(() => console.log("Badge count set!"));
+          });
+      });
+
+      return unsubscribe;
+    }, []);
 
     return (
       <>
@@ -221,12 +288,12 @@ export default function App() {
         />
         <Stack.Screen
           name="Mission"
-          options={{ headerShown: true }}
+          options={{ headerShown: true, title: "Vision and Mission" }}
           component={MissionScreen}
         />
         <Stack.Screen
           name="Values"
-          options={{ headerShown: true }}
+          options={{ headerShown: true, title: "Core Values" }}
           component={ValuesScreen}
         />
         <Stack.Screen
@@ -241,19 +308,19 @@ export default function App() {
         />
         <Stack.Screen
           name="Socials"
-          options={{ headerShown: true }}
+          options={{ headerShown: true, title: "Social Media" }}
           component={SocialMediaScreen}
         />
 
         <Stack.Screen
           name="GalleryPage"
-          options={{ headerShown: true }}
+          options={{ headerShown: true, title: "Gallery" }}
           component={GalleryPage}
         />
 
         <Stack.Screen
           name="FeedDetailScreen"
-          options={{ headerShown: true }}
+          options={{ headerShown: true, title: "Details" }}
           component={FeedDetailScreen}
         />
         <Stack.Screen

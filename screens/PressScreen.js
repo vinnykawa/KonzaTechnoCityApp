@@ -8,10 +8,10 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   Share,
-  Image
+  Image,
 } from "react-native";
 import { Button } from "react-native-paper";
-import { useNavigation } from "@react-navigation/native"
+import { useNavigation } from "@react-navigation/native";
 //import { PressItemView } from "./../components/PressItems";
 import { Card } from "../components/mycomponents";
 import { ScrollView } from "react-native-gesture-handler";
@@ -76,94 +76,92 @@ function PressScreen() {
   };
 
   //renderItem
-  const PressItemView = ({ item }) =>{
-   
-     const onShare = async () => {
-       try {
-         const result = await Share.share({
-           title: item.title,
-           message: item.link,
-           url:item.link,
-         });
-         if (result.action === Share.sharedAction) {
-           if (result.activityType) {
-             // shared with activity type of result.activityType
-           } else {
-             // shared
-           }
-         } else if (result.action === Share.dismissedAction) {
-           // dismissed
-         }
-       } catch (error) {
-         alert(error.message);
-       }
-     };
-   
-     return (
-      
-         <View style={styles.mainCardView}>
-           <View style={{ flexDirection: "column" }}>
-           <TouchableOpacity
-       onPress={() => {
-         navigation.navigate("FeedDetailScreen", {item})
-       }}
-       >
-             <Image
-               source={{ uri: item.image }}
-               style={{
-                 width: 332,
-                 height: 150,
-                 margin: 10,
-                 resizeMode: "stretch",
-               }}
-             />
-   
-             <View style={{ flexDirection: "row", alignItems: "center" }}>
-               <View style={{ marginLeft: 12 }}>
-                 <Text
-                   style={{
-                     fontSize: 16,
-                     color: "black",
-                     fontWeight: "bold",
-   
-                     textTransform: "capitalize",
-                   }}
-                 >
-                   {item.title}
-                 </Text>
-                 <View
-                   style={{
-                     marginTop: 4,
-                     borderWidth: 0,
-                     width: "100%",
-                   }}
-                 >
-                   <Text numberOfLines={5}
-                     style={{
-                       color: "grey",
-                       fontSize: 14,
-                     }}
-                   >
-                     {item.content}
-                   </Text>
-                 </View>
-               </View>
-             </View>
-             </TouchableOpacity>
-             <Button
-             onPress={onShare}
-             icon={'share'}
-             mode={"outlined"}
-             color={"green"}
-             style={{ margin: 10 ,marginTop:10}}
-           >
-             Share
-           </Button>
-           </View>
-         </View>
-       
-     );
-   };
+  const PressItemView = ({ item }) => {
+    const onShare = async () => {
+      try {
+        const result = await Share.share({
+          title: item.title,
+          message: item.link,
+          url: item.link,
+        });
+        if (result.action === Share.sharedAction) {
+          if (result.activityType) {
+            // shared with activity type of result.activityType
+          } else {
+            // shared
+          }
+        } else if (result.action === Share.dismissedAction) {
+          // dismissed
+        }
+      } catch (error) {
+        alert(error.message);
+      }
+    };
+
+    return (
+      <View style={styles.mainCardView}>
+        <View style={{ flexDirection: "column" }}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("FeedDetailScreen", { item });
+            }}
+          >
+            <Image
+              source={{ uri: item.image }}
+              style={{
+                width: 332,
+                height: 200,
+                margin: 10,
+                resizeMode: "stretch",
+              }}
+            />
+
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <View style={{ marginLeft: 12 }}>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    color: "black",
+                    fontWeight: "bold",
+
+                    textTransform: "capitalize",
+                  }}
+                >
+                  {item.title}
+                </Text>
+                <View
+                  style={{
+                    marginTop: 4,
+                    borderWidth: 0,
+                    width: "100%",
+                  }}
+                >
+                  <Text
+                    numberOfLines={5}
+                    style={{
+                      color: "grey",
+                      fontSize: 14,
+                    }}
+                  >
+                    {item.content_full}
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </TouchableOpacity>
+          <Button
+            onPress={onShare}
+            icon={"share"}
+            mode={"outlined"}
+            color={"green"}
+            style={{ margin: 10, marginTop: 10 }}
+          >
+            Share
+          </Button>
+        </View>
+      </View>
+    );
+  };
   //
 
   return (

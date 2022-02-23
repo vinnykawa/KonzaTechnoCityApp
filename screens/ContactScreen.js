@@ -87,11 +87,11 @@ function ContactScreen() {
         const token = await AsyncStorage.getItem("token");
 
         const response = await fetch(
-          "https://konza.softwareske.net/api/v1/customer/contactus/request",
+          "https://konza.softwareske.net/api/v1/customer/contact",
           {
             method: "POST",
             headers: {
-              "Content-Type": "multipart/form-data",
+              "Content-Type": "application/json",
               Authorization: "Bearer " + token,
             },
             body: JSON.stringify({
@@ -104,10 +104,6 @@ function ContactScreen() {
           }
         );
 
-        const json = await response.json();
-
-        setLoaderVisibility(false);
-
         console.log(
           "Request",
           JSON.stringify({
@@ -116,10 +112,13 @@ function ContactScreen() {
             name: name,
             email: email,
             phone: phone,
+            token: token,
           })
         );
 
-        console.log(json);
+        const json = await response.json();
+
+        setLoaderVisibility(false);
 
         const message = json.message;
         const code = json.code;
@@ -143,7 +142,7 @@ function ContactScreen() {
 
         console.log(json);
       } catch (error) {
-        console.error(error);
+        console.error("isssaaa" + error);
         setLoaderVisibility(false);
       }
     }

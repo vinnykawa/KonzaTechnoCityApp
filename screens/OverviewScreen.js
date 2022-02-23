@@ -1,7 +1,6 @@
 import { useNavigation } from "@react-navigation/core";
 import React, { useEffect } from "react";
 import {
-  Alert,
   View,
   Text,
   AsyncStorage,
@@ -12,8 +11,6 @@ import {
 } from "react-native";
 import { FlatGrid } from "react-native-super-grid";
 import messaging from "@react-native-firebase/messaging";
-//TODO
-import notifee from "@notifee/react-native";
 
 function OverviewScreen() {
   const navigation = useNavigation();
@@ -75,57 +72,6 @@ function OverviewScreen() {
 
   useEffect(() => {
     requestUserPermission();
-
-    const unsubscribe = messaging().onMessage(async (remoteMessage) => {
-      console.log("A new FCM message arrived!", JSON.stringify(remoteMessage));
-
-      const alert = [
-        {
-          id: Date.now(),
-          title: remoteMessage.notification.title,
-          message: remoteMessage.notification.body,
-        },
-      ];
-
-      var currentAlerts = [];
-      await AsyncStorage.getItem("alerts")
-        .then(async (req) => {
-          console.log("Found alerts", req);
-
-          if (req !== null) currentAlerts = JSON.parse(req);
-          currentAlerts.push(...alert);
-
-          await AsyncStorage.setItem("alerts", JSON.stringify(currentAlerts))
-            .then((json) => console.log("success updating alerts!", json))
-            .catch((error) => console.log("error updating alerts!", error));
-        })
-        .catch((error) => console.log("error getting alerts!", error));
-
-      const channelId = await notifee.createChannel({
-        id: "default",
-        name: "Default Channel",
-      });
-      //end of TODO
-
-      //Required for iOS
-      // See https://notifee.app/react-native/docs/ios/permissions
-      await notifee.requestPermission();
-
-      const notificationId = await notifee
-        .displayNotification({
-          id: remoteMessage.messageId,
-          title: remoteMessage.notification?.title,
-          body: remoteMessage.notification?.body,
-          android: {
-            channelId,
-          },
-        })
-        .then(() => {
-          notifee.setBadgeCount(1).then(() => console.log("Badge count set!"));
-        });
-    });
-
-    return unsubscribe;
   }, []);
 
   return (

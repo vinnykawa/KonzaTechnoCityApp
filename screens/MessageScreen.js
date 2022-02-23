@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import {
   View,
   Text,
@@ -39,6 +39,7 @@ const MessageScreen = () => {
       if (json instanceof Array) {
         setMessages(json[0].reverse());
       } else {
+        console.log("Session Expired stop polling !!");
         Alert.alert("Session Expired! Please login and try again");
         auth().signOut();
 
@@ -87,11 +88,14 @@ const MessageScreen = () => {
 
   //prevent getMessages from being called everytime component re-renders
   React.useEffect(() => {
-    setInterval(getMessages,3000);
+    const interval = setInterval(getMessages, 5000);
+
+    return () => clearInterval(interval);
   }, []);
 
   const [message, setMessage] = React.useState("");
   const [messages, setMessages] = React.useState([]);
+  const scrollViewRef = useRef();
 
   return (
     <KeyboardAvoidingView
@@ -105,6 +109,8 @@ const MessageScreen = () => {
           {messages.length > 0 ? (
             <FlatList
               data={messages}
+              inverted
+              contentContainerStyle={{ flexDirection: "column-reverse" }}
               renderItem={MessageItemView}
               keyExtractor={(item) => item.id}
             />
@@ -131,6 +137,7 @@ const MessageScreen = () => {
           }}
         >
           <TextInput
+            value={message}
             multiline
             numberOfLines={4}
             placeholder={"Your message goes here"}

@@ -1,17 +1,23 @@
-
-import  React  from 'react';
-import { StyleSheet, Image, Text, TouchableWithoutFeedback, View, Linking, Share } from 'react-native';
-import { Button } from 'react-native-paper';
+import React from "react";
+import {
+  StyleSheet,
+  Image,
+  Text,
+  TouchableWithoutFeedback,
+  View,
+  Linking,
+  Share,
+} from "react-native";
+import { Button } from "react-native-paper";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 export const EventItemView = ({ item }) => {
-
   const onShare = async () => {
     try {
       const result = await Share.share({
         title: item.title,
         message: item.link,
-        url:item.link,
+        url: item.link,
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
@@ -28,19 +34,18 @@ export const EventItemView = ({ item }) => {
   };
 
   return (
-    
-      <View style={styles.mainCardView}>
-        <View style={{ flexDirection: "column" }}>
+    <View style={styles.mainCardView}>
+      <View style={{ flexDirection: "column" }}>
         <TouchableOpacity
-    onPress={() => {
-          Linking.openURL(item.link);
-        }}
-    >
+          onPress={() => {
+            Linking.openURL(item.link);
+          }}
+        >
           <Image
             source={{ uri: item.image }}
             style={{
               width: 332,
-              height: 150,
+              height: 200,
               margin: 10,
               resizeMode: "stretch",
             }}
@@ -66,7 +71,8 @@ export const EventItemView = ({ item }) => {
                   width: "100%",
                 }}
               >
-                <Text numberOfLines={5}
+                <Text
+                  numberOfLines={5}
                   style={{
                     color: "grey",
                     fontSize: 14,
@@ -82,13 +88,14 @@ export const EventItemView = ({ item }) => {
                   width: "100%",
                 }}
               >
-                <Text numberOfLines={1}
+                <Text
+                  numberOfLines={1}
                   style={{
                     color: "black",
                     fontSize: 14,
                   }}
                 >
-                 Venue: {item.venue}
+                  Venue: {item.venue}
                 </Text>
               </View>
               <View
@@ -98,30 +105,30 @@ export const EventItemView = ({ item }) => {
                   width: "100%",
                 }}
               >
-                <Text numberOfLines={1}
+                <Text
+                  numberOfLines={1}
                   style={{
                     color: "black",
                     fontSize: 14,
                   }}
                 >
-                 Organizers: Konza Technopolis
+                  Organizers: Konza Technopolis
                 </Text>
               </View>
             </View>
           </View>
-          </TouchableOpacity>
-          <Button
+        </TouchableOpacity>
+        <Button
           onPress={onShare}
-          icon={'share'}
+          icon={"share"}
           mode={"outlined"}
           color={"green"}
-          style={{ margin: 10 ,marginTop:10}}
+          style={{ margin: 10, marginTop: 10 }}
         >
           Share
         </Button>
-        </View>
       </View>
-    
+    </View>
   );
 };
 

@@ -183,7 +183,7 @@ function QuestionScreen({ route }) {
       <View>
         <Button
           onPress={surveyResponse}
-          mode={"outlined"}
+          mode={"contained"}
           color={"green"}
           style={{ margin: 10 }}
         >
@@ -199,12 +199,12 @@ function QuestionScreen({ route }) {
         return (
           <View style={styles.itemContainer}>
             <View style={{ flexDirection: "column", flex: 0 }}>
-              <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+              <Text style={{ fontSize: 20, fontWeight: "bold", padding: 5 }}>
                 {item.title}
               </Text>
-              <Text>{item.description}</Text>
+              <Text style={{ padding: 5 }}>{item.description}</Text>
             </View>
-            <View style={{ flexDirection: "row", alignSelf: "center" }}>
+            <View style={{ flexDirection: "row", alignSelf: "flex-start" }}>
               <Rating
                 showRating
                 startingValue={1}
@@ -238,12 +238,12 @@ function QuestionScreen({ route }) {
         return (
           <View style={styles.itemContainer}>
             <View style={{ flexDirection: "column", flex: 0 }}>
-              <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+              <Text style={{ fontSize: 20, fontWeight: "bold", padding: 5 }}>
                 {item.title}
               </Text>
-              <Text>{item.description}</Text>
+              <Text style={{ padding: 5 }}>{item.description}</Text>
             </View>
-            <View style={{ flexDirection: "row", alignSelf: "center" }}>
+            <View style={{ flexDirection: "row", alignSelf: "flex-start" }}>
               <Picker
                 selectedValue={selectedValue}
                 style={{ width: 200, height: 180 }}
@@ -284,12 +284,12 @@ function QuestionScreen({ route }) {
         return (
           <View style={styles.itemContainer}>
             <View style={{ flexDirection: "column", flex: 0 }}>
-              <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+              <Text style={{ fontSize: 20, fontWeight: "bold", padding: 5 }}>
                 {item.title}
               </Text>
-              <Text>{item.description}</Text>
+              <Text style={{ padding: 5 }}>{item.description}</Text>
             </View>
-            <View style={{ flexDirection: "row" }}>
+            <View style={{ flexDirection: "row", alignContent: "flex-start" }}>
               <TextInput
                 style={styles.input}
                 placeholder="Name"
@@ -323,10 +323,10 @@ function QuestionScreen({ route }) {
         return (
           <View style={styles.itemContainer}>
             <View style={{ flexDirection: "column", flex: 0 }}>
-              <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+              <Text style={{ fontSize: 20, fontWeight: "bold", padding: 5 }}>
                 {item.title}
               </Text>
-              <Text>{item.description}</Text>
+              <Text style={{ padding: 5 }}>{item.description}</Text>
             </View>
             <View style={{ flexDirection: "row", alignSelf: "flex-start" }}>
               <SelectMultiple
@@ -371,10 +371,10 @@ function QuestionScreen({ route }) {
         return (
           <View style={styles.itemContainer}>
             <View style={{ flexDirection: "column", flex: 0 }}>
-              <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+              <Text style={{ fontSize: 20, fontWeight: "bold", padding: 5 }}>
                 {item.title}
               </Text>
-              <Text>{item.description}</Text>
+              <Text style={{ padding: 5 }}>{item.description}</Text>
             </View>
 
             <View>{radioList(item)}</View>
@@ -407,25 +407,29 @@ function QuestionScreen({ route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "white",
   },
 
   itemContainer: {
     flexDirection: "column",
     padding: 10,
     backgroundColor: "white",
-    borderWidth: 2,
-    borderRadius: 5,
-    borderColor: "grey",
-    marginVertical: 2,
-    marginHorizontal: 2,
+    borderColor: "white",
+    marginVertical: 10,
+    marginHorizontal: 10,
     flex: 1,
+    shadowColor: "#ccc",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 1,
+    shadowRadius: 3,
+    elevation: 8,
   },
 
   input: {
-    height: 80,
+    height: 40,
     margin: 12,
-    borderWidth: 1,
-    padding: 10,
+    borderBottomWidth: 1,
+    padding: 0,
     color: "black",
     borderColor: "grey",
     borderRadius: 5,

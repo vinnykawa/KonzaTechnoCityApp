@@ -14,20 +14,32 @@ function FeedDetailScreen({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      
-      <Image
-        source={{ uri: item.image }}
-        style={{ height: "30%", width: "100%", padding: 5, marginVertical: 10 }}
-        resizeMode="stretch"
-      />
-      <Headline style={{ padding: 5, marginVertical: 5, fontWeight: "bold", color: "green"}}>
-        {item.title}
-      </Headline>
+      <ScrollView>
+        <Image
+          source={{ uri: item.image }}
+          style={{
+            height: 256,
+            width: "100%",
+            padding: 5,
+            marginVertical: 10,
+          }}
+          resizeMode="stretch"
+        />
+        <Headline
+          style={{
+            padding: 5,
+            marginVertical: 5,
+            fontWeight: "bold",
+            color: "green",
+          }}
+        >
+          {item.title}
+        </Headline>
 
-      <Paragraph style={{ padding: 5, marginVertical: 5 }}>
-        {item.content}
-      </Paragraph>
-      
+        <Paragraph style={{ padding: 5, marginVertical: 5 }}>
+          {item.content_full}
+        </Paragraph>
+      </ScrollView>
     </View>
   );
 }

@@ -17,7 +17,7 @@ const SectionHistory = (props: SectionProps) => {
           }}
         ></Image>
         <View style={{ marginLeft: 10 }}>
-          <Text style={{ color: "white", fontSize: 25 }}>{props.text}</Text>
+          <Text style={{ color: "white", fontSize: 22 }}>{props.text}</Text>
         </View>
       </View>
 
@@ -45,7 +45,7 @@ const SectionVision = (props: SectionProps) => {
           }}
         ></Image>
         <View style={{ marginLeft: 10 }}>
-          <Text style={{ color: "white", fontSize: 25 }}>{props.text}</Text>
+          <Text style={{ color: "white", fontSize: 22 }}>{props.text}</Text>
         </View>
       </View>
 
@@ -73,7 +73,7 @@ const SectionValues = (props: SectionProps) => {
           }}
         ></Image>
         <View style={{ marginLeft: 10 }}>
-          <Text style={{ color: "white", fontSize: 25 }}>{props.text}</Text>
+          <Text style={{ color: "white", fontSize: 22 }}>{props.text}</Text>
         </View>
       </View>
 
@@ -157,7 +157,7 @@ const SectionSocial = (props: SectionProps) => {
           }}
         ></Image>
         <View style={{ marginLeft: 10 }}>
-          <Text style={{ color: "white", fontSize: 25 }}>{props.text}</Text>
+          <Text style={{ color: "white", fontSize: 22 }}>{props.text}</Text>
         </View>
       </View>
 
