@@ -25,6 +25,7 @@ import InvestorsScreen from "./screens/InvestorsScreen";
 import OverviewScreen from "./screens/OverviewScreen";
 import PressScreen from "./screens/PressScreen";
 import RegisterScreen from "./screens/RegisterScreen";
+import AlertDetails from "./screens/AlertDetails";
 //custom side bar menu
 import CustomSidebarMenu from "./components/CustomSidebarMenu";
 //Fab
@@ -280,6 +281,11 @@ export default function App() {
           name="History"
           options={{ headerShown: true }}
           component={HistoryScreen}
+        />
+        <Stack.Screen
+          name="AlertDetail"
+          options={{ headerShown: true }}
+          component={AlertDetails}
         />
         <Stack.Screen
           name="FeedDetail"

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   View,
   Text,
@@ -27,11 +27,13 @@ function QuestionScreen({ route }) {
   const [isLoaderVisible, setLoaderVisibility] = useState(false);
   const navigation = useNavigation();
 
+  const response = useRef([]);
+
   function containsObject(obj) {
     var i;
-    for (i = 0; i < response.length; i++) {
-      if (response[i].question_id === obj.question_id) {
-        response[i] = obj;
+    for (i = 0; i < response.current.length; i++) {
+      if (response.current[i].question_id === obj.question_id) {
+        response.current[i] = obj;
         return true;
       }
     }
@@ -45,7 +47,7 @@ function QuestionScreen({ route }) {
     setLoaderVisibility(true);
 
     try {
-      const response = await fetch(
+      const resp = await fetch(
         "http://konza.softwareske.com/api/v1/surveys/" + surveyID + "/fetch",
         {
           method: "GET",
@@ -54,9 +56,9 @@ function QuestionScreen({ route }) {
           },
         }
       );
-      const json = await response.json();
+      const json = await resp.json();
       const code = json.code ?? "";
-      console.log(json);
+      console.log("\n Survey Questions::", json);
       setLoaderVisibility(false);
 
       setData(json);
@@ -69,8 +71,6 @@ function QuestionScreen({ route }) {
   useEffect(() => {
     getQuestions();
   }, []);
-
-  const response = [];
 
   const surveyResponse = async () => {
     const token = await AsyncStorage.getItem("token");
@@ -88,12 +88,12 @@ function QuestionScreen({ route }) {
       body: JSON.stringify({
         survey_id: surveyID,
         user_id: user_id,
-        response: response,
+        response: response.current,
       }),
     };
 
     try {
-      //console.log(request + " Current Token is " + token);
+      console.log(" :: Survey Request!", request.body);
       const response = await fetch(
         "http://konza.softwareske.com/api/v1/surveys/response/post",
         request
@@ -137,7 +137,7 @@ function QuestionScreen({ route }) {
 
   const radioList = (item) => {
     let options = item.metadata.options;
-    console.log(options);
+    //console.log(options);
 
     setSelection(false);
 
@@ -167,7 +167,7 @@ function QuestionScreen({ route }) {
 
           if (!containsObject(respObj)) {
             //push new
-            response.push(respObj);
+            response.current.push(respObj);
           }
 
           console.log(response);
@@ -215,14 +215,14 @@ function QuestionScreen({ route }) {
                     question_id: item.id,
                     value: [
                       {
-                        value: rating,
+                        value: "" + rating,
                       },
                     ],
                   };
 
                   if (!containsObject(respObj)) {
                     //push new
-                    response.push(respObj);
+                    response.current.push(respObj);
                   }
 
                   console.log(response);
@@ -250,26 +250,28 @@ function QuestionScreen({ route }) {
                 itemStyle={{ height: 160 }}
                 onValueChange={(obj) => {
                   item.metadata.options.forEach((option) => {
-                    console.log("option", option);
+                    // console.log("option", option);
+                    // console.log("obj", obj);
                     if (option.value === obj) {
                       var respObj = {
                         question_id: item.id,
-                        value: [obj],
+                        value: [{ value: obj }],
                       };
 
                       if (!containsObject(respObj)) {
                         //push new
-                        response.push(respObj);
+                        response.current.push(respObj);
                       }
                     }
                   });
 
+                  //console.log("SELECT::", response.current);
                   // const firstItem = [];
                   // firstItem[item.id] = item.metadata.options[0].value;
                   // const arr = selectedValue === "" ? firstItem : selectedValue;
                   // console.log(" current", arr);
                   // arr[item.id] = obj;
-                  console.log(response);
+                  // console.log(response);
 
                   setSelectedValue(obj);
                 }}
@@ -309,10 +311,10 @@ function QuestionScreen({ route }) {
 
                   if (!containsObject(respObj)) {
                     //push new
-                    response.push(respObj);
+                    response.current.push(respObj);
                   }
 
-                  console.log(response);
+                  // console.log(response);
                 }}
               />
             </View>
@@ -356,10 +358,10 @@ function QuestionScreen({ route }) {
 
                   if (!containsObject(respObj)) {
                     //push new
-                    response.push(respObj);
+                    response.current.push(respObj);
                   }
 
-                  console.log(response);
+                  // console.log(response);
                   setChoises(e);
                 }}
               />
